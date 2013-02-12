@@ -48,7 +48,7 @@ public class BestBookBuy extends JFrame {
 		BBBPanel c6 = new BPUpdateBook();
 		BBBPanel c7 = new BPUpdateAdministratorProfile();
 		
-		this.add(c1);
+		this.add(b1);
 		pack();
 	}
 }
