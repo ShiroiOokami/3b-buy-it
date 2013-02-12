@@ -5,34 +5,42 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class BBBPanel extends JPanel {
+import Main.BestBookBuy;
+
+public abstract class BBBPanel extends JPanel 
+	implements ActionListener {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Font font;
+	protected Font font;
+	protected BestBookBuy parentFrame;
 
-	public BBBPanel() {
+	public BBBPanel(JFrame frame) {
 		font = new Font("Verdana", Font.BOLD, 12);
 		this.setPreferredSize(new Dimension(400, 400));
 		this.setBackground(Color.WHITE);
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
+		parentFrame = (BestBookBuy) frame;
 	}
 
 	protected JPanel createHorizontalWrapper(JComponent comps[]) {
 		JPanel p = new JPanel();
 		p.setBackground(Color.WHITE);
-		// p.setLayout(new GridLayout(1, comps.length, 5, 5));
 		p.setLayout(new FlowLayout());
 
 		for (JComponent c : comps)
@@ -127,6 +135,7 @@ public class BBBPanel extends JPanel {
 	protected JButton createButton(String name) {
 		JButton j = new JButton(name);
 		j.setActionCommand(name);
+		j.addActionListener(this);
 		return j;
 	}
 
@@ -142,4 +151,5 @@ public class BBBPanel extends JPanel {
 		return b;
 	}
 
+	abstract public void actionPerformed(ActionEvent e);
 }

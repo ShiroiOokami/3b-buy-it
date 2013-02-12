@@ -5,8 +5,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.border.EtchedBorder;
 
 
@@ -17,19 +20,18 @@ public class BPCheckoutScreen extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BPCheckoutScreen() {
-		super();
+	public BPCheckoutScreen(JFrame frame) {
+		super(frame);
 		
 		this.addLabel("                    Confirm Order                    ");
-		this.add(new CustomerInfo());
-		this.add(new AskForCardBox());
+		this.add(new CustomerInfo(frame));
+		this.add(new AskForCardBox(frame));
 		
 		
 		JComponent[] o = new JComponent[] {
-				new OrderSummary(),
-				new OrderSummary(),
-				new OrderSummary(),
-				new OrderSummary()
+				new OrderSummary(frame),
+				new OrderSummary(frame),
+				new OrderSummary(frame)
 		};
 		this.add(this.createScrollWrapper(o));
 
@@ -38,9 +40,9 @@ public class BPCheckoutScreen extends BBBPanel {
 		this.addLabelLabel("S&H:", "<Fees>");
 		this.addLabelLabel("Total:", "<Total>");
 		
-		this.addButton("Cancel");
+		this.addButton("New Search");
 		this.addButton("Update Profile");
-		this.addButton("BUY IT!!!!!");
+		this.addButton("BUY IT!!!!!!");
 		
 	}
 	
@@ -50,7 +52,8 @@ public class BPCheckoutScreen extends BBBPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private CustomerInfo() {
+		private CustomerInfo(JFrame frame) {
+			super(frame);
 			font = new Font("Verdana", Font.BOLD, 9);
 			this.setPreferredSize(new Dimension(200,100));
 			this.setBackground(Color.WHITE);
@@ -63,6 +66,12 @@ public class BPCheckoutScreen extends BBBPanel {
 			this.addLabel("<City>");
 			this.addLabel("<State>, <Zip>");
 		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 	
 	private class AskForCardBox extends BBBPanel {
@@ -71,7 +80,8 @@ public class BPCheckoutScreen extends BBBPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private AskForCardBox() {
+		private AskForCardBox(JFrame frame) {
+			super(frame);
 			font = new Font("Verdana", Font.BOLD, 12);
 			this.setPreferredSize(new Dimension(150,100));
 			this.setBackground(Color.WHITE);
@@ -83,6 +93,12 @@ public class BPCheckoutScreen extends BBBPanel {
 			this.addField(10);
 			
 		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 		
 	private class OrderSummary extends BBBPanel {
@@ -91,7 +107,8 @@ public class BPCheckoutScreen extends BBBPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private OrderSummary() {
+		private OrderSummary(JFrame frame) {
+			super(frame);
 			font = new Font("Verdana", Font.BOLD, 12);
 			this.setPreferredSize(new Dimension(350,60));
 			this.setBackground(Color.WHITE);
@@ -101,6 +118,30 @@ public class BPCheckoutScreen extends BBBPanel {
 			this.addLabel("<The Title>");
 			this.addLabel("By: Author");
 			this.addLabel("Price: <Price> Qty: 1 <Cost>");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand())
+		{
+		case "New Search":
+			parentFrame.switchDisplayContents(
+					new BPBookSearch(parentFrame));
+			break;
+		case "Update Profile":
+			parentFrame.switchDisplayContents(
+					new BPUpdateCustomer(parentFrame));
+			break;
+		case "BUY IT!!!!!!":
+			parentFrame.switchDisplayContents(
+					new BPProofOfPurchase(parentFrame));
+			break;			
 		}
 	}
 }

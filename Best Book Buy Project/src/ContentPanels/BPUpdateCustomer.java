@@ -1,5 +1,9 @@
 package ContentPanels;
 
+import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
+
 
 public class BPUpdateCustomer extends BBBPanel {
 	
@@ -8,8 +12,8 @@ public class BPUpdateCustomer extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BPUpdateCustomer() {
-		super();
+	public BPUpdateCustomer(JFrame frame) {
+		super(frame);
 		
 		String[] stateList = {"AL", "MI", "HI" };
 		String[] cardList = { "CreditMaster", "Paypal", "Give Us Cash" };
@@ -30,6 +34,21 @@ public class BPUpdateCustomer extends BBBPanel {
 		
 		this.addButton("Update");
 		this.addButton("Cancel");
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand())
+		{
+		case "Update":
+			// Do More Stuff
+			parentFrame.switchDisplayContents(
+					new BPCheckoutScreen(parentFrame));
+			break;
+		case "Cancel":
+			parentFrame.switchDisplayContents(
+					new BPCheckoutScreen(parentFrame));
+			break;
+		}
 	}
 
 }

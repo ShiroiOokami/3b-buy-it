@@ -1,5 +1,9 @@
 package ContentPanels;
 
+import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
+
 
 public class BPInsertNewBook extends BBBPanel {
 
@@ -8,8 +12,8 @@ public class BPInsertNewBook extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BPInsertNewBook() {
-		super();
+	public BPInsertNewBook(JFrame frame) {
+		super(frame);
 		
 		String categories[] = { "Bad", "Very Bad", "Pulp Pulp", "Horror" };
 		this.addLabelField("ISBN:", 15);
@@ -30,6 +34,33 @@ public class BPInsertNewBook extends BBBPanel {
 		
 		this.addButton("Insert");
 		this.addButton("Cancel");
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand())
+		{
+		case "More Reviews":
+			// Deceive Customers More
+			break;
+		case "Fewer Reviews":
+			// Deceive Customers Less
+			break;
+		case "More Authors":
+			// Pay Current Authors Less
+			break;
+		case "Fewer Authors":
+			// Pay Current Authors More
+			break;
+		case "Insert":
+			// Do Stuff
+			parentFrame.switchDisplayContents(
+					new BPManageBookstoreCatalog(parentFrame));
+			break;
+		case "Cancel":
+			parentFrame.switchDisplayContents(
+					new BPManageBookstoreCatalog(parentFrame));
+			break;
+		}		
 	}
 
 }

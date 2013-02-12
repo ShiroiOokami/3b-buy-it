@@ -4,8 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.border.EtchedBorder;
 
 public class BPShoppingCart extends BBBPanel {
@@ -15,29 +18,25 @@ public class BPShoppingCart extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BPShoppingCart() {
-		super();
+	public BPShoppingCart(JFrame frame) {
+		super(frame);
 		
-		this.addButton("Checkout");
-		this.addButton("New Search");
+		addButton("Checkout");
+		addButton("New Search");
 		
 		JComponent[] j = new JComponent[] {
-				new ShopCartItem(),
-				new ShopCartItem(),
-				new ShopCartItem(),
-				new ShopCartItem(),
-				new ShopCartItem(),
-				new ShopCartItem(),
-				new ShopCartItem()
+				new ShopCartItem(frame),
+				new ShopCartItem(frame),
+				new ShopCartItem(frame)
 		};
 		
 		this.add(this.createScrollWrapper(j));
 
 		this.addLabel(
 		"                                                       Subtotal: <Price>");
-		this.addButton("Recalculate Total");
+		addButton("Recalculate Total");
 		
-		this.addButton("Cancel");
+		addButton("Exit");
 	}
 	
 	private class ShopCartItem extends BBBPanel {
@@ -46,7 +45,8 @@ public class BPShoppingCart extends BBBPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private ShopCartItem() {
+		private ShopCartItem(JFrame frame) {
+			super(frame);
 			font = new Font("Verdana", Font.BOLD, 12);
 			this.setPreferredSize(new Dimension(350,75));
 			this.setBackground(Color.WHITE);
@@ -67,6 +67,33 @@ public class BPShoppingCart extends BBBPanel {
 			};
 			
 			this.add(this.createVerticalWrapper(comps2));
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand())
+		{
+		case "Exit":
+			parentFrame.switchDisplayContents(
+					new BPLandingPage(parentFrame));
+			break;
+		case "New Search":
+			parentFrame.switchDisplayContents(
+					new BPBookSearch(parentFrame));
+			break;
+		case "Recalculate Total":
+			// Do Stuff
+			break;
+		case "Checkout":
+			parentFrame.switchDisplayContents(
+					new BPCheckoutScreen(parentFrame));
+			break;
 		}
 	}
 }

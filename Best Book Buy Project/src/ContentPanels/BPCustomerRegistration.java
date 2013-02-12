@@ -1,5 +1,9 @@
 package ContentPanels;
 
+import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
+
 public class BPCustomerRegistration extends BBBPanel {
 
 	/**
@@ -7,8 +11,8 @@ public class BPCustomerRegistration extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BPCustomerRegistration() {
-		super();
+	public BPCustomerRegistration(JFrame frame) {
+		super(frame);
 		
 		String[] stateList = {"AL", "MI", "HI" };
 		String[] cardList = { "CreditMaster", "Paypal", "Give Us Cash" };
@@ -27,5 +31,20 @@ public class BPCustomerRegistration extends BBBPanel {
 		
 		this.addButton("Register");
 		this.addButton("Cancel");
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand())
+		{
+		case "Cancel":
+			parentFrame.switchDisplayContents(
+					new BPLandingPage(parentFrame));
+			break;
+		case "Register":
+			parentFrame.switchDisplayContents(
+					new BPBookSearch(parentFrame));
+			break;
+
+		}
 	}
 }

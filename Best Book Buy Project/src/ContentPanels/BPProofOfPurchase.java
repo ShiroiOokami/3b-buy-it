@@ -5,9 +5,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.border.EtchedBorder;
 
 public class BPProofOfPurchase extends BBBPanel {
@@ -17,15 +19,18 @@ public class BPProofOfPurchase extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BPProofOfPurchase() {
-		super();
+	public BPProofOfPurchase(JFrame frame) {
+		super(frame);
 
 		this.addLabel("                              Proof of Purchase                    ");
-		this.add(new CustomerInfo());
-		this.add(new ShowUserInfo());
+		this.add(new CustomerInfo(frame));
+		this.add(new ShowUserInfo(frame));
 
-		JComponent[] o = new JComponent[] { new OrderSummary(),
-				new OrderSummary(), new OrderSummary(), new OrderSummary() };
+		JComponent[] o = new JComponent[] { 
+				new OrderSummary(frame),
+				new OrderSummary(frame),
+				new OrderSummary(frame)
+		};
 		this.add(this.createScrollWrapper(o));
 
 		this.addLabelLabel("Shipping Notice: The book will be here in:",
@@ -36,7 +41,7 @@ public class BPProofOfPurchase extends BBBPanel {
 
 		this.addButton("Print");
 		this.addButton("New Search");
-		this.addButton("Return");
+		this.addButton("Exit");
 
 	}
 
@@ -46,7 +51,8 @@ public class BPProofOfPurchase extends BBBPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private CustomerInfo() {
+		private CustomerInfo(JFrame frame) {
+			super(frame);
 			font = new Font("Verdana", Font.BOLD, 9);
 			this.setPreferredSize(new Dimension(200, 100));
 			this.setBackground(Color.WHITE);
@@ -60,6 +66,12 @@ public class BPProofOfPurchase extends BBBPanel {
 			this.addLabel("<City>");
 			this.addLabel("<State>, <Zip>");
 		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
 	private class ShowUserInfo extends BBBPanel {
@@ -68,7 +80,8 @@ public class BPProofOfPurchase extends BBBPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private ShowUserInfo() {
+		private ShowUserInfo(JFrame frame) {
+			super(frame);
 			font = new Font("Verdana", Font.BOLD, 10);
 			this.setPreferredSize(new Dimension(150, 100));
 			this.setBackground(Color.WHITE);
@@ -83,6 +96,12 @@ public class BPProofOfPurchase extends BBBPanel {
 			};
 			add(createVerticalWrapper(comps));
 		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
 	}
 
 	private class OrderSummary extends BBBPanel {
@@ -91,7 +110,8 @@ public class BPProofOfPurchase extends BBBPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private OrderSummary() {
+		private OrderSummary(JFrame frame) {
+			super(frame);
 			font = new Font("Verdana", Font.BOLD, 12);
 			this.setPreferredSize(new Dimension(350, 60));
 			this.setBackground(Color.WHITE);
@@ -102,6 +122,29 @@ public class BPProofOfPurchase extends BBBPanel {
 			this.addLabel("<The Title>");
 			this.addLabel("By: Author");
 			this.addLabel("Price: <Price> Qty: 1 <Cost>");
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand())
+		{
+		case "Exit":
+			parentFrame.switchDisplayContents(
+					new BPLandingPage(parentFrame));
+			break;
+		case "New Search":
+			parentFrame.switchDisplayContents(
+					new BPBookSearch(parentFrame));
+			break;
+		case "Print":
+			// Do Other Stuff
+			break;			
 		}
 	}
 }

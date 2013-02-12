@@ -1,5 +1,9 @@
 package ContentPanels;
 
+import java.awt.event.ActionEvent;
+
+import javax.swing.JFrame;
+
 
 public class BPUpdateAdministratorProfile extends BBBPanel {
 
@@ -8,8 +12,8 @@ public class BPUpdateAdministratorProfile extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BPUpdateAdministratorProfile() {
-		super();
+	public BPUpdateAdministratorProfile(JFrame frame) {
+		super(frame);
 		
 		String[] stateList = {"AL", "MI", "HI" };
 		
@@ -31,5 +35,26 @@ public class BPUpdateAdministratorProfile extends BBBPanel {
 		this.addButton("Cancel");
 
 
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		switch (e.getActionCommand())
+		{
+		case "More Phone Nums":
+			// More Ways To Disrupt My Evening
+			break;
+		case "Fewer Phone Nums":
+			// You Get it
+			break;
+		case "Update":
+			// Do Stuff
+			parentFrame.switchDisplayContents(
+					new BPAdministratorTask(parentFrame));
+			break;
+		case "Cancel":
+			parentFrame.switchDisplayContents(
+					new BPAdministratorTask(parentFrame));
+			break;
+		}		
 	}
 }
