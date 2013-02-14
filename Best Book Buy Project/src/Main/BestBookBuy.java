@@ -23,6 +23,7 @@ public class BestBookBuy extends JFrame {
 	}
 
 	private BBBPanel currentPanel;
+	private User user;
 	
 	public BestBookBuy() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

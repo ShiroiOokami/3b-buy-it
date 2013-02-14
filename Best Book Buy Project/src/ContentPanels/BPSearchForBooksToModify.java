@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 
+import Main.Subject;
+
 
 public class BPSearchForBooksToModify extends BBBPanel {
 
@@ -15,13 +17,12 @@ public class BPSearchForBooksToModify extends BBBPanel {
 	public BPSearchForBooksToModify(JFrame frame) {
 		super(frame);
 		
-		String categories[] = { "Bad", "Very Bad", "Pulp Pulp", "Horror" };
-		
 		String attributes[] = {"Keyword Anywhere", 
 				"Title", "Author", "Publisher", "ISBN" };
 		this.addLabelField("Search For:");
 		this.addLabelCombo("Search In:", attributes);
-		this.addLabelCombo("Category", categories);
+		this.addLabelCombo("Category",
+				stringList(Subject.class));
 		
 		this.addButton("Search");
 		this.addButton("Cancel");

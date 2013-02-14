@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 
+import Main.CardType;
+import Main.USState;
+
 public class BPCustomerRegistration extends BBBPanel {
 
 	/**
@@ -14,8 +17,9 @@ public class BPCustomerRegistration extends BBBPanel {
 	public BPCustomerRegistration(JFrame frame) {
 		super(frame);
 		
-		String[] stateList = {"AL", "MI", "HI" };
-		String[] cardList = { "CreditMaster", "Paypal", "Give Us Cash" };
+		//String[] stateList = {"AL", "MI", "HI" };
+		//String[] cardList = { "CreditMaster", "Paypal", "Give Us Cash" };
+		
 		this.addLabelField("User Name:", 20);
 		this.addLabelField("PIN:", 5);
 		this.addLabelField("Re-type PIN:", 5);
@@ -23,9 +27,11 @@ public class BPCustomerRegistration extends BBBPanel {
 		this.addLabelField("Last Name:", 25);
 		this.addLabelField("Address:", 25);
 		this.addLabelField("City:", 25);
-		this.addLabelCombo("State:", stateList);
+		this.addLabelCombo("State:", 
+				stringList(USState.class));
 		this.addLabelField("ZIP:", 8);
-		this.addLabelCombo("Credit Card:", cardList);
+		this.addLabelCombo("Credit Card:",
+				stringList(CardType.class));
 		this.addLabelField("Card Number:", 18);
 		this.addLabelField("Expiration Date:", 10);
 		
