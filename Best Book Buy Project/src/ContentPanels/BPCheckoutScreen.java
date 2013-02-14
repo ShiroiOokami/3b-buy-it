@@ -12,6 +12,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.border.EtchedBorder;
 
+import Main.CardType;
+
 
 public class BPCheckoutScreen extends BBBPanel {
 
@@ -88,8 +90,7 @@ public class BPCheckoutScreen extends BBBPanel {
 			this.setLayout(new FlowLayout(FlowLayout.CENTER));
 			//this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
-			String[] cards = {"Card on File", "Visa", "MC", "Paypal" };
-			this.addCombo(cards);
+			this.addCombo(stringList(CardType.class));
 			this.addField(10);
 			
 		}

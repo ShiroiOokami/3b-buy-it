@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 
+import Main.Subject;
+
 
 public class BPUpdateBook extends BBBPanel {
 
@@ -15,7 +17,6 @@ public class BPUpdateBook extends BBBPanel {
 	public BPUpdateBook(JFrame frame) {
 		super(frame);
 		
-		String categories[] = { "Bad", "Very Bad", "Pulp Pulp", "Horror" };
 		this.addLabelLabel("ISBN:", "<ISBN>");
 		this.addLabelLabel("Status", "<Active/Deleted>");
 		this.addLabelField("Title:", 10);
@@ -25,7 +26,8 @@ public class BPUpdateBook extends BBBPanel {
 
 		this.addLabelField("Publisher:", 20);
 		this.addLabelField("Year:", 5);
-		this.addLabelCombo("Category", categories);
+		this.addLabelCombo("Category",
+				stringList(Subject.class));
 		this.addLabelField("Price:", 8);
 		this.addLabelField("Min. Qty. Req. In Stock:", 3);
 		this.addLabel("Reviews:");

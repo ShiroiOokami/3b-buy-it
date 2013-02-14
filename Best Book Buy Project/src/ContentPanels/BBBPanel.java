@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,9 +21,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import Main.BestBookBuy;
+import Main.USState;
 
-public abstract class BBBPanel extends JPanel 
-	implements ActionListener {
+public abstract class BBBPanel extends JPanel implements ActionListener {
 
 	/**
 	 * 
@@ -149,6 +151,14 @@ public abstract class BBBPanel extends JPanel
 		JComboBox<String> b = new JComboBox<String>(list);
 		b.setFont(font);
 		return b;
+	}
+
+	public <T extends Enum> String[] stringList(Class<T> e) {
+		T[] set = e.getEnumConstants();
+		ArrayList<String> list = new ArrayList<String>();
+		for (T i : set)
+			list.add(i.toString());
+		return list.toArray(new String[set.length]);
 	}
 
 	abstract public void actionPerformed(ActionEvent e);
