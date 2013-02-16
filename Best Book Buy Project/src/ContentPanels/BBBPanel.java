@@ -8,8 +8,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -19,9 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import Main.BestBookBuy;
-import Main.USState;
 
 public abstract class BBBPanel extends JPanel implements ActionListener {
 
@@ -153,7 +149,7 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 		return b;
 	}
 
-	public <T extends Enum> String[] stringList(Class<T> e) {
+	public <T extends Enum<T>> String[] stringList(Class<T> e) {
 		T[] set = e.getEnumConstants();
 		ArrayList<String> list = new ArrayList<String>();
 		for (T i : set)

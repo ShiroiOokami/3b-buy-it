@@ -1,19 +1,25 @@
 package Main;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 
+/**
+ * A class to store all of the books in a users shopping cart
+ * along with their associated quantities.
+ * 
+ * @author Andrew
+ * @version 2013-02-15
+ */
 public class ShoppingCart {
 	
-	private HashMap<Book, Integer> cart = new HashMap();
-	double subtotal;
+	private HashMap<Book, Integer> cart;
+	double cartSubtotal;
 	
 	public ShoppingCart()
 	{
+		cart = new HashMap<Book, Integer>();
 		cart.put(new Book(), 0);
-		subtotal = 0.00;
+		cartSubtotal = 0.00;
 	}
 	
 	public Book addBook(Book b)
@@ -40,15 +46,13 @@ public class ShoppingCart {
 		return cart.get(b) * b.getPrice();
 	}
 	
-	public double getSubtotal()
+	public double getCartSubtotal()
 	{
-		subtotal = 0;
+		cartSubtotal = 0;
 		for (Map.Entry<Book, Integer> item : cart.entrySet()) {
-		    Book b = item.getKey();
-		    int qnty = item.getValue();
-		    subtotal += getBookSubtotal(b);
+		    cartSubtotal += getBookSubtotal(item.getKey());
 		}
-		return subtotal;
+		return cartSubtotal;
 	}
 	
 	
