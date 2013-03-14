@@ -1,13 +1,13 @@
 package Main;
 
 public class UserRegExps {
-	private static String UserName = "^\\w[\\w.]{0,11}$";
-	private static String Name = "^\\w[\\w.]{0,19}$";
+	private static String UserName = "^[A-Za-z][A-Za-z]{0,11}$";
+	private static String Name = "^[A-Z][A-Za-z.]{0,19}$";
 	private static String PIN = "^\\d{4}$";
-	private static String StreetAdd = "^[\\w\\d][\\w\\d\\s]{0,29}$";
+	private static String StreetAdd = "^[\\w][\\w\\s]{0,29}$";
 	private static String ZIP = "^\\d{5}$";
 	private static String State = "";
-	private static String City = "^\\w[\\w\\s]{0,14}$";
+	private static String City = "^[A-Z][A-Za-z\\s]{0,14}$";
 	
 	public static boolean username(String u)
 	{

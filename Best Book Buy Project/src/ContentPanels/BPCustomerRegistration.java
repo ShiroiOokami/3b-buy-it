@@ -58,8 +58,21 @@ public class BPCustomerRegistration extends BBBPanel {
 					new BPLandingPage(parentFrame));
 			break;
 		case "Register":
-			System.out.println("Test: " +
+			System.out.println("Test UName: " +
 		UserRegExps.username(userName.getText()));
+			System.out.println("Test PIN: " +
+		UserRegExps.PIN(PIN.getText()));
+			System.out.println("Test PIN-R: " +
+		UserRegExps.PIN(retypePIN.getText()));
+			System.out.println("Test FName: " +
+		UserRegExps.name(firstName.getText()));
+			System.out.println("Test LName: " +
+		UserRegExps.name(lastName.getText()));
+			System.out.println("Test Add: " +
+		UserRegExps.streetAdd(address.getText()));
+			System.out.println("Test City: " +
+		UserRegExps.city(city.getText()));
+
 			//parentFrame.switchDisplayContents(
 					//new BPBookSearch(parentFrame));
 			break;
