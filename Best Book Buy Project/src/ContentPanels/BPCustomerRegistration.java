@@ -3,9 +3,11 @@ package ContentPanels;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 import Main.CardType;
 import Main.USState;
+import Main.UserRegExps;
 
 public class BPCustomerRegistration extends BBBPanel {
 
@@ -14,22 +16,31 @@ public class BPCustomerRegistration extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private JTextField userName;
+	private JTextField PIN;
+	private JTextField retypePIN;
+	private JTextField firstName;
+	private JTextField lastName;
+	private JTextField address;
+	private JTextField city;
+	
+	private JTextField zip;
 	public BPCustomerRegistration(JFrame frame) {
 		super(frame);
 		
 		//String[] stateList = {"AL", "MI", "HI" };
 		//String[] cardList = { "CreditMaster", "Paypal", "Give Us Cash" };
 		
-		this.addLabelField("User Name:", 20);
-		this.addLabelField("PIN:", 5);
-		this.addLabelField("Re-type PIN:", 5);
-		this.addLabelField("First Name:", 25);
-		this.addLabelField("Last Name:", 25);
-		this.addLabelField("Address:", 25);
-		this.addLabelField("City:", 25);
-		this.addLabelCombo("State:", 
+		userName = addLabelField("User Name:", 20);
+		PIN = addLabelField("PIN:", 5);
+		retypePIN = addLabelField("Re-type PIN:", 5);
+		firstName = addLabelField("First Name:", 25);
+		lastName = addLabelField("Last Name:", 25);
+		address = addLabelField("Address:", 25);
+		city = addLabelField("City:", 25);
+		addLabelCombo("State:", 
 				stringList(USState.class));
-		this.addLabelField("ZIP:", 8);
+		zip = addLabelField("ZIP:", 8);
 		this.addLabelCombo("Credit Card:",
 				stringList(CardType.class));
 		this.addLabelField("Card Number:", 18);
@@ -47,8 +58,10 @@ public class BPCustomerRegistration extends BBBPanel {
 					new BPLandingPage(parentFrame));
 			break;
 		case "Register":
-			parentFrame.switchDisplayContents(
-					new BPBookSearch(parentFrame));
+			System.out.println("Test: " +
+		UserRegExps.username(userName.getText()));
+			//parentFrame.switchDisplayContents(
+					//new BPBookSearch(parentFrame));
 			break;
 
 		}
