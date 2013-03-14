@@ -1,0 +1,131 @@
+drop table User;
+drop table Customer;
+drop table Admin_Phone;
+drop table Book_Order;
+drop table Book_order_Item;
+drop table Inventory;
+drop table Book;
+drop table Book_Author;
+drop table Book_Review;
+
+create table User (
+	UserName varchar(12) primary key,
+	fName varchar(20) not null,
+	lName	varchar(20) not null,
+	PIN numberic(4,0) not null,
+	StreetAdd varchar(30) not null,
+	Zip numeric(5,0) not null,
+	State char(2) not null,
+	City varchar(15) not null,
+	UserType char(1) not null);
+
+create table Customer (
+	UserName varchar(12) primary key,
+	creditNum numeric(16, 0) not null, 
+	creditType varChar(10) not null,
+	expDate date not null,
+	foreign key (UserName) references User);
+
+create table Admin_Phone(
+	UserName varchar(12), 
+	PhoneNum numeric(10,0),
+	foreign key (UserName) references User
+	primary key (UserName, PhoneNum));
+
+create table Book_Order (
+	OrderNumber smallint primary key, 
+	Date Date, 	
+	Time Time,
+	UserName varchar(12),
+	foreign key (UserName) references User);
+
+create table Book (
+	ISBN numeric(13,0) primary key, 
+	Title varchar(20) not null, 
+	Publisher varchar(15) not null, 
+	Category varchar(10) not null, 
+	Year numeric(4,0) not null);
+
+create table Book_Order_Item (
+	OrderNumber smallint,
+	ISBN numeric(13,0),
+	Qty smallint,
+	primary key(OrderNumber, ISBN)
+	foreign key (ISBN) references Book
+	foreign key (OrderNumber) references Book_Order);
+
+create table Inventory(
+	ISBN numeric(13,0) primary key, 
+	Deleted char(1) not null, 
+	MinQty smallint not null, 
+	Qty smallint not null, 
+	Price numeric(3,2) not null,
+	foreign key (ISBN) references Book);
+
+create table Book_Author(
+	ISBN numeric(13,0), 
+	Author varchar(30),
+	foreign key (ISBN) references Book
+	primary key(ISBN, Author));
+
+create table Book_Review(
+	ISBN numeric(13,0), 
+	Review varchar(255),
+	foreign key (ISBN) references Book
+	primary key (ISBN, review));
+
+delete from User;
+Insert into User values (“cats”, “Bob”, “Smith”, 1234, “123 Main St.”, 12345, “MI”, “Detroit”, “C”);
+Insert into User values (“dogs”, “Aaron”, “Robbins”, 2349, “123 Circle St.”, 27192, “IL”, “Chicago”, “C”);
+Insert into User values (“rabbits”, “Ralph”, “Roy”, 0981, “123 Square St.”, 09876, “KY”, “Louisville”, “C”);
+Insert into User values (“Fire”, “Dante”, “Inferno”, 9999, “123 Red St.”, 29812, “MI”, “Hell”, “A”);
+
+delete from Customer;
+Insert into Customer values (“cats”, 1234567890123456, “Visa”, “1988-02-13”);
+Insert into Customer values (“dogs”, 9999999999991111, “Mastercard”, “2001-05-18” );
+Insert into Customer values (“rabbits”, 1298237108273012, “Paypal”, “2012-12-01” );
+
+delete from Admin_Phone;
+Insert into Admin_Phone  values(“Fire”, 1234567890);
+Insert into Admin_Phone  values(“Fire”, 0987654321);
+Insert into Admin_Phone  values(“Fire”, 9999999999);
+
+delete from Book_Order;
+Insert into Book_Order values (123, “2013-03-12”, “12:20:00”, “cats”);
+Insert into Book_Order values (091, “2013-03-12”, “12:21:00”, “cats”);
+Insert into Book_Order values (999, “2013-03-12”, “12:25:00”, “cats”);
+Insert into Book_Order values (371, “2013-02-04”, “20:25:00”, “dogs”);
+Insert into Book_Order values (379, “2013-02-28”, “08:00:00”, “dogs”);
+Insert into Book_Order values (042, “2013-01-12”, “09:39:00”, “rabbits”);
+
+delete from Book;
+Insert into Book values (1234567890123, “All About Cats”, “Animals”, “Nature”, “2013”);
+Insert into Book values (1234567890143, “All About Dogs”, “Animals”, “Nature”, “2013”);
+Insert into Book values (1234567890133, “All About Cosmology”, “Cosmos”, “Astronomy”, “2012”);
+
+delete from Book_Order_Item;
+Insert into Book_Order_Item values (123,  1234567890123, 40);
+Insert into Book_Order_Item values (123,  1234567890143, 1);
+Insert into Book_Order_Item values (091,  1234567890133, 2);
+Insert into Book_Order_Item values (999,  1234567890143, 1);
+Insert into Book_Order_Item values (371,  1234567890143, 5);
+Insert into Book_Order_Item values (379,  1234567890123, 1);
+Insert into Book_Order_Item values (042,  1234567890143, 1);
+Insert into Book_Order_Item values (042,  1234567890133, 1);
+
+delete from Inventory;
+Insert into Inventory values ( 1234567890123, “N”, 10, 100, 0.99);
+Insert into Inventory values ( 1234567890143, “Y”, 10, 100, 2.99);
+Insert into Inventory values ( 1234567890133, “N”, 10, 100, 1.99);
+
+delete from Book_Author;
+Insert into Book_Author values ( 1234567890123, “Kitty Cat”);
+Insert into Book_Author values ( 1234567890143, “Brown Spots”);
+Insert into Book_Author values ( 1234567890133, “Pluto Planet”);
+Insert into Book_Author values ( 1234567890133, “Mars Planet”);
+
+delete from Book_Review;
+Insert into Book_Review values (1234567890123, “Fuzzy”);
+Insert into Book_Review values (1234567890143, “A good read!”);
+Insert into Book_Review values (1234567890133, “I hated it”);
+Insert into Book_Review values (1234567890133, “Full of lies!”);
