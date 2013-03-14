@@ -49,6 +49,27 @@ public class BPCustomerRegistration extends BBBPanel {
 		this.addButton("Register");
 		this.addButton("Cancel");
 	}
+	
+	private boolean checkInputs()
+	{
+		boolean pass = true;
+		if (pass = pass && UserRegExps.username(userName.getText()))
+			System.out.println("Failed Username");
+		if (pass = pass && UserRegExps.PIN(PIN.getText()))
+			System.out.println("Failed PIN");
+		if (pass = pass && UserRegExps.PIN(retypePIN.getText()))
+			System.out.println("Failed RetypePIN");
+		if (pass = pass && UserRegExps.name(firstName.getText()))
+			System.out.println("Failed First Name");
+		if (pass = pass && UserRegExps.name(lastName.getText()))
+			System.out.println("Failed Last Name");
+		if (pass = pass && UserRegExps.streetAdd(address.getText()))
+			System.out.println("Failed Streed Add");
+		if (pass = pass && UserRegExps.city(city.getText()))
+			System.out.println("Failed City");
+
+		return pass;
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand())
@@ -58,25 +79,10 @@ public class BPCustomerRegistration extends BBBPanel {
 					new BPLandingPage(parentFrame));
 			break;
 		case "Register":
-			System.out.println("Test UName: " +
-		UserRegExps.username(userName.getText()));
-			System.out.println("Test PIN: " +
-		UserRegExps.PIN(PIN.getText()));
-			System.out.println("Test PIN-R: " +
-		UserRegExps.PIN(retypePIN.getText()));
-			System.out.println("Test FName: " +
-		UserRegExps.name(firstName.getText()));
-			System.out.println("Test LName: " +
-		UserRegExps.name(lastName.getText()));
-			System.out.println("Test Add: " +
-		UserRegExps.streetAdd(address.getText()));
-			System.out.println("Test City: " +
-		UserRegExps.city(city.getText()));
-
-			//parentFrame.switchDisplayContents(
-					//new BPBookSearch(parentFrame));
+			if (checkInputs())
+				parentFrame.switchDisplayContents(
+					new BPBookSearch(parentFrame));
 			break;
-
 		}
 	}
 }
