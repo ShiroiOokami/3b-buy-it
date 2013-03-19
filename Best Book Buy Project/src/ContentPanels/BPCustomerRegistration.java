@@ -8,6 +8,7 @@ import javax.swing.JTextField;
 
 import Main.CardType;
 import Main.USState;
+import Main.User;
 import Main.UserRegExps;
 
 public class BPCustomerRegistration extends BBBPanel {
@@ -54,6 +55,8 @@ public class BPCustomerRegistration extends BBBPanel {
 		
 	private void feedUser()
 	{
+		User user = parentFrame.user;
+		
 		user.setUserName(userName.getText());
 		user.setFirstName(firstName.getText());
 		user.setLastName(lastName.getText());
@@ -61,7 +64,10 @@ public class BPCustomerRegistration extends BBBPanel {
 		user.setAddress(address.getText());
 		user.setCity(city.getText());
 		user.setZIP(zip.getText());
-		
+		user.setState(USState.values()[state.getSelectedIndex()]);
+		user.setCardType(CardType.values()[cardType.getSelectedIndex()]);
+		user.setCardNum(cardNum.getText());
+		user.setExpDate(cardDate.getText());
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -72,7 +78,8 @@ public class BPCustomerRegistration extends BBBPanel {
 					new BPLandingPage(parentFrame));
 			break;
 		case "Register":
-			if (user.checkInputs())
+			feedUser();
+			if (parentFrame.user.checkInputs())
 				parentFrame.switchDisplayContents(
 					new BPBookSearch(parentFrame));
 			break;

@@ -22,7 +22,7 @@ public class BestBookBuy extends JFrame {
 	}
 
 	private BBBPanel currentPanel;
-	private User user;
+	public User user;
 	
 	public BestBookBuy() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,7 +34,7 @@ public class BestBookBuy extends JFrame {
 		setLayout(new FlowLayout());
 
 		currentPanel = new BPLandingPage(this);
-		user = null;
+		user = new User();
 		
 		this.add(currentPanel);
 		pack();

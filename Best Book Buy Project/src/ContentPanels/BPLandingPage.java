@@ -26,7 +26,7 @@ public class BPLandingPage extends BBBPanel {
 		box = addCombo(selection);
 		
 		addButton("Enter");
-		user = new User();
+		parentFrame.user = new User();
 	}
 
 	public void actionPerformed(ActionEvent e) {

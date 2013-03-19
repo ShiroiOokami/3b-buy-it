@@ -104,7 +104,7 @@ public class User {
 	}
 	
 	public boolean checkCardNum() {
-		return UserRegExps.carddate(cardNum);
+		return UserRegExps.cardnum(cardNum);
 	}
 
 	public String getExpDate() {
@@ -161,7 +161,7 @@ public class User {
 	}
 
 	public boolean setCardNum(String n) {
-		cardNum = n;
+		cardNum = n.replaceAll("[-]", "");
 		return checkCardNum();
 	}
 
@@ -173,24 +173,18 @@ public class User {
 	public boolean checkInputs()
 	{
 		boolean pass = true;
-		if (!(pass &= checkUserName()))
-			System.out.println("Failed Username");
-		if (!(pass &= checkPIN()))
-			System.out.println("Failed PIN");
-		if (!(pass &= checkFirstName()))
-			System.out.println("Failed First Name");
-		if (!(pass &= checkLastName()))
-			System.out.println("Failed Last Name");
-		if (!(pass &= checkAddress()))
-			System.out.println("Failed Streed Add");
-		if (!(pass &= checkCity()))
-			System.out.println("Failed City");
-		if (!(pass &= checkZIP()))
-			System.out.println("Failed ZIP");
-		if (!(pass &= checkCardNum()))
-			System.out.println("Failed Card Number");
-		if (!(pass &= checkExpDate()))
-			System.out.println("Failed Card Date");
+		
+		pass &= checkUserName();
+		pass &= checkPIN();
+		pass &= checkFirstName();
+		pass &= checkLastName();
+		pass &= checkAddress();
+		pass &= checkCity();
+		pass &= checkState();
+		pass &= checkZIP();
+		pass &= checkCardType();
+		pass &= checkCardNum();
+		pass &= checkExpDate();
 
 		return pass;
 	}
