@@ -3,10 +3,10 @@ package Main;
 public class BookRegExp {
 		private static String isbn = "^\\d{13}$";
 		private static String title = "^[\\w][\\w\\s]{0,19}";
-		private static String publisher = "^[\\w][\\w.-]{0,19}$";
+		private static String publisher = "^[\\w\\d][\\w\\s.-]{0,19}$";
 		private static String year = "^\\d{0,4}$";
 		private static String price = "^[0-9]{0,3}+\\.[0-9]{2}$";
-		private static String minQty = "^\\d{4}$";
+		private static String minQty = "^\\d{0,4}$";
 		private static String review = "\\A[\\w][\\w\\d.\\s*&!?\"\']{0,254}\\Z";
 		
 		public static boolean isbn (String i)

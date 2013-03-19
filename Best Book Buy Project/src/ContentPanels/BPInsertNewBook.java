@@ -6,7 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import Main.BookRegExp;
 import Main.Subject;
+import Main.UserRegExps;
 
 
 public class BPInsertNewBook extends BBBPanel {
@@ -44,6 +46,27 @@ public class BPInsertNewBook extends BBBPanel {
 		this.addButton("Insert");
 		this.addButton("Cancel");
 	}
+	
+	private boolean checkInputs()
+	{
+		boolean pass = true;
+		if (!BookRegExp.isbn(isbn.getText()))
+			System.out.println("Failed ISBN");
+		if (!BookRegExp.title(title.getText()))
+			System.out.println("Failed title");
+		if (!BookRegExp.publisher(publisher.getText()))
+			System.out.println("Failed publisher");
+		if (!BookRegExp.year(year.getText()))
+			System.out.println("Failed year");
+		if (!BookRegExp.price(price.getText()))
+			System.out.println("Failed price");
+		if (!BookRegExp.minQty(minQty.getText()))
+			System.out.println("Failed MinQty");
+		if (!BookRegExp.review(review.getText()))
+			System.out.println("Failed review");
+
+		return pass;
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand())
@@ -61,9 +84,11 @@ public class BPInsertNewBook extends BBBPanel {
 			// Pay Current Authors More
 			break;
 		case "Insert":
-			
-			//parentFrame.switchDisplayContents(
-			//		new BPManageBookstoreCatalog(parentFrame));
+			if (checkInputs())
+			{
+				//parentFrame.switchDisplayContents(
+				//	new BPManageBookstoreCatalog(parentFrame));
+			}
 			break;
 		case "Cancel":
 			parentFrame.switchDisplayContents(
