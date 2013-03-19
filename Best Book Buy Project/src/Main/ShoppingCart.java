@@ -43,7 +43,7 @@ public class ShoppingCart {
 	
 	public double getBookSubtotal(Book b)
 	{
-		return cart.get(b) * b.getPrice();
+		return cart.get(b) * Integer.parseInt(b.getPrice());
 	}
 	
 	public double getCartSubtotal()

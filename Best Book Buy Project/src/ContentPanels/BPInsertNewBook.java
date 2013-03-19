@@ -1,11 +1,13 @@
 package ContentPanels;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import Main.Book;
 import Main.BookRegExp;
 import Main.Subject;
 import Main.UserRegExps;
@@ -13,20 +15,23 @@ import Main.UserRegExps;
 
 public class BPInsertNewBook extends BBBPanel {
 
-	private JTextField isbn;
+	private JTextField textIsbn;
+	private String sIsbn;
 	private JTextField title;
 	private JTextField publisher;
 	private JTextField year;
 	private JTextField price;
 	private JTextField minQty;
 	private JTextArea review;
+	private Book book = new Book();
 	
 	private static final long serialVersionUID = 1L;
 
 	public BPInsertNewBook(JFrame frame) {
 		super(frame);
 		
-		isbn = this.addLabelField("ISBN:", 15);
+		textIsbn = this.addLabelField("ISBN:", 15);
+		
 		title = this.addLabelField("Title:", 20);
 		//this.SpecialStuff
 		this.addButton("More Authors");
@@ -47,25 +52,21 @@ public class BPInsertNewBook extends BBBPanel {
 		this.addButton("Cancel");
 	}
 	
-	private boolean checkInputs()
+	private void feedBook()
 	{
-		boolean pass = true;
-		if (!BookRegExp.isbn(isbn.getText()))
-			System.out.println("Failed ISBN");
-		if (!BookRegExp.title(title.getText()))
-			System.out.println("Failed title");
-		if (!BookRegExp.publisher(publisher.getText()))
-			System.out.println("Failed publisher");
-		if (!BookRegExp.year(year.getText()))
-			System.out.println("Failed year");
-		if (!BookRegExp.price(price.getText()))
-			System.out.println("Failed price");
-		if (!BookRegExp.minQty(minQty.getText()))
-			System.out.println("Failed MinQty");
-		if (!BookRegExp.review(review.getText()))
-			System.out.println("Failed review");
-
-		return pass;
+		
+		//System.out.println("Orig: " + textIsbn.getText());
+		sIsbn = textIsbn.getText().replaceAll("[-]", "");
+		//System.out.println("Converted: " + sIsbn);
+		
+		book.setISBN(sIsbn);
+		book.setMinQty(minQty.getText());
+		book.setPrice(price.getText());
+		book.setPulisher(publisher.getText());
+		book.setTitle(title.getText());
+		book.setYear(year.getText());
+		book.setReviews(new ArrayList<String>());
+		
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -84,10 +85,11 @@ public class BPInsertNewBook extends BBBPanel {
 			// Pay Current Authors More
 			break;
 		case "Insert":
-			if (checkInputs())
+			
+			if (book.checkInputs())
 			{
-				//parentFrame.switchDisplayContents(
-				//	new BPManageBookstoreCatalog(parentFrame));
+				parentFrame.switchDisplayContents(
+						new BPManageBookstoreCatalog(parentFrame));
 			}
 			break;
 		case "Cancel":

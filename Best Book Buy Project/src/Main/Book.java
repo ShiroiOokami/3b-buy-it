@@ -12,43 +12,54 @@ import java.util.ArrayList;
  */
 public class Book {
 	
-	private int ISBN;
-	private double price;
-	private String publisher, title;
+	private String publisher, title, price, minQty, ISBN, year;
 	private ArrayList<String> authors = new ArrayList<String>();
+	private ArrayList<String> reviews = new ArrayList<String>();
 	
 	
 	public Book ()
 	{
 		this.title = "<title>";
-		this.ISBN = 0;
-		this.price = 0.00;
+		this.ISBN = "0000000000000";
+		this.price = "0.00";
 		this.publisher = "<publisher>";
 		this.authors.add("<Author>");
 	}
 	
-	public String setTitle(String title)
+	public boolean setTitle(String title)
 	{
 		this.title = title;
-		return title;
+		return checkTitle();
 	}
 	
-	public int setISBN(int ISBN)
+	public boolean setISBN(String ISBN)
 	{
 		this.ISBN = ISBN;
-		return ISBN;
+		return checkISBN();
 	}
 	
-	public double setPrice(double price)
+	public boolean setMinQty(String minQty)
+	{
+		this.minQty = minQty;
+		return checkMinQty();
+	}
+	
+	public boolean setPrice(String price)
 	{
 		this.price = price;
-		return price;
+		return checkPrice();
 	}
 	
-	public String setPulisher(String publisher)
+	public boolean setPulisher(String publisher)
 	{
 		this.publisher = publisher;
-		return publisher;
+		return checkPublisher();
+	}
+	
+	public boolean setYear(String year)
+	{
+		this.year = year;
+		return checkYear();
 	}
 	
 	public ArrayList<String> setAuthors(ArrayList<String> authors)
@@ -57,19 +68,30 @@ public class Book {
 		return authors;
 	}
 	
+	public ArrayList<String> setReviews(ArrayList<String> reviews)
+	{
+		this.reviews = new ArrayList<String>(reviews);
+		return authors;
+	}
+	
 	public String getTitle()
 	{
 		return title;
 	}
 	
-	public int getISBN()
+	public String getISBN()
 	{
 		return ISBN;
 	}
 	
-	public double getPrice()
+	public String getPrice()
 	{
 		return price;
+	}
+	
+	public String getMinQty()
+	{
+		return minQty;
 	}
 	
 	public String getPulisher()
@@ -77,9 +99,78 @@ public class Book {
 		return publisher;
 	}
 	
+	public String getYear()
+	{
+		return year;
+	}
+	
 	public ArrayList<String> getAuthors()
 	{
 		return authors;
+	}
+	
+	public ArrayList<String> getReviews()
+	{
+		return reviews;
+	}
+	
+	private boolean checkPublisher()
+	{
+		return BookRegExp.publisher(publisher);
+	}
+	
+	private boolean checkTitle()
+	{
+		return BookRegExp.title(title);
+	}
+	
+	private boolean checkPrice()
+	{
+		return BookRegExp.price(price);
+	}
+	
+	private boolean checkMinQty()
+	{
+		return BookRegExp.minQty(minQty);
+	}
+	
+	private boolean checkISBN()
+	{
+		return BookRegExp.isbn(ISBN);
+	}
+	
+	private boolean checkYear()
+	{
+		return BookRegExp.year(year);
+	}
+	
+	// TODO: Implementet
+	private boolean checkReview()
+	{
+		return true;
+	}
+	
+	public boolean checkInputs()
+	{
+		boolean pass = true;
+		
+		if (!(pass &= checkISBN()))
+			System.out.println("Failed ISBN");
+		if (!(pass &= checkTitle()))
+			System.out.println("Failed title");
+		if (!(pass &= checkPublisher()))
+			System.out.println("Failed publisher");
+		if (!(pass &= checkYear()))
+			System.out.println("Failed year");
+		if (!(pass &= checkPrice()))
+			System.out.println("Failed price");
+		if (!(pass &= checkMinQty()))
+			System.out.println("Failed MinQty");
+		if (!(pass &= checkReview()))
+			System.out.println("Failed review");
+		
+		return pass;
+
 	}
 	
 	@Override
@@ -87,7 +178,7 @@ public class Book {
 	{
 		if(obj instanceof Book)
 		{
-			return ISBN == ((Book) obj).ISBN;
+			return Integer.parseInt(ISBN) == Integer.parseInt(((Book) obj).ISBN);
 		}
 		else 
 		{
@@ -98,7 +189,7 @@ public class Book {
 	@Override
 	public int hashCode()
 	{
-		return ((Integer) ISBN).hashCode();
+		return ISBN.hashCode();
 	}
 
 }
