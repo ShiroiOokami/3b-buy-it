@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import Main.BestBookBuy;
+import Main.User;
 
 
 public class BPLandingPage extends BBBPanel {
@@ -25,7 +26,7 @@ public class BPLandingPage extends BBBPanel {
 		box = addCombo(selection);
 		
 		addButton("Enter");
-		
+		user = new User();
 	}
 
 	public void actionPerformed(ActionEvent e) {

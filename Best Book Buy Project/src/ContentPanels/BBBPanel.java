@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import Main.BestBookBuy;
+import Main.User;
 
 public abstract class BBBPanel extends JPanel implements ActionListener {
 
@@ -27,6 +28,7 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	protected Font font;
 	protected BestBookBuy parentFrame;
+	protected User user;
 
 	public BBBPanel(JFrame frame) {
 		font = new Font("Verdana", Font.BOLD, 12);

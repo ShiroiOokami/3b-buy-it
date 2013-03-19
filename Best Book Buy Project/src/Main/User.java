@@ -4,115 +4,194 @@ public class User {
 	private String userName;
 	private String fName;
 	private String lName;
-	private int pin;
+	private String pin;
 	private String address;
 	private String city;
 	private USState state;
-	private int zip;
+	private String zip;
 	private CardType cardType;
-	private int cardNum;
+	private String cardNum;
 	private String expDate;
 
 	public User() {
 		userName = "<User Login>";
 		fName = "<First Name>";
 		lName = "<Last Name>";
-		pin = 0;
+		pin = "<PIN>";
 		address = "<Address>";
 		city = "<City>";
 		state = USState.AL;
-		zip = 0;
+		zip = "<ZIP>";
 		cardType = CardType.MasterCard;
-		cardNum = 0;
-		expDate = "<Date>";
+		cardNum = "<Card Number>";
+		expDate = "<Exp Date>";
 	}
-	
+
 	public String getUserName() {
 		return userName;
+	}
+	
+	public boolean checkUserName() {
+		return UserRegExps.username(userName);
 	}
 
 	public String getFirstName() {
 		return fName;
+	}
+	
+	public boolean checkFirstName() {
+		return UserRegExps.name(fName);
 	}
 
 	public String getLastName() {
 		return lName;
 	}
 
-	public int getPIN() {
+	public boolean checkLastName() {
+		return UserRegExps.name(lName);
+	}
+
+	public String getPIN() {
 		return pin;
+	}
+	
+	public boolean checkPIN() {
+		return UserRegExps.PIN(pin);
 	}
 
 	public String getAddress() {
 		return address;
 	}
 
+	public boolean checkAddress() {
+		return UserRegExps.streetAdd(address);
+	}
+
 	public String getCity() {
 		return city;
+	}
+	
+	public boolean checkCity() {
+		return UserRegExps.city(city);
 	}
 
 	public USState getState() {
 		return state;
 	}
+	
+	public boolean checkState() {
+		return state != null;
+	}
 
-	public int getZIP() {
+	public String getZIP() {
 		return zip;
+	}
+	
+	public boolean checkZIP() {
+		return UserRegExps.ZIP(zip);
 	}
 
 	public CardType getCardType() {
 		return cardType;
 	}
+	
+	public boolean checkCardType() {
+		return cardType != null;
+	}
 
-	public int getCardNum() {
+	public String getCardNum() {
 		return cardNum;
+	}
+	
+	public boolean checkCardNum() {
+		return UserRegExps.carddate(cardNum);
 	}
 
 	public String getExpDate() {
 		return expDate;
 	}
 	
+	public boolean checkExpDate() {
+		return UserRegExps.carddate(expDate);
+	}
+
+	public boolean setUserName(String s) {
+		userName = s;
+		return checkUserName();
+	}
+
+	public boolean setFirstName(String s) {
+		fName = s;
+		return checkFirstName();
+	}
+
+	public boolean setLastName(String s) {
+		lName = s;
+		return checkLastName();
+	}
+
+	public boolean setPIN(String p) {
+		pin = p;
+		return checkPIN();
+	}
+
+	public boolean setAddress(String s) {
+		address = s;
+		return checkAddress();
+	}
+
+	public boolean setCity(String s) {
+		city = s;
+		return checkCity();
+	}
+
+	public boolean setState(USState s) {
+		state = s;
+		return checkState();
+	}
+
+	public boolean setZIP(String z) {
+		zip = z;
+		return checkZIP();
+	}
+
+	public boolean setCardType(CardType c) {
+		cardType = c;
+		return checkCardType();
+	}
+
+	public boolean setCardNum(String n) {
+		cardNum = n;
+		return checkCardNum();
+	}
+
+	public boolean setExpDate(String d) {
+		expDate = d;
+		return checkExpDate();
+	}
 	
-	public String setUserName(String s) {
-		return userName = s;
-	}
+	public boolean checkInputs()
+	{
+		boolean pass = true;
+		if (!(pass &= checkUserName()))
+			System.out.println("Failed Username");
+		if (!(pass &= checkPIN()))
+			System.out.println("Failed PIN");
+		if (!(pass &= checkFirstName()))
+			System.out.println("Failed First Name");
+		if (!(pass &= checkLastName()))
+			System.out.println("Failed Last Name");
+		if (!(pass &= checkAddress()))
+			System.out.println("Failed Streed Add");
+		if (!(pass &= checkCity()))
+			System.out.println("Failed City");
+		if (!(pass &= checkZIP()))
+			System.out.println("Failed ZIP");
+		if (!(pass &= checkCardNum()))
+			System.out.println("Failed Card Number");
+		if (!(pass &= checkExpDate()))
+			System.out.println("Failed Card Date");
 
-	public String setFirstName(String s) {
-		return fName = s;
-	}
-
-	public String setLastName(String s) {
-		return lName = s;
-	}
-
-	public int setPIN(int i) {
-		return pin = i;
-	}
-
-	public String setAddress(String s) {
-		return address = s;
-	}
-
-	public String setCity(String s) {
-		return city = s;
-	}
-
-	public USState setState(USState s) {
-		return state = s;
-	}
-
-	public int setZIP(int i) {
-		return zip = i;
-	}
-
-	public CardType setCardType(CardType c) {
-		return cardType = c;
-	}
-
-	public int setCardNum(int i) {
-		return cardNum = i;
-	}
-
-	public String setExpDate(String d) {
-		return expDate = d;
+		return pass;
 	}
 }
