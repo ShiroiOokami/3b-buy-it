@@ -8,11 +8,14 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 import Main.CardType;
+import Main.User;
 
 
 public class BPCheckoutScreen extends BBBPanel {
@@ -21,6 +24,9 @@ public class BPCheckoutScreen extends BBBPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	JComboBox cardType;
+	JTextField cardNum;
+	JTextField cardDate;
 
 	public BPCheckoutScreen(JFrame frame) {
 		super(frame);
@@ -62,11 +68,12 @@ public class BPCheckoutScreen extends BBBPanel {
 			this.setLayout(new GridLayout(5,1));
 			this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
-			this.addLabel("<Shipping Address>");
-			this.addLabel("<Customer Name>");
-			this.addLabel("<Address>");
-			this.addLabel("<City>");
-			this.addLabel("<State>, <Zip>");
+			User user = parentFrame.user;
+			addLabel("Shipping Address:");
+			addLabel(user.getFirstName() + " " +  user.getLastName());
+			addLabel(user.getAddress());
+			addLabel(user.getCity());
+			addLabel(user.getState().getCode() + ", " + user.getZIP());
 		}
 
 		@Override
@@ -90,9 +97,14 @@ public class BPCheckoutScreen extends BBBPanel {
 			this.setLayout(new FlowLayout(FlowLayout.CENTER));
 			//this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
-			this.addCombo(stringList(CardType.class));
-			this.addField(10);
+			cardType = addCombo(stringList(CardType.class));
+			cardNum = addField(10);
+			cardDate = addField(10);
 			
+			User user = parentFrame.user;
+			cardType.setSelectedIndex(user.getCardType().ordinal());
+			cardNum.setText(user.getCardNum());
+			cardDate.setText(user.getExpDate());			
 		}
 
 		@Override
@@ -136,8 +148,12 @@ public class BPCheckoutScreen extends BBBPanel {
 					new BPBookSearch(parentFrame));
 			break;
 		case "Update Profile":
-			parentFrame.switchDisplayContents(
-					new BPUpdateCustomer(parentFrame));
+			if (parentFrame.user.checkUserName())
+				parentFrame.switchDisplayContents(
+						new BPUpdateCustomer(parentFrame));
+			else
+				parentFrame.switchDisplayContents(
+						new BPCustomerRegistration(parentFrame));
 			break;
 		case "BUY IT!!!!!!":
 			parentFrame.switchDisplayContents(

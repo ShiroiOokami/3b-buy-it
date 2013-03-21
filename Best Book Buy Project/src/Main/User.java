@@ -121,6 +121,8 @@ public class User {
 	}
 
 	public void setUserName(JTextField f) {
+		if (f.getText().length() == 0)
+			f.setText("<User Name>");
 		userName = f.getText();
 		if (checkUserName())
 			unsetWarning(f);
@@ -129,6 +131,8 @@ public class User {
 	}
 
 	public void setFirstName(JTextField f) {
+		if (f.getText().length() == 0)
+			f.setText("<First Name>");
 		fName = f.getText();
 		if (checkFirstName())
 			unsetWarning(f);
@@ -137,6 +141,8 @@ public class User {
 	}
 
 	public void setLastName(JTextField f) {
+		if (f.getText().length() == 0)
+			f.setText("<Last Name>");
 		lName = f.getText();
 		if (checkLastName())
 			unsetWarning(f);
@@ -145,6 +151,8 @@ public class User {
 	}
 
 	public void setPIN(JTextField f) {
+		if (f.getText().length() == 0)
+			f.setText("<PIN>");
 		pin = f.getText();
 		if(checkPIN())
 			unsetWarning(f);
@@ -153,6 +161,8 @@ public class User {
 	}
 
 	public void setAddress(JTextField f) {
+		if (f.getText().length() == 0)
+			f.setText("<Address>");
 		address = f.getText();
 		if (checkAddress())
 			unsetWarning(f);
@@ -161,6 +171,8 @@ public class User {
 	}
 
 	public void setCity(JTextField f) {
+		if (f.getText().length() == 0)
+			f.setText("<City>");
 		city = f.getText();
 		if (checkCity())
 			unsetWarning(f);
@@ -173,6 +185,8 @@ public class User {
 	}
 
 	public void setZIP(JTextField f) {
+		if (f.getText().length() == 0)
+			f.setText("<ZIP>");
 		zip = f.getText();
 		if (checkZIP())
 			unsetWarning(f);
@@ -185,6 +199,8 @@ public class User {
 	}
 
 	public void setCardNum(JTextField f) {
+		if (f.getText().length() == 0)
+			f.setText("<Card Number>");
 		cardNum = f.getText().replaceAll("[-]", "");
 		if (checkCardNum())
 			unsetWarning(f);
@@ -193,6 +209,8 @@ public class User {
 	}
 
 	public void setExpDate(JTextField f) {
+		if (f.getText().length() == 0)
+			f.setText("<Exp Date>");
 		expDate = f.getText();
 		if (checkExpDate())
 			unsetWarning(f);
@@ -218,7 +236,6 @@ public class User {
 
 		return pass;
 	}
-
 
 	private void unsetWarning(JTextField f) {
 		f.setForeground(Color.BLACK);
