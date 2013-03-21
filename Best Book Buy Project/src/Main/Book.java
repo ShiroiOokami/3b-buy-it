@@ -1,6 +1,9 @@
 package Main;
 
+import java.awt.Color;
 import java.util.ArrayList;
+
+import javax.swing.JTextField;
 
 /**
  * A class to store all of the associated information of a book.
@@ -20,58 +23,84 @@ public class Book {
 	public Book ()
 	{
 		this.title = "<title>";
-		this.ISBN = "0000000000000";
-		this.price = "0.00";
+		this.ISBN = "<isbn>";
+		this.price = "<price>";
 		this.publisher = "<publisher>";
 		this.authors.add("<Author>");
+		this.year = "<year>";
+		this.minQty="<minQty>";
 	}
 	
-	public boolean setTitle(String title)
+	public void setTitle(JTextField title)
 	{
-		this.title = title;
-		return checkTitle();
+		this.title = title.getText();
+		if(this.title.length() == 0)
+			this.title = "<User Name>";
+		if (checkTitle())
+			unsetWarning(title);
+		else
+			setWarning(title);
 	}
 	
-	public boolean setISBN(String ISBN)
+	public void setISBN(JTextField ISBN)
 	{
-		this.ISBN = ISBN;
-		return checkISBN();
+		this.ISBN = ISBN.getText();
+		if(this.ISBN.length() == 0)
+			this.ISBN = "<ISBN>";
+		this.ISBN = ISBN.getText().replaceAll("[-]", "");
+		if (checkISBN())
+			unsetWarning(ISBN);
+		else
+			setWarning(ISBN);
 	}
 	
-	public boolean setMinQty(String minQty)
+	public void setMinQty(JTextField minQty)
 	{
-		this.minQty = minQty;
-		return checkMinQty();
+		this.minQty = minQty.getText();
+		if(this.ISBN.length() == 0)
+			this.minQty = "<MinQty>";
+		this.minQty = minQty.getText();
+		if (checkMinQty())
+			unsetWarning(minQty);
+		else
+			setWarning(minQty);
 	}
 	
-	public boolean setPrice(String price)
+	public void setPrice(JTextField price)
 	{
-		this.price = price;
-		return checkPrice();
+		this.price = price.getText();
+		if (checkPrice())
+			unsetWarning(price);
+		else
+			setWarning(price);
 	}
 	
-	public boolean setPulisher(String publisher)
+	public void setPulisher(JTextField publisher)
 	{
-		this.publisher = publisher;
-		return checkPublisher();
+		this.publisher = publisher.getText();
+		if (checkPublisher())
+			unsetWarning(publisher);
+		else
+			setWarning(publisher);
 	}
 	
-	public boolean setYear(String year)
+	public void setYear(JTextField year)
 	{
-		this.year = year;
-		return checkYear();
+		this.year = year.getText();
+		if (checkYear())
+			unsetWarning(year);
+		else
+			setWarning(year);
 	}
 	
-	public ArrayList<String> setAuthors(ArrayList<String> authors)
+	public void setAuthors(ArrayList<String> authors)
 	{
 		this.authors = new ArrayList<String>(authors);
-		return authors;
 	}
 	
-	public ArrayList<String> setReviews(ArrayList<String> reviews)
+	public void setReviews(ArrayList<String> reviews)
 	{
 		this.reviews = new ArrayList<String>(reviews);
-		return authors;
 	}
 	
 	public String getTitle()
@@ -144,7 +173,7 @@ public class Book {
 		return BookRegExp.year(year);
 	}
 	
-	// TODO: Implementet
+	// TODO: Implement
 	private boolean checkReview()
 	{
 		return true;
@@ -154,23 +183,24 @@ public class Book {
 	{
 		boolean pass = true;
 		
-		if (!(pass &= checkISBN()))
-			System.out.println("Failed ISBN");
-		if (!(pass &= checkTitle()))
-			System.out.println("Failed title");
-		if (!(pass &= checkPublisher()))
-			System.out.println("Failed publisher");
-		if (!(pass &= checkYear()))
-			System.out.println("Failed year");
-		if (!(pass &= checkPrice()))
-			System.out.println("Failed price");
-		if (!(pass &= checkMinQty()))
-			System.out.println("Failed MinQty");
-		if (!(pass &= checkReview()))
-			System.out.println("Failed review");
+		pass &= checkISBN();
+		pass &= checkTitle();
+		pass &= checkPublisher();
+		pass &= checkYear();
+		pass &= checkPrice();
+		pass &= checkMinQty();
+		pass &= checkReview();
 		
 		return pass;
 
+	}
+	
+	private void unsetWarning(JTextField f) {
+		f.setForeground(Color.BLACK);
+	}
+
+	private void setWarning(JTextField f) {
+		f.setForeground(Color.RED);
 	}
 	
 	@Override

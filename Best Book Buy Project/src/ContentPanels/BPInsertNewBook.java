@@ -15,7 +15,7 @@ import Main.UserRegExps;
 
 public class BPInsertNewBook extends BBBPanel {
 
-	private JTextField textIsbn;
+	private JTextField isbn;
 	private String sIsbn;
 	private JTextField title;
 	private JTextField publisher;
@@ -30,7 +30,7 @@ public class BPInsertNewBook extends BBBPanel {
 	public BPInsertNewBook(JFrame frame) {
 		super(frame);
 		
-		textIsbn = this.addLabelField("ISBN:", 15);
+		isbn = this.addLabelField("ISBN:", 15);
 		
 		title = this.addLabelField("Title:", 20);
 		//this.SpecialStuff
@@ -55,16 +55,12 @@ public class BPInsertNewBook extends BBBPanel {
 	private void feedBook()
 	{
 		
-		//System.out.println("Orig: " + textIsbn.getText());
-		sIsbn = textIsbn.getText().replaceAll("[-]", "");
-		//System.out.println("Converted: " + sIsbn);
-		
-		book.setISBN(sIsbn);
-		book.setMinQty(minQty.getText());
-		book.setPrice(price.getText());
-		book.setPulisher(publisher.getText());
-		book.setTitle(title.getText());
-		book.setYear(year.getText());
+		book.setISBN(isbn);
+		book.setMinQty(minQty);
+		book.setPrice(price);
+		book.setPulisher(publisher);
+		book.setTitle(title);
+		book.setYear(year);
 		book.setReviews(new ArrayList<String>());
 		
 	}
@@ -85,7 +81,7 @@ public class BPInsertNewBook extends BBBPanel {
 			// Pay Current Authors More
 			break;
 		case "Insert":
-			
+			feedBook();
 			if (book.checkInputs())
 			{
 				parentFrame.switchDisplayContents(
