@@ -1,5 +1,10 @@
 package Main;
 
+import java.awt.Color;
+import java.awt.Font;
+
+import javax.swing.JTextField;
+
 public class User {
 	private String userName;
 	private String fName;
@@ -115,59 +120,84 @@ public class User {
 		return UserRegExps.carddate(expDate);
 	}
 
-	public boolean setUserName(String s) {
-		userName = s;
-		return checkUserName();
+	public void setUserName(JTextField f) {
+		userName = f.getText();
+		if (checkUserName())
+			unsetWarning(f);
+		else
+			setWarning(f);
 	}
 
-	public boolean setFirstName(String s) {
-		fName = s;
-		return checkFirstName();
+	public void setFirstName(JTextField f) {
+		fName = f.getText();
+		if (checkFirstName())
+			unsetWarning(f);
+		else
+			setWarning(f);			
 	}
 
-	public boolean setLastName(String s) {
-		lName = s;
-		return checkLastName();
+	public void setLastName(JTextField f) {
+		lName = f.getText();
+		if (checkLastName())
+			unsetWarning(f);
+		else
+			setWarning(f);
 	}
 
-	public boolean setPIN(String p) {
-		pin = p;
-		return checkPIN();
+	public void setPIN(JTextField f) {
+		pin = f.getText();
+		if(checkPIN())
+			unsetWarning(f);
+		else
+			setWarning(f);
 	}
 
-	public boolean setAddress(String s) {
-		address = s;
-		return checkAddress();
+	public void setAddress(JTextField f) {
+		address = f.getText();
+		if (checkAddress())
+			unsetWarning(f);
+		else
+			setWarning(f);
 	}
 
-	public boolean setCity(String s) {
-		city = s;
-		return checkCity();
+	public void setCity(JTextField f) {
+		city = f.getText();
+		if (checkCity())
+			unsetWarning(f);
+		else
+			setWarning(f);
 	}
 
-	public boolean setState(USState s) {
+	public void setState(USState s) {
 		state = s;
-		return checkState();
 	}
 
-	public boolean setZIP(String z) {
-		zip = z;
-		return checkZIP();
+	public void setZIP(JTextField f) {
+		zip = f.getText();
+		if (checkZIP())
+			unsetWarning(f);
+		else
+			setWarning(f);
 	}
 
-	public boolean setCardType(CardType c) {
+	public void setCardType(CardType c) {
 		cardType = c;
-		return checkCardType();
 	}
 
-	public boolean setCardNum(String n) {
-		cardNum = n.replaceAll("[-]", "");
-		return checkCardNum();
+	public void setCardNum(JTextField f) {
+		cardNum = f.getText().replaceAll("[-]", "");
+		if (checkCardNum())
+			unsetWarning(f);
+		else
+			setWarning(f);
 	}
 
-	public boolean setExpDate(String d) {
-		expDate = d;
-		return checkExpDate();
+	public void setExpDate(JTextField f) {
+		expDate = f.getText();
+		if (checkExpDate())
+			unsetWarning(f);
+		else
+			setWarning(f);
 	}
 	
 	public boolean checkInputs()
@@ -187,5 +217,14 @@ public class User {
 		pass &= checkExpDate();
 
 		return pass;
+	}
+
+
+	private void unsetWarning(JTextField f) {
+		f.setForeground(Color.BLACK);
+	}
+
+	private void setWarning(JTextField f) {
+		f.setForeground(Color.RED);
 	}
 }

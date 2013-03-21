@@ -57,19 +57,19 @@ public class BPCustomerRegistration extends BBBPanel {
 	{
 		User user = parentFrame.user;
 		
-		user.setUserName(userName.getText());
-		user.setFirstName(firstName.getText());
-		user.setLastName(lastName.getText());
-		user.setPIN(PIN.getText());
-		user.setAddress(address.getText());
-		user.setCity(city.getText());
-		user.setZIP(zip.getText());
+		user.setUserName(userName);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setPIN(PIN);
+		user.setAddress(address);
+		user.setCity(city);
+		user.setZIP(zip);
 		user.setState(USState.values()[state.getSelectedIndex()]);
 		user.setCardType(CardType.values()[cardType.getSelectedIndex()]);
-		user.setCardNum(cardNum.getText());
-		user.setExpDate(cardDate.getText());
+		user.setCardNum(cardNum);
+		user.setExpDate(cardDate);
 	}
-
+	
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand())
 		{

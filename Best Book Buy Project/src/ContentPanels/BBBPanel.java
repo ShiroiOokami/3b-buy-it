@@ -159,4 +159,9 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 	}
 
 	abstract public void actionPerformed(ActionEvent e);
+	
+	protected void setWarning(JTextField f)
+	{
+		
+	}
 }
