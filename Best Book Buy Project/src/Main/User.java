@@ -2,6 +2,7 @@ package Main;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
 
 import javax.swing.JTextField;
 
@@ -17,6 +18,8 @@ public class User {
 	private CardType cardType;
 	private String cardNum;
 	private String expDate;
+	private String hireDate;
+	private ArrayList<String> phoneNums;
 
 	public User() {
 		userName = "<User Login>";
@@ -30,8 +33,10 @@ public class User {
 		cardType = CardType.MasterCard;
 		cardNum = "<Card Number>";
 		expDate = "<Exp Date>";
+		hireDate = "<Hire Date>";
+		phoneNums = new ArrayList<String>();
 	}
-
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -117,7 +122,15 @@ public class User {
 	}
 	
 	public boolean checkExpDate() {
-		return UserRegExps.carddate(expDate);
+		return UserRegExps.date(expDate);
+	}
+	
+	public String getHireDate() {
+		return hireDate;
+	}
+	
+	public boolean checkHireDate() {
+		return UserRegExps.date(hireDate);
 	}
 
 	public void setUserName(JTextField f) {
@@ -217,8 +230,31 @@ public class User {
 		else
 			setWarning(f);
 	}
+
+	public void setHireDate(JTextField f) {
+		if (f.getText().length() == 0)
+			f.setText("<Hire Date>");
+		expDate = f.getText();
+		if (checkHireDate())
+			unsetWarning(f);
+		else
+			setWarning(f);
+	}
 	
-	public boolean checkInputs()
+	public ArrayList<String> getPhoneNums() {
+		return phoneNums;
+	}
+	
+	public boolean addPhoneNum(String s) {
+		return phoneNums.add(s);
+	}
+	
+	public void removeLastNum(String s) {
+		if (phoneNums.size() > 0)
+			phoneNums.remove(phoneNums.size() - 1);
+	}
+
+	public boolean checkCustomer()
 	{
 		boolean pass = true;
 		
@@ -237,6 +273,24 @@ public class User {
 		return pass;
 	}
 
+	public boolean checkAdmin()
+	{
+		boolean pass = true;
+		
+		pass &= checkUserName();
+		pass &= checkPIN();
+		pass &= checkFirstName();
+		pass &= checkLastName();
+		pass &= checkAddress();
+		pass &= checkCity();
+		pass &= checkState();
+		pass &= checkZIP();
+		pass &= checkHireDate();
+
+		return pass;
+	}
+
+	
 	private void unsetWarning(JTextField f) {
 		f.setForeground(Color.BLACK);
 	}

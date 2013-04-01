@@ -79,7 +79,7 @@ public class BPCustomerRegistration extends BBBPanel {
 			break;
 		case "Register":
 			feedUser();
-			if (parentFrame.user.checkInputs())
+			if (parentFrame.user.checkCustomer())
 				parentFrame.switchDisplayContents(
 					new BPBookSearch(parentFrame));
 			break;

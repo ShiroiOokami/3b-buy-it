@@ -69,6 +69,7 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 			p.add(c);
 
 		JScrollPane sp = new JScrollPane(p);
+		sp.getVerticalScrollBar().setUnitIncrement(20);
 		Dimension d = new Dimension(comps[0].getPreferredSize());
 		d.setSize(d.getWidth() + 20, d.getHeight() * 2);
 		sp.setPreferredSize(d);

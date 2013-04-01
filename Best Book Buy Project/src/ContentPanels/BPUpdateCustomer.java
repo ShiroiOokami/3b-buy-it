@@ -91,7 +91,7 @@ public class BPUpdateCustomer extends BBBPanel {
 		{
 		case "Update":
 			feedUser();
-			if (parentFrame.user.checkInputs())
+			if (parentFrame.user.checkCustomer())
 				parentFrame.switchDisplayContents(
 					new BPCheckoutScreen(parentFrame));
 			break;
