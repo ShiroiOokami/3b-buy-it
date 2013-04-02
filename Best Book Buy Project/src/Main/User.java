@@ -245,8 +245,8 @@ public class User {
 		return phoneNums;
 	}
 	
-	public boolean addPhoneNum(String s) {
-		return phoneNums.add(s);
+	public void setPhoneNum(ArrayList<String> p) {
+		phoneNums = p;
 	}
 	
 	public void removeLastNum(String s) {

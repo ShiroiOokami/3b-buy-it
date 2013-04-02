@@ -13,6 +13,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -59,22 +60,24 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 		return p;
 	}
 
-	protected JScrollPane createScrollWrapper(JComponent comps[]) {
+	protected JScrollPane createScrollWrapper(JComponent comps[], JPanel p) {
 		if (comps.length == 0)
 			return null;
-		JPanel p = new JPanel();
-		p.setBackground(Color.WHITE);
-		p.setLayout(new GridLayout(comps.length, 1));
-		for (JComponent c : comps)
-			p.add(c);
-
+		p = createVerticalWrapper(comps);
 		JScrollPane sp = new JScrollPane(p);
-		sp.getVerticalScrollBar().setUnitIncrement(20);
-		Dimension d = new Dimension(comps[0].getPreferredSize());
-		d.setSize(d.getWidth() + 20, d.getHeight() * 2);
+		Dimension d = comps[0].getPreferredSize();
+		sp.getVerticalScrollBar().setUnitIncrement((int) d.getHeight());
+		d.setSize(d.getWidth() + 20, d.getHeight() * 2 + 5);
 		sp.setPreferredSize(d);
 
 		return sp;
+	}
+	
+	protected JScrollPane createScrollWrapper(JComponent comps[])
+	{
+		if (comps.length == 0)
+			return null;
+		return createScrollWrapper(comps, new JPanel());
 	}
 
 	protected JTextField addLabelField(String name, int length) {
