@@ -31,6 +31,11 @@ create table Admin_Phone(
 	PhoneNum numeric(10,0),
 	foreign key (UserName) references User
 	primary key (UserName, PhoneNum));
+	
+create table Admin (
+	UserName varchar(12) primary key,
+	HireDate Date,
+	foreign key (UserName) references User);
 
 create table Book_Order (
 	OrderNumber smallint primary key, 
@@ -129,3 +134,6 @@ Insert into Book_Review values (1234567890123, “Fuzzy”);
 Insert into Book_Review values (1234567890143, “A good read!”);
 Insert into Book_Review values (1234567890133, “I hated it”);
 Insert into Book_Review values (1234567890133, “Full of lies!”);
+
+delete from Admin;
+Insert into Admin values ("Fire", "2012-01-01");
