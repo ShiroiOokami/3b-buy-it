@@ -147,7 +147,7 @@ public class BPUpdateAdministratorProfile extends BBBPanel {
 			break;
 		case "Update":
 			feedUser();
-			if (parentFrame.user.checkCustomer())
+			if (parentFrame.user.checkAdmin())
 				parentFrame.switchDisplayContents(
 					new BPAdministratorTask(parentFrame));
 			break;
