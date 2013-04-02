@@ -1,8 +1,11 @@
 package ContentPanels;
 
 import java.awt.Component;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -60,7 +63,7 @@ public class BPUpdateAdministratorProfile extends BBBPanel {
 		if (pnums.size() == 0)
 			phones[0] = new JTextField(10);
 		
-		ppanel = createVerticalWrapper(phones);
+		ppanel = new JPanel();
 		pscroll = createScrollWrapper(phones, ppanel);
 		add(pscroll);
 		JComponent[] k = new JComponent[] {
@@ -75,8 +78,6 @@ public class BPUpdateAdministratorProfile extends BBBPanel {
 		};
 		
 		this.add(this.createHorizontalWrapper(l));
-		
-		eatUser();
 	}
 	
 	private void feedUser()
@@ -110,31 +111,39 @@ public class BPUpdateAdministratorProfile extends BBBPanel {
 		zip.setText(user.getZIP());
 		state.setSelectedIndex(user.getState().ordinal());
 
-		ArrayList<String> pnums = parentFrame.user.getPhoneNums();
-		pnums.add("123456");
-		pnums.add("23456");
-		pnums.add("3456");
+	}
+	
+	public void addPhone() {
+		JTextField[] np = Arrays.copyOf(phones, phones.length + 1);
+		np[np.length - 1] = new JTextField(10);
 
-		phones = new JTextField[Math.max(pnums.size(),1)];
-		for (int i = 0; i < pnums.size(); i++)
-			phones[i] = new JTextField(pnums.get(i),10);
-		if (pnums.size() == 0)
-			phones[0] = new JTextField(10);
-
-		
-		ppanel = createVerticalWrapper(phones);
-		
+		GridLayout lm = (GridLayout) ppanel.getLayout();
+		lm.setRows(np.length);
+		ppanel.add(np[np.length -1]);		
+		phones = np;
+		ppanel.updateUI();
 	}
 
+	public void removePhone() {
+		if (phones.length <= 1)
+			return;
+		JTextField[] np = Arrays.copyOf(phones, phones.length - 1);
+
+		GridLayout lm = (GridLayout) ppanel.getLayout();
+		lm.setRows(np.length);
+		ppanel.remove(phones[phones.length - 1]);
+		phones = np;
+		ppanel.updateUI();
+	}
 
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand())
 		{
 		case "More Phone Nums":
-			// More Ways To Disrupt My Evening
+			addPhone();
 			break;
 		case "Fewer Phone Nums":
-			// You Get it
+			removePhone();
 			break;
 		case "Update":
 			feedUser();
