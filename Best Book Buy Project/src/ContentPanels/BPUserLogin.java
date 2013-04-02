@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import Main.BBBConnection;
+import Main.User;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -39,11 +40,11 @@ public class BPUserLogin extends BBBPanel {
 		{
 		case "Login":
 			Connection con = BBBConnection.getConnection();
-			String querry = "SELECT pin, uesrType FROM user WHERE username LIKE '" + username + "'";
+			String querry = "SELECT pin, uesrType FROM user WHERE username LIKE '" + username.getText() + "'";
 			int sPin = -1;
 			String sUserType = null;
 			
-			try
+			/*try
 			{
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery(querry);
@@ -62,6 +63,8 @@ public class BPUserLogin extends BBBPanel {
 			{
 				if(sUserType.equals("A"))
 				{
+					User user = new User();
+					user.fetchUser(username.getText());
 					parentFrame.switchDisplayContents(
 							new BPAdministratorTask(parentFrame));
 				}
@@ -76,7 +79,9 @@ public class BPUserLogin extends BBBPanel {
 				parentFrame.switchDisplayContents(
 						new BPLandingPage(parentFrame));
 			}
-			
+			*/
+			parentFrame.switchDisplayContents(
+					new BPAdministratorTask(parentFrame));
 			break;
 		case "Cancel":
 			parentFrame.switchDisplayContents(

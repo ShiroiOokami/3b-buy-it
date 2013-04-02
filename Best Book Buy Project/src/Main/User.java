@@ -253,6 +253,11 @@ public class User {
 		if (phoneNums.size() > 0)
 			phoneNums.remove(phoneNums.size() - 1);
 	}
+	
+	public void fetchUser(String username)
+	{
+		
+	}
 
 	public boolean checkCustomer()
 	{
@@ -298,4 +303,6 @@ public class User {
 	private void setWarning(JTextField f) {
 		f.setForeground(Color.RED);
 	}
+	
+	
 }
