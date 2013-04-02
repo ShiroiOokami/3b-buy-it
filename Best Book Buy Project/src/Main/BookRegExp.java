@@ -8,6 +8,7 @@ public class BookRegExp {
 		private static String price = "^[0-9]{0,3}+\\.[0-9]{2}$";
 		private static String minQty = "^\\d{0,4}$";
 		private static String review = "\\A[\\w][\\w\\d.\\s*&!?\"\']{0,254}\\Z";
+		private static String author = "[A-Z][a-z]+( [A-Z][a-z]+)?";
 		
 		public static boolean isbn (String i)
 		{
@@ -42,6 +43,11 @@ public class BookRegExp {
 		public static boolean review (String r)
 		{
 			return r.matches(review);
+		}
+		
+		public static boolean author (String a)
+		{
+			return a.matches(author);
 		}
 		
 }

@@ -33,9 +33,9 @@ public class Book {
 	
 	public void setTitle(JTextField title)
 	{
+		if (title.getText().length() == 0)
+			title.setText("<Title>");
 		this.title = title.getText();
-		if(this.title.length() == 0)
-			this.title = "<User Name>";
 		if (checkTitle())
 			unsetWarning(title);
 		else
@@ -44,9 +44,8 @@ public class Book {
 	
 	public void setISBN(JTextField ISBN)
 	{
-		this.ISBN = ISBN.getText();
-		if(this.ISBN.length() == 0)
-			this.ISBN = "<ISBN>";
+		if (ISBN.getText().length() == 0)
+			ISBN.setText("<ISBN>");
 		this.ISBN = ISBN.getText().replaceAll("[-]", "");
 		if (checkISBN())
 			unsetWarning(ISBN);
@@ -56,9 +55,8 @@ public class Book {
 	
 	public void setMinQty(JTextField minQty)
 	{
-		this.minQty = minQty.getText();
-		if(this.ISBN.length() == 0)
-			this.minQty = "<MinQty>";
+		if (minQty.getText().length() == 0)
+			minQty.setText("<Min Qty>");
 		this.minQty = minQty.getText();
 		if (checkMinQty())
 			unsetWarning(minQty);
@@ -68,6 +66,8 @@ public class Book {
 	
 	public void setPrice(JTextField price)
 	{
+		if (price.getText().length() == 0)
+			price.setText("<Price>");
 		this.price = price.getText();
 		if (checkPrice())
 			unsetWarning(price);
@@ -77,6 +77,8 @@ public class Book {
 	
 	public void setPulisher(JTextField publisher)
 	{
+		if (publisher.getText().length() == 0)
+			publisher.setText("<Publisher>");
 		this.publisher = publisher.getText();
 		if (checkPublisher())
 			unsetWarning(publisher);
@@ -86,6 +88,8 @@ public class Book {
 	
 	public void setYear(JTextField year)
 	{
+		if (year.getText().length() == 0)
+			year.setText("<Year>");
 		this.year = year.getText();
 		if (checkYear())
 			unsetWarning(year);
@@ -173,10 +177,37 @@ public class Book {
 		return BookRegExp.year(year);
 	}
 	
-	// TODO: Implement
-	private boolean checkReview()
+	public boolean addPhoneNum(String s) {
+		return reviews.add(s);
+	}
+	
+	public void removeLastNum(String s) {
+		if (reviews.size() > 0)
+			reviews.remove(reviews.size() - 1);
+	}
+	
+	private boolean checkReviews()
 	{
-		return true;
+		boolean pass = true;
+		
+		for (String review : reviews)
+		{
+			pass &= BookRegExp.review(review);
+		}
+		
+		return pass;
+	}
+	
+	private boolean checkAuthors()
+	{
+		boolean pass = true;
+		
+		for (String author : authors)
+		{
+			pass &= BookRegExp.author(author);
+		}
+		
+		return pass;
 	}
 	
 	public boolean checkInputs()
@@ -189,7 +220,8 @@ public class Book {
 		pass &= checkYear();
 		pass &= checkPrice();
 		pass &= checkMinQty();
-		pass &= checkReview();
+		pass &= checkReviews();
+		pass &= checkAuthors();
 		
 		return pass;
 
