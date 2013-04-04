@@ -2,9 +2,13 @@ package Main;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
-
 import javax.swing.JTextField;
+
+
 
 
 public class User {
@@ -258,6 +262,35 @@ public class User {
 	
 	public void fetchUser(String username)
 	{
+		java.sql.Connection con = BBBConnection.getConnection();
+		
+		String querry = "Select * from User natural join Customer where UserName Like '" + username + "'";
+		
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(querry);
+			
+			while(rs.next())
+			{
+				this.userName = rs.getString("UserName");
+				this.fName = rs.getString("fName");
+				this.lName = rs.getString("lName");
+				this.pin = rs.getString("PIN");
+				this.address = rs.getString("StreetAdd");
+				this.city = rs.getString("City");
+				//this.state = rs.getString("State");
+				this.zip = rs.getString("Zip");
+				//this.cardType = rs.getString("creditType");
+				this.cardNum = rs.getString("creditNum");
+				
+			}
+		}
+		catch (SQLException error)
+		{
+			System.out.println("Querry Error");
+			error.printStackTrace();
+		}
+		
 		
 	}
 
