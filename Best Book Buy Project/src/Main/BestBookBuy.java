@@ -15,7 +15,9 @@ public class BestBookBuy extends JFrame {
 
 	public static void main (String args[])
 	{
+		BBBConnection con = new BBBConnection();
 		BestBookBuy b = new BestBookBuy();
+		con.connect();
 		b.setVisible(true);
 	}
 
