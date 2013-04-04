@@ -57,7 +57,7 @@ public class BPUserLogin extends BBBPanel {
 			}
 			catch (SQLException error)
 			{
-				System.out.println("Error");
+				System.out.println("Querry Error");
 				error.printStackTrace();
 			}
 			
