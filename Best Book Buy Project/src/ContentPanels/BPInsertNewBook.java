@@ -23,7 +23,6 @@ import Main.UserRegExps;
 public class BPInsertNewBook extends BBBPanel {
 
 	private JTextField isbn;
-	private String sIsbn;
 	private JTextField title;
 	private JTextField publisher;
 	private JTextField year;
