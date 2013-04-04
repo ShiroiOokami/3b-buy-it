@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JTextField;
 
+
 public class User {
 	private String userName;
 	private String fName;
@@ -35,6 +36,7 @@ public class User {
 		expDate = "<Exp Date>";
 		hireDate = "<Hire Date>";
 		phoneNums = new ArrayList<String>();
+		phoneNums.add("<Phone>");
 	}
 	
 	public String getUserName() {

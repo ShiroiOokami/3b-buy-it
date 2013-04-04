@@ -97,14 +97,6 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 		return t;
 	}
 
-	protected JTextArea addTextBox() {
-		JTextArea t = new JTextArea(5, 25);
-		t.setFont(font);
-		JScrollPane sp = new JScrollPane(t);
-		this.add(sp);
-		return t;
-	}
-
 	protected JComboBox<String> addLabelCombo(String name, String list[]) {
 		JComboBox<String> b = createCombo(list);
 		add(createHorizontalWrapper(new JComponent[] { createLabel(name), b }));
@@ -133,6 +125,10 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 	protected JTextField addField(int length) {
 		return (JTextField) add(createField(length));
 	}
+	
+	protected JTextArea addTextBox() {
+		return (JTextArea) add(createTextBox());
+	}
 
 	protected JLabel createLabel(String name) {
 		JLabel j = new JLabel(name);
@@ -150,6 +146,13 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 	protected JTextField createField(int length) {
 		JTextField t = new JTextField(length);
 		t.setFont(font);
+		return t;
+	}
+	
+	protected JTextArea createTextBox() {
+		JTextArea t = new JTextArea(3, 20);
+		t.setFont(font);
+		//JScrollPane sp = new JScrollPane(t);
 		return t;
 	}
 
