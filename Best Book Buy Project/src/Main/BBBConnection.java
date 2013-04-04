@@ -2,13 +2,14 @@ package Main;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 
 public class BBBConnection {
 	
 	private static Connection con;
+	private String serverURL = "jdbc:mysql://db1.emich.edu:3306/nthomas2db?connectTimeout=3000";
+	private String username = "nthomas2";
+	private String password = "buyit!!!";
 	
 	public BBBConnection()
 	{
@@ -22,16 +23,18 @@ public class BBBConnection {
 			System.out.println("Connecting...");
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("Connected to driver!");
-			con = DriverManager.getConnection("jdbc:mysql://db1.emich.edu/ANBBB");
+			con = DriverManager.getConnection(serverURL, username, password);
+			System.out.println("Connected to server!");
 		}
 		catch (ClassNotFoundException e)
 		{
-			System.out.println("Driver Connection Error" + e.getMessage());
+			System.out.println("Driver Connection Error: " + e.getMessage());
 		}
 		
 		catch (SQLException e)
 		{
-			System.out.println("Server Connection Error" + e.getMessage());
+			System.out.println("Server Connection Error: " + e.getMessage());
+			e.printStackTrace();
 		}
 		
 		return con;
