@@ -147,6 +147,13 @@ public class Book {
 		return reviews;
 	}
 	
+	public String getAuthorString() {
+		String out = "";
+		for (String s : authors)
+			out += s + " ";
+		return out.trim();
+	}
+	
 	private boolean checkPublisher()
 	{
 		return BookRegExp.publisher(publisher);

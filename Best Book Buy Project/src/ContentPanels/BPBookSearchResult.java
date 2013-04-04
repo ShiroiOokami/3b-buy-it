@@ -5,12 +5,14 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.border.EtchedBorder;
 
+import Main.Book;
 
 public class BPBookSearchResult extends BBBPanel {
 
@@ -19,20 +21,24 @@ public class BPBookSearchResult extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BPBookSearchResult(JFrame frame) {
+private ArrayList<Book> booklist;
+
+	public BPBookSearchResult(JFrame frame, ArrayList<Book> arrayList) {
 		super(frame);
 		
-		this.addLabel("Your Shopping Cart Has 6 items");
-		this.addButton("Shopping Cart");
-		JComponent[] j = new JComponent[] {
-				new SearchResults(frame),
-				new SearchResults(frame),
-				new SearchResults(frame)
-				};
-		this.add(this.createScrollWrapper(j));
-		this.addButton("Checkout");
-		this.addButton("New Search");
-		this.addButton("Exit");
+		booklist = arrayList;
+		arrayList.add(new Book());
+		arrayList.add(new Book());
+		arrayList.add(new Book());
+		addLabel("Your Shopping Cart Has 6 items");
+		addButton("Shopping Cart");
+		SearchResults[] j = new SearchResults[booklist.size()];
+		for (int i = 0; i < booklist.size(); i++)
+			j[i] = new SearchResults(frame, booklist.get(i));
+		add(createScrollWrapper(j));
+		addButton("Checkout");
+		addButton("New Search");
+		addButton("Exit");
 	}
 	
 	private class SearchResults extends BBBPanel {
@@ -42,8 +48,10 @@ public class BPBookSearchResult extends BBBPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		public SearchResults(JFrame frame) {
+		Book book;
+		public SearchResults(JFrame frame, Book b) {
 			super(frame);
+			book = b;
 			font = new Font("Verdana", Font.BOLD, 12);
 			this.setPreferredSize(new Dimension(350,120));
 			this.setBackground(Color.WHITE);
@@ -51,24 +59,23 @@ public class BPBookSearchResult extends BBBPanel {
 			this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 			
 			JComponent[] comps = new JComponent[] {
-					this.createButton("Add to Cart"),
-					this.createButton("Reviews")
+					createButton("Add to Cart"),
+					createButton("Reviews")
 			};
-			this.add(this.createVerticalWrapper(comps));
+			add(createVerticalWrapper(comps));
 			
 			JComponent[] comps2 = new JComponent[] {
-					this.createLabel("Title: <Title>"),
-					this.createLabel("Author: <Author Author>"),
-					this.createLabel("Publisher: <Publisher Publisher>"),
-					this.createLabel("ISBN: <ISBN>"),
-					this.createLabel("Price: Free Today")
+					createLabel("Title: " + book.getTitle()),
+					createLabel("Author: " + book.getAuthorString()),
+					createLabel("Publisher: " + book.getPulisher()),
+					createLabel("ISBN: " + book.getISBN()),
+					createLabel("Price: " + book.getPrice())
 			};
-			this.add(this.createVerticalWrapper(comps2));
+			add(createVerticalWrapper(comps2));
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
 			
 		}
 	}

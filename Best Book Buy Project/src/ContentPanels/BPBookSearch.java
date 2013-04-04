@@ -2,10 +2,12 @@ package ContentPanels;
 
 import java.awt.event.ActionEvent;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 
 import Main.Subject;
-
+import Main.Book;
 
 public class BPBookSearch extends BBBPanel {
 
@@ -38,7 +40,7 @@ public class BPBookSearch extends BBBPanel {
 			break;
 		case "Search":
 			parentFrame.switchDisplayContents(
-					new BPBookSearchResult(parentFrame));
+					new BPBookSearchResult(parentFrame, new ArrayList<Book>()));
 			break;
 		case "Manage Shopping Cart":
 			parentFrame.switchDisplayContents(
