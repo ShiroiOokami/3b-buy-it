@@ -42,6 +42,11 @@ public class Book {
 			setWarning(title);
 	}
 	
+	public void setTitle(String title)
+	{
+		this.title = title;
+	}
+	
 	public void setISBN(JTextField ISBN)
 	{
 		if (ISBN.getText().length() == 0)
@@ -51,6 +56,11 @@ public class Book {
 			unsetWarning(ISBN);
 		else
 			setWarning(ISBN);
+	}
+	
+	public void setISBN(String ISBN)
+	{
+		this.ISBN = ISBN;
 	}
 	
 	public void setMinQty(JTextField minQty)
@@ -64,6 +74,11 @@ public class Book {
 			setWarning(minQty);
 	}
 	
+	public void setMinQty(String minQty)
+	{
+		this.minQty = minQty;
+	}
+	
 	public void setPrice(JTextField price)
 	{
 		if (price.getText().length() == 0)
@@ -73,6 +88,11 @@ public class Book {
 			unsetWarning(price);
 		else
 			setWarning(price);
+	}
+	
+	public void setPrice(String price)
+	{
+		this.price = price;
 	}
 	
 	public void setPulisher(JTextField publisher)
@@ -86,6 +106,11 @@ public class Book {
 			setWarning(publisher);
 	}
 	
+	public void setPublisher(String publisher)
+	{
+		this.publisher = publisher;
+	}
+	
 	public void setYear(JTextField year)
 	{
 		if (year.getText().length() == 0)
@@ -95,6 +120,11 @@ public class Book {
 			unsetWarning(year);
 		else
 			setWarning(year);
+	}
+	
+	public void setYear(String year)
+	{
+		this.year = year;
 	}
 	
 	public void setAuthors(ArrayList<String> authors)

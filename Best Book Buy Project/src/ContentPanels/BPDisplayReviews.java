@@ -22,20 +22,26 @@ public class BPDisplayReviews extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BPDisplayReviews(JFrame frame) {
+	private ArrayList<Book> booklist;
+	private Book book;
+	
+	public BPDisplayReviews(JFrame frame, ArrayList<Book> bl, Book b) {
 		super(frame);
 		
-		this.addLabelLabel("Reviews For:", "<Title>");
-		this.addLabelLabel("By:", "<Author>");
+		booklist = bl;
+		book = b;
 		
-		JComponent[] j = new JComponent[] {
-				new DisplayReview(frame),
-				new DisplayReview(frame),
-				new DisplayReview(frame)
-		};
+		addLabel("Reviews For: " + book.getTitle());
+		addLabel("By: " + book.getAuthorString());
 		
-		this.add(this.createScrollWrapper(j));
-		this.addButton("Done");
+		DisplayReview[] j = new DisplayReview[book.getReviews().size()];
+		for (int i = 0; i < book.getReviews().size(); i++)
+			j[i] = new DisplayReview(frame, book.getReviews().get(i));
+		if (book.getReviews().size() == 0)
+			add(createLabel("No Reviews For This Book"));
+		else
+			add(createScrollWrapper(j));
+		addButton("Done");
 	}
 	
 	private class DisplayReview extends BBBPanel {
@@ -45,14 +51,15 @@ public class BPDisplayReviews extends BBBPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private DisplayReview(JFrame frame) {
+		private DisplayReview(JFrame frame, String review) {
 			super(frame);
 			font = new Font("Verdana", Font.BOLD, 12);
 			this.setBackground(Color.WHITE);
 			this.setLayout(new FlowLayout());
 			this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
-			JTextArea a = this.addTextBox();
+			JTextArea a = addTextBox();
+			a.setText(review);
 			Dimension d = new Dimension(a.getPreferredSize());
 			d.setSize(d.getWidth() + 20, d.getHeight() + 20);
 			this.setPreferredSize(d);
@@ -70,7 +77,7 @@ public class BPDisplayReviews extends BBBPanel {
 		{
 		case "Done":
 			parentFrame.switchDisplayContents(
-					new BPBookSearchResult(parentFrame, new ArrayList<Book>()));
+					new BPBookSearchResult(parentFrame, booklist));
 			break;
 
 		}

@@ -27,7 +27,9 @@ private ArrayList<Book> booklist;
 		super(frame);
 		
 		booklist = arrayList;
-		arrayList.add(new Book());
+		Book b = new Book();
+		b.setTitle("This is a title");
+		arrayList.add(b);
 		arrayList.add(new Book());
 		arrayList.add(new Book());
 		addLabel("Your Shopping Cart Has 6 items");
@@ -76,7 +78,15 @@ private ArrayList<Book> booklist;
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			
+			switch (e.getActionCommand())
+			{
+			case "Add to Cart":
+				break;
+			case "Reviews":
+				parentFrame.switchDisplayContents(
+						new BPDisplayReviews(parentFrame, booklist, book));
+				break;
+			}
 		}
 	}
 
