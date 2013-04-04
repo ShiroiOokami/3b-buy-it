@@ -40,11 +40,12 @@ public class BPUserLogin extends BBBPanel {
 		{
 		case "Login":
 			Connection con = BBBConnection.getConnection();
-			String querry = "SELECT pin, uesrType FROM user WHERE username LIKE '" + username.getText() + "'";
+			String querry = "SELECT PIN, UserType FROM user WHERE username LIKE '" + username.getText() + "'";
 			int sPin = -1;
 			String sUserType = null;
 			
-			/*try
+			///*
+			try
 			{
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery(querry);
@@ -57,9 +58,10 @@ public class BPUserLogin extends BBBPanel {
 			catch (SQLException error)
 			{
 				System.out.println("Error");
+				error.printStackTrace();
 			}
 			
-			if (Integer.toString(sPin).equals(pin))
+			if (Integer.toString(sPin).equals(pin.getText()))
 			{
 				if(sUserType.equals("A"))
 				{
@@ -79,9 +81,9 @@ public class BPUserLogin extends BBBPanel {
 				parentFrame.switchDisplayContents(
 						new BPLandingPage(parentFrame));
 			}
-			*/
-			parentFrame.switchDisplayContents(
-					new BPAdministratorTask(parentFrame));
+			//*/
+			//parentFrame.switchDisplayContents(
+			//		new BPAdministratorTask(parentFrame));
 			break;
 		case "Cancel":
 			parentFrame.switchDisplayContents(
