@@ -30,6 +30,8 @@ public class BPUpdateCustomer extends BBBPanel {
 	private JComboBox cardType;
 	private JTextField cardNum;
 	private JTextField cardDate;
+	
+	private User user = parentFrame.user;
 
 	public BPUpdateCustomer(JFrame frame) {
 		super(frame);
@@ -71,9 +73,7 @@ public class BPUpdateCustomer extends BBBPanel {
 	}
 	
 	private void eatUser()
-	{
-		User user = parentFrame.user;
-		
+	{	
 		firstName.setText(user.getFirstName());
 		lastName.setText(user.getLastName());
 		PIN.setText(user.getPIN());
@@ -91,6 +91,8 @@ public class BPUpdateCustomer extends BBBPanel {
 		{
 		case "Update":
 			feedUser();
+			user.updateCustomer();
+			
 			if (parentFrame.user.checkCustomer())
 				parentFrame.switchDisplayContents(
 					new BPCheckoutScreen(parentFrame));

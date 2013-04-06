@@ -9,10 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JTextField;
 
-
-
-
-
 public class User {
 	private String userName;
 	private String fName;
@@ -403,6 +399,27 @@ public class User {
 			return false;
 		}
 		
+	}
+	
+	public boolean updateCustomer ()
+	{
+		Connection con = BBBConnection.getConnection();
+
+		String userQuerry = "Update User Set fName=\"" + fName + "\", lName=\"" + lName + "\", PIN=" + pin + ", StreetAdd=\"" + address + "\", Zip=" + zip + ", State=\"" + state.getCode() + "\", City=\"" + city + "\" Where UserName Like \"" + userName + "\"";
+		String customerQuerry = "Update Customer Set creditNum=" + cardNum + ", creditType=\"" + cardType.toString() + "\", expDate=\"" + expDate + "\" Where UserName Like \"" + userName + "\"";
+
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(userQuerry);
+			stmt.executeUpdate(customerQuerry);
+			return true;
+		}
+		catch (SQLException error)
+		{
+			System.out.println("User Insertion Querry Error");
+			error.printStackTrace();
+			return false;
+		}
 	}
 
 	private void unsetWarning(JTextField f) {
