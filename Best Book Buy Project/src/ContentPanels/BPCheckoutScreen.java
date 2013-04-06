@@ -72,7 +72,7 @@ public class BPCheckoutScreen extends BBBPanel {
 		private CustomerInfo(JFrame frame) {
 			super(frame);
 			font = new Font("Verdana", Font.BOLD, 9);
-			this.setPreferredSize(new Dimension(200,100));
+			this.setPreferredSize(new Dimension(150,100));
 			this.setBackground(Color.WHITE);
 			this.setLayout(new GridLayout(5,1));
 			this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
@@ -101,13 +101,13 @@ public class BPCheckoutScreen extends BBBPanel {
 		private AskForCardBox(JFrame frame) {
 			super(frame);
 			font = new Font("Verdana", Font.BOLD, 12);
-			setPreferredSize(new Dimension(150,100));
+			setPreferredSize(new Dimension(200,100));
 			setBackground(Color.WHITE);
 			setLayout(new FlowLayout(FlowLayout.CENTER));
 			//this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
 			cardType = addCombo(stringList(CardType.class));
-			cardNum = addField(10);
+			cardNum = addField(16);
 			cardDate = addField(10);
 			
 			User user = parentFrame.user;
@@ -169,7 +169,12 @@ public class BPCheckoutScreen extends BBBPanel {
 						new BPCustomerRegistration(parentFrame));
 			break;
 		case "BUY IT!!!!!!":
-			parentFrame.switchDisplayContents(
+			User user = parentFrame.user;
+			user.setCardType(CardType.values()[cardType.getSelectedIndex()]);
+			user.setCardNum(cardNum);
+			user.setExpDate(cardDate);
+			if (user.checkCustomer())
+				parentFrame.switchDisplayContents(
 					new BPProofOfPurchase(parentFrame));
 			break;			
 		}

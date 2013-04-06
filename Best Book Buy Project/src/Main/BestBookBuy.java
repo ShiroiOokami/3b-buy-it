@@ -48,4 +48,14 @@ public class BestBookBuy extends JFrame {
 		add(p);
 		pack();
 	}
+	
+	public String getCurDate()
+	{
+		return "YY/MM/DD";
+	}
+	
+	public String getCurTime()
+	{
+		return "HH:MM:SS";
+	}
 }

@@ -327,6 +327,12 @@ public class Book {
 			this.curQty = rs.getString("Qty");
 			this.price = rs.getString("Price");
 			this.deleted = rs.getString("Deleted");
+			String s = rs.getString("Category");
+			for (Subject c : Subject.values())
+				if (s.equals(c.toString()))
+					this.category = c;
+			if (this.category == null)
+				category = Subject.Misc;
 			
 			authors = new ArrayList<String>();
 			rs = stmt.executeQuery(authorQuerry);

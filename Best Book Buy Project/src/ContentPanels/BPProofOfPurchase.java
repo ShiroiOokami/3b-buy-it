@@ -6,11 +6,15 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.border.EtchedBorder;
+
+import Main.Book;
+import Main.User;
 
 public class BPProofOfPurchase extends BBBPanel {
 
@@ -22,26 +26,27 @@ public class BPProofOfPurchase extends BBBPanel {
 	public BPProofOfPurchase(JFrame frame) {
 		super(frame);
 
-		this.addLabel("                              Proof of Purchase                    ");
-		this.add(new CustomerInfo(frame));
-		this.add(new ShowUserInfo(frame));
+		addLabel("                              Proof of Purchase                    ");
+		add(new CustomerInfo(frame));
+		add(new ShowUserInfo(frame));
 
-		JComponent[] o = new JComponent[] { 
-				new OrderSummary(frame),
-				new OrderSummary(frame),
-				new OrderSummary(frame)
-		};
-		this.add(this.createScrollWrapper(o));
+		ArrayList<Book> cartlist = parentFrame.cart.getBooksInCart();
+		OrderSummary[] o = new OrderSummary[cartlist.size()];
+		for (int i = 0; i < cartlist.size(); i++)
+			o[i] = new OrderSummary(frame,cartlist.get(i));
+		if (cartlist.size() == 0)
+			addLabel("No Items In Cart (wtf?)");
+		else
+			add(createScrollWrapper(o));
 
-		this.addLabelLabel("Shipping Notice: The book will be here in:",
-				"5 business days");
-		this.addLabelLabel("Subtotal:", "<Subtotal>");
-		this.addLabelLabel("S&H:", "<Fees>");
-		this.addLabelLabel("Total:", "<Total>");
+		addLabel("Shipping Notice: The book will be here in 5 business days");
+		addLabel("Subtotal: " + parentFrame.cart.getCartSubtotalString());
+		addLabel("S&H: " + "5.00");
+		addLabel("Total: " + (parentFrame.cart.getCartSubtotal() + 5));
 
-		this.addButton("Print");
-		this.addButton("New Search");
-		this.addButton("Exit");
+		addButton("Print");
+		addButton("New Search");
+		addButton("Exit");
 
 	}
 
@@ -54,17 +59,18 @@ public class BPProofOfPurchase extends BBBPanel {
 		private CustomerInfo(JFrame frame) {
 			super(frame);
 			font = new Font("Verdana", Font.BOLD, 9);
-			this.setPreferredSize(new Dimension(200, 100));
-			this.setBackground(Color.WHITE);
-			this.setLayout(new GridLayout(5, 1));
-			this.setBorder(BorderFactory
+			setPreferredSize(new Dimension(150, 100));
+			setBackground(Color.WHITE);
+			setLayout(new GridLayout(5, 1));
+			setBorder(BorderFactory
 					.createEtchedBorder(EtchedBorder.LOWERED));
 
-			this.addLabel("<Shipping Address>");
-			this.addLabel("<Customer Name>");
-			this.addLabel("<Address>");
-			this.addLabel("<City>");
-			this.addLabel("<State>, <Zip>");
+			User user = parentFrame.user;
+			addLabel("Shipping Address:");
+			addLabel(user.getFirstName() + " " +  user.getLastName());
+			addLabel(user.getAddress());
+			addLabel(user.getCity());
+			addLabel(user.getState().getCode() + ", " + user.getZIP());
 		}
 
 		@Override
@@ -83,16 +89,18 @@ public class BPProofOfPurchase extends BBBPanel {
 		private ShowUserInfo(JFrame frame) {
 			super(frame);
 			font = new Font("Verdana", Font.BOLD, 10);
-			this.setPreferredSize(new Dimension(150, 100));
+			this.setPreferredSize(new Dimension(175, 100));
 			this.setBackground(Color.WHITE);
 			this.setLayout(new FlowLayout(FlowLayout.CENTER));
 
+			User user = parentFrame.user;
 			JComponent[] comps = new JComponent[] {
-					createLabel("UserID: User Name"),
-					createLabel("Date: MM/DD/YY"),
-					createLabel("Time: HH/MM/SS"),
+					createLabel("UserID: " + user.getUserName()),
+					createLabel("Date: " + parentFrame.getCurDate()),
+					createLabel("Time: " + parentFrame.getCurTime()),
 					createLabel("Credit Card Information"),
-					createLabel("VISA - 1234567890")
+					createLabel(user.getCardType().toString() + " - " +
+							user.getCardNum())
 			};
 			add(createVerticalWrapper(comps));
 		}
@@ -110,18 +118,22 @@ public class BPProofOfPurchase extends BBBPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private OrderSummary(JFrame frame) {
+		private Book book;
+		private OrderSummary(JFrame frame, Book b) {
 			super(frame);
+			book = b;
 			font = new Font("Verdana", Font.BOLD, 12);
-			this.setPreferredSize(new Dimension(350, 60));
-			this.setBackground(Color.WHITE);
-			this.setLayout(new GridLayout(3, 1));
-			this.setBorder(BorderFactory
+			setPreferredSize(new Dimension(350, 60));
+			setBackground(Color.WHITE);
+			setLayout(new GridLayout(3, 1));
+			setBorder(BorderFactory
 					.createEtchedBorder(EtchedBorder.LOWERED));
 
-			this.addLabel("<The Title>");
-			this.addLabel("By: Author");
-			this.addLabel("Price: <Price> Qty: 1 <Cost>");
+			addLabel(book.getTitle());
+			addLabel("By: " + book.getAuthorString());
+			addLabel("Price: " + book.getPrice() +
+					" Qty: " + parentFrame.cart.getQty(book) + " " +
+					parentFrame.cart.getBookSubtotalString(book));
 		}
 
 		@Override
