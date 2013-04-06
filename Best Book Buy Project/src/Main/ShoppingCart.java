@@ -35,6 +35,7 @@ public class ShoppingCart {
 	{
 		cart.put(b, q);
 	}
+	
 	public ArrayList<Book> getBooksInCart() {
 		ArrayList<Book> list = new ArrayList<Book>();
 		for (Book b : cart.keySet())
@@ -42,12 +43,8 @@ public class ShoppingCart {
 		return list;
 	}
 	
-	public int itemsInCart() {
-		int count = 0;
-		for (Book b : cart.keySet())
-			count += cart.get(b);
-		
-		return count;
+	public int sizeOfCart() {
+		return cart.size();
 	}
 	public int getQty(Book b)
 	{

@@ -6,14 +6,17 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
+import Main.Book;
 import Main.CardType;
 import Main.User;
 
@@ -31,27 +34,33 @@ public class BPCheckoutScreen extends BBBPanel {
 	public BPCheckoutScreen(JFrame frame) {
 		super(frame);
 		
-		this.addLabel("                    Confirm Order                    ");
-		this.add(new CustomerInfo(frame));
-		this.add(new AskForCardBox(frame));
-		
-		
-		JComponent[] o = new JComponent[] {
-				new OrderSummary(frame),
-				new OrderSummary(frame),
-				new OrderSummary(frame)
-		};
-		this.add(this.createScrollWrapper(o));
+		addLabel("                    Confirm Order                    ");
+		add(new CustomerInfo(frame));
+		add(new AskForCardBox(frame));
 
-		this.addLabelLabel("Shipping Notice: The book will be here in:", "5 business days");
-		this.addLabelLabel("Subtotal:", "<Subtotal>");
-		this.addLabelLabel("S&H:", "<Fees>");
-		this.addLabelLabel("Total:", "<Total>");
+		ArrayList<Book> cartlist = parentFrame.cart.getBooksInCart();
+		OrderSummary[] o = new OrderSummary[cartlist.size()];
+		for (int i = 0; i < cartlist.size(); i++)
+			o[i] = new OrderSummary(frame,cartlist.get(i));
+		if (cartlist.size() == 0)
+			addLabel("No Items In Cart");
+		else
+			add(createScrollWrapper(o));
+
+		addLabel("Shipping Notice: The book will be here in 5 business days");
+		addLabel("Subtotal: " + parentFrame.cart.getCartSubtotalString());
+		addLabel("S&H: " + "5.00");
+		addLabel("Total: " + (parentFrame.cart.getCartSubtotal() + 5));
 		
-		this.addButton("New Search");
-		this.addButton("Update Profile");
-		this.addButton("BUY IT!!!!!!");
-		
+		JButton but;
+		JComponent[] buts = new JComponent[] {
+				createButton("New Search"),
+				createButton("Update Profile"),
+				but = createButton("BUY IT!!!!!!")
+		};
+		if (cartlist.size() == 0)
+			but.setEnabled(false);
+		add(createHorizontalWrapper(buts));
 	}
 	
 	private class CustomerInfo extends BBBPanel {
@@ -92,9 +101,9 @@ public class BPCheckoutScreen extends BBBPanel {
 		private AskForCardBox(JFrame frame) {
 			super(frame);
 			font = new Font("Verdana", Font.BOLD, 12);
-			this.setPreferredSize(new Dimension(150,100));
-			this.setBackground(Color.WHITE);
-			this.setLayout(new FlowLayout(FlowLayout.CENTER));
+			setPreferredSize(new Dimension(150,100));
+			setBackground(Color.WHITE);
+			setLayout(new FlowLayout(FlowLayout.CENTER));
 			//this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
 			cardType = addCombo(stringList(CardType.class));
@@ -120,17 +129,21 @@ public class BPCheckoutScreen extends BBBPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		private OrderSummary(JFrame frame) {
+		private Book book;
+		private OrderSummary(JFrame frame, Book b) {
 			super(frame);
+			book = b;
 			font = new Font("Verdana", Font.BOLD, 12);
-			this.setPreferredSize(new Dimension(350,60));
-			this.setBackground(Color.WHITE);
-			this.setLayout(new GridLayout(3, 1));
-			this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
+			setPreferredSize(new Dimension(350,60));
+			setBackground(Color.WHITE);
+			setLayout(new GridLayout(3, 1));
+			setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 
-			this.addLabel("<The Title>");
-			this.addLabel("By: Author");
-			this.addLabel("Price: <Price> Qty: 1 <Cost>");
+			addLabel(book.getTitle());
+			addLabel("By: " + book.getAuthorString());
+			addLabel("Price: " + book.getPrice() +
+					" Qty: " + parentFrame.cart.getQty(book) + " " +
+					parentFrame.cart.getBookSubtotalString(book));
 		}
 
 		@Override

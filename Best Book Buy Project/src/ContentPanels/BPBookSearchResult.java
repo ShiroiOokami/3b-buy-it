@@ -36,7 +36,7 @@ private JLabel shopLabel;
 		b = new Book();
 		b.fetchBook("1234567890133");
 		booklist.add(b);
-		shopLabel = createLabel("Your Shopping Cart Has " + parentFrame.cart.itemsInCart()
+		shopLabel = createLabel("Your Shopping Cart Has " + parentFrame.cart.sizeOfCart()
 				+ " items");
 		add(shopLabel);
 		addButton("Shopping Cart");
@@ -53,7 +53,7 @@ private JLabel shopLabel;
 	}
 	
 	private void updateText() {
-		shopLabel.setText("Your Shopping Cart Has " + parentFrame.cart.itemsInCart()
+		shopLabel.setText("Your Shopping Cart Has " + parentFrame.cart.sizeOfCart()
 				+ " items");
 	}
 	
