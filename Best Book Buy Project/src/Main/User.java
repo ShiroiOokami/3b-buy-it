@@ -264,30 +264,66 @@ public class User {
 	{
 		java.sql.Connection con = BBBConnection.getConnection();
 		
+		String userQuerry = "Select * from User where UserName Like '" + username + "'";
+		String customerQuerry = "Select * from User natural join Customer where UserName Like '" + username + "'";
+		String adminQuerry = "Select * from (User natural join Admin_Phone) natural join Admin where UserName like '" + username + "'";
+		
 		String querry = "Select * from User natural join Customer where UserName Like '" + username + "'";
 		
 		try {
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(querry);
 			
-			while(rs.next())
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(userQuerry);
+			
+			rs.next();
+			
+			if(rs.getString("UserType").equals("C"))
 			{
-				this.userName = rs.getString("UserName");
-				this.fName = rs.getString("fName");
-				this.lName = rs.getString("lName");
-				this.pin = rs.getString("PIN");
-				this.address = rs.getString("StreetAdd");
-				this.city = rs.getString("City");
-				//this.state = rs.getString("State");
-				this.zip = rs.getString("Zip");
-				//this.cardType = rs.getString("creditType");
-				this.cardNum = rs.getString("creditNum");
+				rs = stmt.executeQuery(customerQuerry);
 				
+				while(rs.next())
+				{
+					this.userName = rs.getString("UserName");
+					this.fName = rs.getString("fName");
+					this.lName = rs.getString("lName");
+					this.pin = rs.getString("PIN");
+					this.address = rs.getString("StreetAdd");
+					this.zip = rs.getString("Zip");
+					//this.state = rs.getString("State");
+					this.city = rs.getString("City");
+					//this.cardType = rs.getString("creditType");
+					this.cardNum = rs.getString("creditNum");
+					this.expDate = rs.getString("expDate");
+				}
 			}
+			else
+			{
+				rs = stmt.executeQuery(adminQuerry);
+				
+				// Remove default number
+				this.phoneNums.remove(0);
+				
+				while(rs.next())
+				{
+					this.userName = rs.getString("UserName");
+					this.fName = rs.getString("fName");
+					this.lName = rs.getString("lName");
+					this.pin = rs.getString("PIN");
+					this.address = rs.getString("StreetAdd");
+					this.zip = rs.getString("Zip");
+					//this.state = rs.getString("State");
+					this.city = rs.getString("City");
+					this.phoneNums.add(rs.getString("PhoneNum"));
+					this.hireDate = rs.getString("HireDate");
+				}
+			}
+			
+			rs.close();
+			
 		}
 		catch (SQLException error)
 		{
-			System.out.println("Querry Error");
+			System.out.println("User Fetch Querry Error");
 			error.printStackTrace();
 		}
 		
