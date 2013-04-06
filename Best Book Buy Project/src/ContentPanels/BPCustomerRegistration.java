@@ -1,5 +1,6 @@
 package ContentPanels;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JComboBox;
@@ -30,6 +31,8 @@ public class BPCustomerRegistration extends BBBPanel {
 	private JComboBox cardType;
 	private JTextField cardNum;
 	private JTextField cardDate;
+
+	private User user = parentFrame.user;
 	
 	public BPCustomerRegistration(JFrame frame) {
 		super(frame);
@@ -54,9 +57,7 @@ public class BPCustomerRegistration extends BBBPanel {
 	}
 		
 	private void feedUser()
-	{
-		User user = parentFrame.user;
-		
+	{	
 		user.setUserName(userName);
 		user.setFirstName(firstName);
 		user.setLastName(lastName);
@@ -80,8 +81,16 @@ public class BPCustomerRegistration extends BBBPanel {
 		case "Register":
 			feedUser();
 			if (parentFrame.user.checkCustomer())
-				parentFrame.switchDisplayContents(
-					new BPBookSearch(parentFrame));
+				if(user.addCustomer())
+				{
+					parentFrame.switchDisplayContents(
+							new BPBookSearch(parentFrame));
+				}
+				else
+				{
+					userName.setText("Username already in Use");
+					userName.setForeground(Color.RED);
+				}
 			break;
 		}
 	}

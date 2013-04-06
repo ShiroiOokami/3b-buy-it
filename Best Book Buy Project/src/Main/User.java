@@ -2,11 +2,13 @@ package Main;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JTextField;
+
 
 
 
@@ -289,9 +291,24 @@ public class User {
 					this.pin = rs.getString("PIN");
 					this.address = rs.getString("StreetAdd");
 					this.zip = rs.getString("Zip");
-					//this.state = rs.getString("State");
+					String serverState = rs.getString("State");
+					System.out.println(serverState);
+					for (USState s : USState.values())
+					{
+						if(s.getCode().equalsIgnoreCase(serverState))
+						{
+							this.state = s;
+						}
+					}
 					this.city = rs.getString("City");
-					//this.cardType = rs.getString("creditType");
+					String serverType = rs.getString("creditType");
+					for (CardType t : CardType.values())
+					{
+						if(t.getName().equalsIgnoreCase(serverType))
+						{
+							this.cardType = t;
+						}
+					}
 					this.cardNum = rs.getString("creditNum");
 					this.expDate = rs.getString("expDate");
 				}
@@ -365,8 +382,29 @@ public class User {
 
 		return pass;
 	}
-
 	
+	public boolean addCustomer ()
+	{
+		Connection con = BBBConnection.getConnection();
+		
+		String userQuerry = "Insert into User values (\"" + userName + "\", \"" + fName + "\", \"" + lName + "\"," + pin + ", \"" + address + "\", " + zip + ", \"" + state.getCode() + "\", \"" + city + "\", \"C\")";
+		String customerQuerry = "Insert into Customer values (\"" + userName + "\", " + cardNum + ", \"" + cardType.toString() + "\", \"" + expDate + "\")";
+			
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(userQuerry);
+			stmt.executeUpdate(customerQuerry);
+			return true;
+		}
+		catch (SQLException error)
+		{
+		//	System.out.println("User Insertion Querry Error");
+		//	error.printStackTrace();
+			return false;
+		}
+		
+	}
+
 	private void unsetWarning(JTextField f) {
 		f.setForeground(Color.BLACK);
 	}
