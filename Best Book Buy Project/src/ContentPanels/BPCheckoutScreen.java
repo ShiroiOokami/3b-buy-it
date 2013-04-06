@@ -174,8 +174,11 @@ public class BPCheckoutScreen extends BBBPanel {
 			user.setCardNum(cardNum);
 			user.setExpDate(cardDate);
 			if (user.checkCustomer())
+			{
+				user.updateCustomer();
 				parentFrame.switchDisplayContents(
 					new BPProofOfPurchase(parentFrame));
+			}
 			break;			
 		}
 	}

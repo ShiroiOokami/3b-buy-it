@@ -288,7 +288,6 @@ public class User {
 					this.address = rs.getString("StreetAdd");
 					this.zip = rs.getString("Zip");
 					String serverState = rs.getString("State");
-					System.out.println(serverState);
 					for (USState s : USState.values())
 					{
 						if(s.getCode().equalsIgnoreCase(serverState))
@@ -324,7 +323,14 @@ public class User {
 					this.pin = rs.getString("PIN");
 					this.address = rs.getString("StreetAdd");
 					this.zip = rs.getString("Zip");
-					//this.state = rs.getString("State");
+					String serverState = rs.getString("State");
+					for (USState s : USState.values())
+					{
+						if(s.getCode().equalsIgnoreCase(serverState))
+						{
+							this.state = s;
+						}
+					}
 					this.city = rs.getString("City");
 					this.phoneNums.add(rs.getString("PhoneNum"));
 					this.hireDate = rs.getString("HireDate");
@@ -412,6 +418,33 @@ public class User {
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(userQuerry);
 			stmt.executeUpdate(customerQuerry);
+			return true;
+		}
+		catch (SQLException error)
+		{
+			System.out.println("User Insertion Querry Error");
+			error.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean updateAdmin ()
+	{
+		Connection con = BBBConnection.getConnection();
+
+		String userQuerry = "Update User Set fName=\"" + fName + "\", lName=\"" + lName + "\", PIN=" + pin + ", StreetAdd=\"" + address + "\", Zip=" + zip + ", State=\"" + state.getCode() + "\", City=\"" + city + "\" Where UserName Like \"" + userName + "\"";
+		String deleteNums = "Delete from Admin_Phone where UserName Like \"" + userName + "\"";
+	
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(userQuerry);
+			stmt.executeUpdate(deleteNums);
+			
+			for(String pNum : phoneNums)
+			{
+				String adminPhoneQuery = "Insert into Admin_Phone values (\"" + userName + "\", \"" + pNum + "\")";
+				stmt.executeUpdate(adminPhoneQuery);
+			}
 			return true;
 		}
 		catch (SQLException error)

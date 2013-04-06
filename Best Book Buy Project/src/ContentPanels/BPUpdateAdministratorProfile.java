@@ -40,6 +40,8 @@ public class BPUpdateAdministratorProfile extends BBBPanel {
 	private JScrollPane pscroll;
 	private JPanel ppanel;
 	
+	User user = parentFrame.user;
+	
 	public BPUpdateAdministratorProfile(JFrame frame) {
 		super(frame);
 		
@@ -100,9 +102,7 @@ public class BPUpdateAdministratorProfile extends BBBPanel {
 	}
 	
 	private void eatUser()
-	{
-		User user = parentFrame.user;
-		
+	{	
 		firstName.setText(user.getFirstName());
 		lastName.setText(user.getLastName());
 		PIN.setText(user.getPIN());
@@ -148,8 +148,11 @@ public class BPUpdateAdministratorProfile extends BBBPanel {
 		case "Update":
 			feedUser();
 			if (parentFrame.user.checkAdmin())
+			{
+				user.updateAdmin();
 				parentFrame.switchDisplayContents(
 					new BPAdministratorTask(parentFrame));
+			}
 			break;
 		case "Cancel":
 			parentFrame.switchDisplayContents(
