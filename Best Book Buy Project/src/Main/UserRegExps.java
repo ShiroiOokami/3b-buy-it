@@ -1,7 +1,7 @@
 package Main;
 
 public class UserRegExps {
-	private static String UserName = "^[A-Za-z][A-Za-z]{0,11}$";
+	private static String UserName = "^[A-Za-z]{1,11}$";
 	private static String Name = "^[A-Z][A-Za-z.]{0,19}$";
 	private static String PIN = "^\\d{4}$";
 	private static String StreetAdd = "^[\\w][\\w\\s\\.]{0,29}$";

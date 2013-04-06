@@ -4,9 +4,9 @@ public class BookRegExp {
 		private static String isbn = "^\\d{13}$";
 		private static String title = "^[\\w][\\w\\s]{0,19}";
 		private static String publisher = "^[\\w\\d][\\w\\s.-]{0,19}$";
-		private static String year = "^\\d{0,4}$";
+		private static String year = "^\\d{4}$";
 		private static String price = "^[0-9]{0,3}+\\.[0-9]{2}$";
-		private static String minQty = "^\\d{0,4}$";
+		private static String qty = "^\\d{1,4}$";
 		private static String review = "\\A[\\w][\\w\\d.\\s*&!?\"\']{0,254}\\Z";
 		private static String author = "[A-Z][a-z]+( [A-Z][a-z]+)?";
 		
@@ -35,9 +35,9 @@ public class BookRegExp {
 			return p.matches(price);
 		}
 		
-		public static boolean minQty (String q)
+		public static boolean qty (String q)
 		{
-			return q.matches(minQty);
+			return q.matches(qty);
 		}
 		
 		public static boolean review (String r)

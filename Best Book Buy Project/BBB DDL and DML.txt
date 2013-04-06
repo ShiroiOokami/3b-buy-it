@@ -64,7 +64,7 @@ create table Inventory(
 	Deleted char(1) not null, 
 	MinQty smallint not null, 
 	Qty smallint not null, 
-	Price numeric(3,2) not null,
+	Price numeric(5,2) not null,
 	foreign key (ISBN) references Book (ISBN));
 
 create table Book_Author(

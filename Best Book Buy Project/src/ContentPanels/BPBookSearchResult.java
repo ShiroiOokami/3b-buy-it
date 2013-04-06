@@ -31,7 +31,11 @@ private JLabel shopLabel;
 		
 		booklist = arrayList;
 		Book b = new Book();
-		b.setTitle("This is a title");
+		b.fetchBook("1234567890123");
+		booklist.add(b);
+		b = new Book();
+		b.fetchBook("1234567890133");
+		booklist.add(b);
 		shopLabel = createLabel("Your Shopping Cart Has " + parentFrame.cart.itemsInCart()
 				+ " items");
 		add(shopLabel);

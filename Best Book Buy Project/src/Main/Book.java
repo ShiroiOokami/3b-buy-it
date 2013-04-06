@@ -87,6 +87,22 @@ public class Book {
 		this.minQty = minQty;
 	}
 	
+	public void setCurQty(JTextField qty)
+	{
+		if (qty.getText().length() == 0)
+			qty.setText("<Qty>");
+		this.curQty = qty.getText();
+		if (checkCurQty())
+			unsetWarning(qty);
+		else
+			setWarning(qty);
+	}
+	
+	public void setCurQty(String qty)
+	{
+		this.curQty = qty;
+	}
+	
 	public void setPrice(JTextField price)
 	{
 		if (price.getText().length() == 0)
@@ -165,6 +181,11 @@ public class Book {
 		return minQty;
 	}
 	
+	public String getCurQty()
+	{
+		return curQty;
+	}
+	
 	public String getPulisher()
 	{
 		return publisher;
@@ -209,7 +230,12 @@ public class Book {
 	
 	private boolean checkMinQty()
 	{
-		return BookRegExp.minQty(minQty);
+		return BookRegExp.qty(minQty);
+	}
+	
+	private boolean checkCurQty()
+	{
+		return BookRegExp.qty(curQty);
 	}
 	
 	private boolean checkISBN()
@@ -302,13 +328,15 @@ public class Book {
 			this.price = rs.getString("Price");
 			this.deleted = rs.getString("Deleted");
 			
+			authors = new ArrayList<String>();
 			rs = stmt.executeQuery(authorQuerry);
 			while (rs.next())
 				this.authors.add(rs.getString("Author"));
 
+			reviews = new ArrayList<String>();
 			rs = stmt.executeQuery(reviewQuerry);
 			while (rs.next())
-				this.reviews.add(rs.getString("Author"));
+				this.reviews.add(rs.getString("Review"));
 
 		} catch (SQLException error) {
 			System.out.println("Book Fetch Querry Error");
@@ -322,7 +350,7 @@ public class Book {
 	{
 		if(obj instanceof Book)
 		{
-			return Integer.parseInt(ISBN) == Integer.parseInt(((Book) obj).ISBN);
+			return ISBN.matches(((Book) obj).ISBN);
 		}
 		else 
 		{

@@ -31,6 +31,10 @@ public class ShoppingCart {
 		return b;
 	}
 	
+	public void setQty(Book b, int q)
+	{
+		cart.put(b, q);
+	}
 	public ArrayList<Book> getBooksInCart() {
 		ArrayList<Book> list = new ArrayList<Book>();
 		for (Book b : cart.keySet())
@@ -47,7 +51,7 @@ public class ShoppingCart {
 	}
 	public int getQty(Book b)
 	{
-		return cart.get(b) == null ? 0 : cart.get(b);
+		return cart.containsKey(b) ? cart.get(b) : 0;
 	}
 	
 	public Book removeBook(Book b)
@@ -58,7 +62,10 @@ public class ShoppingCart {
 	
 	public double getBookSubtotal(Book b)
 	{
-		return cart.get(b) * Integer.parseInt(b.getPrice());
+		if (cart.containsKey(b))
+			return cart.get(b) * Double.parseDouble(b.getPrice());
+		else
+			return 0;
 	}
 	
 	public double getCartSubtotal()
@@ -68,5 +75,15 @@ public class ShoppingCart {
 		    cartSubtotal += getBookSubtotal(item.getKey());
 		}
 		return cartSubtotal;
+	}
+	
+	public String getBookSubtotalString(Book b)
+	{
+		return String.format("%.2f", getBookSubtotal(b));
+	}
+	
+	public String getCartSubtotalString()
+	{
+		return String.format("%.2f", getCartSubtotal());
 	}
 }
