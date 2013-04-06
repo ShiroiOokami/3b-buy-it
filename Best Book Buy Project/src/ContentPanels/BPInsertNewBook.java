@@ -178,6 +178,7 @@ public class BPInsertNewBook extends BBBPanel {
 			feedBook();
 			if (book.checkInputs())
 			{
+				book.addBook();
 				parentFrame.switchDisplayContents(
 						new BPManageBookstoreCatalog(parentFrame));
 			}

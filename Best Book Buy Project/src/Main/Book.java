@@ -1,6 +1,7 @@
 package Main;
 
 import java.awt.Color;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -349,6 +350,41 @@ public class Book {
 			error.printStackTrace();
 		}
 
+	}
+	
+	public boolean addBook ()
+	{
+		Connection con = BBBConnection.getConnection();
+		
+		String bookQuerry = "Insert into Book values (" + ISBN + ", \"" + title + "\", \"" + publisher + "\"," + category + ", " + year + ")";
+		
+		try {
+			
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(bookQuerry);
+
+			for (String auth : authors)
+			{
+				String bookAuthorQuerry = "Insert into Book_Author values (" + ISBN + ", \"" + auth + "\")";
+				stmt.executeUpdate(bookAuthorQuerry);
+			}
+			
+			for (String rev : reviews)
+			{
+				String bookReviewQuerry = "Insert into Book_Review values (" + ISBN + ", \"" + rev + "\")";
+				stmt.executeUpdate(bookReviewQuerry);
+			}
+			
+			return true;
+			
+		}
+		catch (SQLException error)
+		{
+		//	System.out.println("User Insertion Querry Error");
+		//	error.printStackTrace();
+			return false;
+		}
+		
 	}
 	
 	@Override
