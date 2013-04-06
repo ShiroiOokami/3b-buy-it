@@ -55,8 +55,6 @@ public class BPUpdateAdministratorProfile extends BBBPanel {
 		zip = addLabelField("ZIP:", 8);
 		
 		ArrayList<String> pnums = parentFrame.user.getPhoneNums();
-		pnums.add("1234");
-		pnums.add("4234");
 		phones = new JTextField[Math.max(pnums.size(),1)];
 		for (int i = 0; i < pnums.size(); i++)
 			phones[i] = new JTextField(pnums.get(i),10);
@@ -77,7 +75,9 @@ public class BPUpdateAdministratorProfile extends BBBPanel {
 			createButton("Cancel")
 		};
 		
-		this.add(this.createHorizontalWrapper(l));
+		eatUser();
+		
+		add(createHorizontalWrapper(l));
 	}
 	
 	private void feedUser()
