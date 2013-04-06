@@ -1,5 +1,6 @@
 package Main;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,21 +19,35 @@ public class ShoppingCart {
 	public ShoppingCart()
 	{
 		cart = new HashMap<Book, Integer>();
-		cart.put(new Book(), 0);
 		cartSubtotal = 0.00;
 	}
 	
 	public Book addBook(Book b)
 	{
 		if (cart.containsKey(b))
-		{
 			cart.put(b, cart.get(b) + 1);
-		}
 		else 
-		{
 			cart.put(b, 1);
-		}
 		return b;
+	}
+	
+	public ArrayList<Book> getBooksInCart() {
+		ArrayList<Book> list = new ArrayList<Book>();
+		for (Book b : cart.keySet())
+			list.add(b);
+		return list;
+	}
+	
+	public int itemsInCart() {
+		int count = 0;
+		for (Book b : cart.keySet())
+			count += cart.get(b);
+		
+		return count;
+	}
+	public int getQty(Book b)
+	{
+		return cart.get(b) == null ? 0 : cart.get(b);
 	}
 	
 	public Book removeBook(Book b)
@@ -54,7 +69,4 @@ public class ShoppingCart {
 		}
 		return cartSubtotal;
 	}
-	
-	
-
 }

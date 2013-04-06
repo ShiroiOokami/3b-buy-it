@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
 import Main.BestBookBuy;
+import Main.ShoppingCart;
 import Main.User;
 
 
@@ -27,6 +28,7 @@ public class BPLandingPage extends BBBPanel {
 		
 		addButton("Enter");
 		parentFrame.user = new User();
+		parentFrame.cart = new ShoppingCart();
 	}
 
 	public void actionPerformed(ActionEvent e) {

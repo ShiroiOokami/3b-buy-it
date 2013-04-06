@@ -8,8 +8,10 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
 
 import Main.Book;
@@ -22,6 +24,7 @@ public class BPBookSearchResult extends BBBPanel {
 	private static final long serialVersionUID = 1L;
 
 private ArrayList<Book> booklist;
+private JLabel shopLabel;
 
 	public BPBookSearchResult(JFrame frame, ArrayList<Book> arrayList) {
 		super(frame);
@@ -29,18 +32,25 @@ private ArrayList<Book> booklist;
 		booklist = arrayList;
 		Book b = new Book();
 		b.setTitle("This is a title");
-		arrayList.add(b);
-		arrayList.add(new Book());
-		arrayList.add(new Book());
-		addLabel("Your Shopping Cart Has 6 items");
+		shopLabel = createLabel("Your Shopping Cart Has " + parentFrame.cart.itemsInCart()
+				+ " items");
+		add(shopLabel);
 		addButton("Shopping Cart");
 		SearchResults[] j = new SearchResults[booklist.size()];
 		for (int i = 0; i < booklist.size(); i++)
 			j[i] = new SearchResults(frame, booklist.get(i));
-		add(createScrollWrapper(j));
+		if (!booklist.isEmpty())
+			add(createScrollWrapper(j));
+		else
+			addLabel("No Books Found in Search");
 		addButton("Checkout");
 		addButton("New Search");
 		addButton("Exit");
+	}
+	
+	private void updateText() {
+		shopLabel.setText("Your Shopping Cart Has " + parentFrame.cart.itemsInCart()
+				+ " items");
 	}
 	
 	private class SearchResults extends BBBPanel {
@@ -51,6 +61,7 @@ private ArrayList<Book> booklist;
 		private static final long serialVersionUID = 1L;
 
 		Book book;
+		JButton addToCart;
 		public SearchResults(JFrame frame, Book b) {
 			super(frame);
 			book = b;
@@ -61,7 +72,7 @@ private ArrayList<Book> booklist;
 			this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 			
 			JComponent[] comps = new JComponent[] {
-					createButton("Add to Cart"),
+					addToCart = createButton("Add to Cart"),
 					createButton("Reviews")
 			};
 			add(createVerticalWrapper(comps));
@@ -74,6 +85,9 @@ private ArrayList<Book> booklist;
 					createLabel("Price: " + book.getPrice())
 			};
 			add(createVerticalWrapper(comps2));
+			
+			if (parentFrame.cart.getQty(book) > 0)
+				addToCart.setEnabled(false);
 		}
 
 		@Override
@@ -81,6 +95,9 @@ private ArrayList<Book> booklist;
 			switch (e.getActionCommand())
 			{
 			case "Add to Cart":
+				parentFrame.cart.addBook(book);
+				addToCart.setEnabled(false);
+				updateText();
 				break;
 			case "Reviews":
 				parentFrame.switchDisplayContents(
