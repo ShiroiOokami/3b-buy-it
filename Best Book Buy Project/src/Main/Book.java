@@ -1,6 +1,9 @@
 package Main;
 
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.swing.JTextField;
@@ -15,9 +18,11 @@ import javax.swing.JTextField;
  */
 public class Book {
 	
-	private String publisher, title, price, minQty, ISBN, year;
+	private String publisher, title, price, minQty, ISBN, year, curQty;
 	private ArrayList<String> authors = new ArrayList<String>();
 	private ArrayList<String> reviews = new ArrayList<String>();
+	private Subject category;
+	private String deleted;
 	
 	
 	public Book ()
@@ -29,6 +34,9 @@ public class Book {
 		this.authors.add("<Author>");
 		this.year = "<year>";
 		this.minQty="<minQty>";
+		this.curQty = "<curQty>";
+		this.category = Subject.Horror;
+		this.deleted = "Y";
 	}
 	
 	public void setTitle(JTextField title)
@@ -270,6 +278,43 @@ public class Book {
 
 	private void setWarning(JTextField f) {
 		f.setForeground(Color.RED);
+	}
+	
+	public void fetchBook(String byisbn)
+	{
+		java.sql.Connection con = BBBConnection.getConnection();
+		
+		String bookQuerry = "Select * from Book natural join Inventory where ISBN Like '" + byisbn + "'";
+		String authorQuerry = "Select * from Book_Author where ISBN Like '" + byisbn + "'";
+		String reviewQuerry = "Select * from Book_Review where ISBN Like '" + byisbn + "'";
+		try {
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(bookQuerry);
+		
+			if(!rs.next())
+				return;
+			this.ISBN = rs.getString("ISBN");
+			this.title = rs.getString("Title");
+			this.publisher = rs.getString("Publisher");
+			this.year = rs.getString("Year");
+			this.minQty = rs.getString("MinQty");
+			this.curQty = rs.getString("Qty");
+			this.price = rs.getString("Price");
+			this.deleted = rs.getString("Deleted");
+			
+			rs = stmt.executeQuery(authorQuerry);
+			while (rs.next())
+				this.authors.add(rs.getString("Author"));
+
+			rs = stmt.executeQuery(reviewQuerry);
+			while (rs.next())
+				this.reviews.add(rs.getString("Author"));
+
+		} catch (SQLException error) {
+			System.out.println("Book Fetch Querry Error");
+			error.printStackTrace();
+		}
+
 	}
 	
 	@Override
