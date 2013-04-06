@@ -61,19 +61,18 @@ public class BPUserLogin extends BBBPanel {
 				error.printStackTrace();
 			}
 			
-			User user = new User();
-			
 			if (Integer.toString(sPin).equals(pin.getText()))
 			{
+				
+				parentFrame.user.fetchUser(username.getText());
+				
 				if(sUserType.equals("A"))
 				{
-					user.fetchUser(username.getText());
 					parentFrame.switchDisplayContents(
 							new BPAdministratorTask(parentFrame));
 				}
 				else
 				{
-					user.fetchUser(username.getText());
 					parentFrame.switchDisplayContents(
 							new BPBookSearch(parentFrame));
 				}

@@ -15,6 +15,7 @@ public class BPBookSearch extends BBBPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 
 	public BPBookSearch(JFrame frame) {
 		super(frame);
