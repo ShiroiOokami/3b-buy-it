@@ -367,6 +367,21 @@ public class User {
 
 		return pass;
 	}
+	
+	public boolean checkInfo() {
+		boolean pass = true;
+		
+		pass &= checkUserName();
+		pass &= checkPIN();
+		pass &= checkFirstName();
+		pass &= checkLastName();
+		pass &= checkAddress();
+		pass &= checkCity();
+		pass &= checkState();
+		pass &= checkZIP();
+
+		return pass;
+	}
 
 	public boolean checkAdmin()
 	{

@@ -73,6 +73,8 @@ private JLabel shopLabel;
 					addToCart = createButton("Add to Cart"),
 					createButton("Reviews")
 			};
+			if (book.getCurQty().equals("0"))
+				addToCart.setEnabled(false);
 			add(createVerticalWrapper(comps));
 			
 			JComponent[] comps2 = new JComponent[] {

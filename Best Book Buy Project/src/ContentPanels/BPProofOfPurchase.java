@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.border.EtchedBorder;
 
 import Main.Book;
+import Main.OrderSummary;
 import Main.User;
 
 public class BPProofOfPurchase extends BBBPanel {
@@ -23,26 +24,30 @@ public class BPProofOfPurchase extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BPProofOfPurchase(JFrame frame) {
+	
+	private OrderSummary summary;
+	
+	public BPProofOfPurchase(JFrame frame, OrderSummary sum) {
 		super(frame);
 
+		summary = sum;
 		addLabel("                              Proof of Purchase                    ");
 		add(new CustomerInfo(frame));
 		add(new ShowUserInfo(frame));
 
-		ArrayList<Book> cartlist = parentFrame.cart.getBooksInCart();
-		OrderSummary[] o = new OrderSummary[cartlist.size()];
+		ArrayList<Book> cartlist = summary.cart.getBooksInCart();
+		OrderInfo[] o = new OrderInfo[cartlist.size()];
 		for (int i = 0; i < cartlist.size(); i++)
-			o[i] = new OrderSummary(frame,cartlist.get(i));
+			o[i] = new OrderInfo(frame,cartlist.get(i));
 		if (cartlist.size() == 0)
 			addLabel("No Items In Cart (wtf?)");
 		else
 			add(createScrollWrapper(o));
 
 		addLabel("Shipping Notice: The book will be here in 5 business days");
-		addLabel("Subtotal: " + parentFrame.cart.getCartSubtotalString());
+		addLabel("Subtotal: " + summary.cart.getCartSubtotalString());
 		addLabel("S&H: " + "5.00");
-		addLabel("Total: " + (parentFrame.cart.getCartSubtotal() + 5));
+		addLabel("Total: " + (summary.cart.getCartSubtotal() + 5));
 
 		addButton("Print");
 		addButton("New Search");
@@ -65,7 +70,7 @@ public class BPProofOfPurchase extends BBBPanel {
 			setBorder(BorderFactory
 					.createEtchedBorder(EtchedBorder.LOWERED));
 
-			User user = parentFrame.user;
+			User user = summary.user;
 			addLabel("Shipping Address:");
 			addLabel(user.getFirstName() + " " +  user.getLastName());
 			addLabel(user.getAddress());
@@ -93,11 +98,11 @@ public class BPProofOfPurchase extends BBBPanel {
 			this.setBackground(Color.WHITE);
 			this.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-			User user = parentFrame.user;
+			User user = summary.user;
 			JComponent[] comps = new JComponent[] {
 					createLabel("UserID: " + user.getUserName()),
-					createLabel("Date: " + parentFrame.getCurDate()),
-					createLabel("Time: " + parentFrame.getCurTime()),
+					createLabel("Date: " + summary.date),
+					createLabel("Time: " + summary.time),
 					createLabel("Credit Card Information"),
 					createLabel(user.getCardType().toString() + " - " +
 							user.getCardNum())
@@ -112,14 +117,14 @@ public class BPProofOfPurchase extends BBBPanel {
 		}
 	}
 
-	private class OrderSummary extends BBBPanel {
+	private class OrderInfo extends BBBPanel {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
 
 		private Book book;
-		private OrderSummary(JFrame frame, Book b) {
+		private OrderInfo(JFrame frame, Book b) {
 			super(frame);
 			book = b;
 			font = new Font("Verdana", Font.BOLD, 12);
@@ -132,8 +137,8 @@ public class BPProofOfPurchase extends BBBPanel {
 			addLabel(book.getTitle());
 			addLabel("By: " + book.getAuthorString());
 			addLabel("Price: " + book.getPrice() +
-					" Qty: " + parentFrame.cart.getQty(book) + " " +
-					parentFrame.cart.getBookSubtotalString(book));
+					" Qty: " + summary.cart.getQty(book) + " " +
+					summary.cart.getBookSubtotalString(book));
 		}
 
 		@Override

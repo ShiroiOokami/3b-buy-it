@@ -25,9 +25,6 @@ public class BPAdministratorTask extends BBBPanel {
 		box = addLabelCombo("Administrator Tasks:", sel);
 		addButton("Proceed");
 		addButton("Exit");
-
-
-	
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -49,7 +46,8 @@ public class BPAdministratorTask extends BBBPanel {
 					new BPManageBookstoreCatalog(parentFrame));
 			break;
 		case 1:
-			// We'll Do that Later
+			parentFrame.switchDisplayContents(
+					new BPViewOrders(parentFrame));
 			break;
 		case 2:
 			// Do More Stuff Later

@@ -18,6 +18,7 @@ import javax.swing.border.EtchedBorder;
 
 import Main.Book;
 import Main.CardType;
+import Main.OrderSummary;
 import Main.User;
 
 
@@ -39,9 +40,9 @@ public class BPCheckoutScreen extends BBBPanel {
 		add(new AskForCardBox(frame));
 
 		ArrayList<Book> cartlist = parentFrame.cart.getBooksInCart();
-		OrderSummary[] o = new OrderSummary[cartlist.size()];
+		OrderInfo[] o = new OrderInfo[cartlist.size()];
 		for (int i = 0; i < cartlist.size(); i++)
-			o[i] = new OrderSummary(frame,cartlist.get(i));
+			o[i] = new OrderInfo(frame,cartlist.get(i));
 		if (cartlist.size() == 0)
 			addLabel("No Items In Cart");
 		else
@@ -58,8 +59,11 @@ public class BPCheckoutScreen extends BBBPanel {
 				createButton("Update Profile"),
 				but = createButton("BUY IT!!!!!!")
 		};
-		if (cartlist.size() == 0)
+		if (cartlist.size() == 0 || !parentFrame.user.checkInfo())
 			but.setEnabled(false);
+		
+		if (!parentFrame.user.checkInfo())
+			addLabel("Please Update Shipping Information").setForeground(Color.RED);
 		add(createHorizontalWrapper(buts));
 	}
 	
@@ -123,14 +127,14 @@ public class BPCheckoutScreen extends BBBPanel {
 		}
 	}
 		
-	private class OrderSummary extends BBBPanel {
+	private class OrderInfo extends BBBPanel {
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
 
 		private Book book;
-		private OrderSummary(JFrame frame, Book b) {
+		private OrderInfo(JFrame frame, Book b) {
 			super(frame);
 			book = b;
 			font = new Font("Verdana", Font.BOLD, 12);
@@ -176,8 +180,10 @@ public class BPCheckoutScreen extends BBBPanel {
 			if (user.checkCustomer())
 			{
 				user.updateCustomer();
+				OrderSummary sum = 
+					new OrderSummary(parentFrame.user,parentFrame.cart);
 				parentFrame.switchDisplayContents(
-					new BPProofOfPurchase(parentFrame));
+					new BPProofOfPurchase(parentFrame, sum));
 			}
 			break;			
 		}
