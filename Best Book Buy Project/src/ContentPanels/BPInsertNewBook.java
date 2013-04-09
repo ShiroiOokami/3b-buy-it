@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,6 +18,7 @@ import javax.swing.JTextField;
 import Main.Book;
 import Main.BookRegExp;
 import Main.Subject;
+import Main.USState;
 import Main.UserRegExps;
 
 
@@ -35,6 +37,7 @@ public class BPInsertNewBook extends BBBPanel {
 	private JTextArea[] review;
 	private JScrollPane rscroll;
 	private JPanel rpanel;
+	private JComboBox subject;
 
 	
 	private static final long serialVersionUID = 1L;
@@ -63,7 +66,7 @@ public class BPInsertNewBook extends BBBPanel {
 
 		publisher = addLabelField("Publisher:", 20);
 		year = addLabelField("Year:", 6);
-		addLabelCombo("Category",
+		subject = addLabelCombo("Category",
 				stringList(Subject.class));
 		price = addLabelField("Price:", 8);
 		minQty = addLabelField("Min. Qty. Req. In Stock:", 3);
@@ -99,6 +102,7 @@ public class BPInsertNewBook extends BBBPanel {
 		book.setPulisher(publisher);
 		book.setTitle(title);
 		book.setYear(year);
+		book.setCategory(Subject.values()[subject.getSelectedIndex()]);
 		ArrayList<String> atrs = new ArrayList<String>();
 		for (JTextField a : author)
 			if (BookRegExp.author(a.getText()))
@@ -176,7 +180,7 @@ public class BPInsertNewBook extends BBBPanel {
 			break;
 		case "Insert":
 			feedBook();
-			if (book.checkInputs() && !(book.getAuthors().get(0).equals("<Author>")));
+			if (book.checkInputs() && book.getAuthors().size() !=  0);
 			{
 				book.addBook();
 				parentFrame.switchDisplayContents(

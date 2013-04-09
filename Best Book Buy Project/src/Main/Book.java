@@ -120,6 +120,10 @@ public class Book {
 		this.price = price;
 	}
 	
+	public void setCategory(Subject s) {
+		category = s;
+	}
+	
 	public void setPulisher(JTextField publisher)
 	{
 		if (publisher.getText().length() == 0)
@@ -195,6 +199,10 @@ public class Book {
 	public String getCurQty()
 	{
 		return curQty;
+	}
+	
+	public Subject getCategory() {
+		return category;
 	}
 	
 	public String getPulisher()
@@ -366,14 +374,14 @@ public class Book {
 	{
 		Connection con = BBBConnection.getConnection();
 		
-		String bookQuerry = "Insert into Book values (" + ISBN + ", \"" + title + "\", \"" + publisher + "\",\"" + category + "\", " + year + ")";
-		String inventoryQuerry = "Insert into Inventory values (" + ISBN + ", \"N\", " + minQty + ", 0, " + price + ")";
+		String bookQuerry = "Insert into Book values (" + ISBN + ", \"" + title + "\", \"" + publisher + "\",\"" + category.toString() + "\", " + year + ")";
+		String inventoryQuerry = "Insert into Inventory values (" + ISBN + ", 'N', " + minQty + ", 0, " + price + ")";
 		
 		try {
 			
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(bookQuerry);
-			stmt.executeQuery(inventoryQuerry);
+			stmt.executeUpdate(inventoryQuerry);
 
 			for (String auth : authors)
 			{
