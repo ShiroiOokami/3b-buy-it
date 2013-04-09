@@ -3,7 +3,9 @@ package Main;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class OrderSummary {
 	public ShoppingCart cart;
@@ -34,12 +36,14 @@ public class OrderSummary {
 	
 	public String curTime()
 	{
-		return "12:00:00";
+		SimpleDateFormat sd = new SimpleDateFormat("HH:mm:ss");
+		return sd.format(new Date());
 	}
 	
 	public String curDate()
 	{
-		return "2013-01-01";
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd");
+		return sd.format(new Date());
 	}
 	
 	public String nextOrder()
