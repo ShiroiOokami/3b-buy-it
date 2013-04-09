@@ -5,11 +5,17 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
+
+import Main.Book;
 
 
 public class BPSelectBooksForModification extends BBBPanel {
@@ -19,16 +25,19 @@ public class BPSelectBooksForModification extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public BPSelectBooksForModification(JFrame frame) {
+	private ArrayList<Book> booklist;
+	public BPSelectBooksForModification(JFrame frame, ArrayList<Book> arrayList) {
 		super(frame);
 		
-		JComponent[] comps = new JComponent[] {
-				new SearchResults(frame),
-				new SearchResults(frame),
-				new SearchResults(frame)
-				};
-		
-		add(this.createScrollWrapper(comps));
+		booklist = arrayList;
+		SearchResults[] j = new SearchResults[booklist.size()];
+		for (int i = 0; i < booklist.size(); i++)
+			j[i] = new SearchResults(frame, booklist.get(i));
+		if (!booklist.isEmpty())
+			add(createScrollWrapper(j));
+		else
+			addLabel("No Books Found in Search");
+
 		addButton("Done");
 	}
 	
@@ -38,8 +47,12 @@ public class BPSelectBooksForModification extends BBBPanel {
 		 */
 		private static final long serialVersionUID = 1L;
 
-		public SearchResults(JFrame frame) {
+		public Book book;
+		public JLabel deleted;
+		
+		public SearchResults(JFrame frame, Book b) {
 			super(frame);
+			book = b;
 			font = new Font("Verdana", Font.BOLD, 12);
 			this.setPreferredSize(new Dimension(350,140));
 			this.setBackground(Color.WHITE);
@@ -47,26 +60,47 @@ public class BPSelectBooksForModification extends BBBPanel {
 			this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 			
 			JComponent[] comps = new JComponent[] {
-					this.createButton("Delete"),
-					this.createButton("Update")
+					createButton("Delete"),
+					createButton("Update")
 			};
-			this.add(this.createVerticalWrapper(comps));
+			add(createVerticalWrapper(comps));
 			
 			JComponent[] comps2 = new JComponent[] {
-					this.createLabel("Title: <Title>"),
-					this.createLabel("Author: <Author Author>"),
-					this.createLabel("Publisher: <Publisher Publisher>"),
-					this.createLabel("ISBN: <ISBN>"),
-					this.createLabel("Price: Free Today"),
-					this.createLabel("<Flag if Deleted>")
+					createLabel("Title: " + book.getTitle()),
+					createLabel("Author: " + book.getAuthorString()),
+					createLabel("Publisher: " + book.getPulisher()),
+					createLabel("ISBN: " + book.getISBN()),
+					createLabel("Price: " + book.getPrice()),
+					deleted = createLabel(book.getDeleted().matches("Y") 
+							? "Deleted" : "Active")
 			};
-			this.add(this.createVerticalWrapper(comps2));
+			add(createVerticalWrapper(comps2));
 		}
 
+		public void toggleDeleted() {
+			if (book.getDeleted().matches("Y"))
+			{
+				book.setDeleted("N");
+				deleted.setText("Active");				
+			} else {
+				book.setDeleted("Y");
+				deleted.setText("Deleted");				
+			}
+			// TODO: Stuff
+		}
+		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			
+			switch (e.getActionCommand())
+			{
+			case "Delete":
+				toggleDeleted();
+				break;
+			case "Update":
+				parentFrame.switchDisplayContents(
+						new BPUpdateBook(parentFrame, booklist, book));
+				break;
+			}			
 		}
 	}
 

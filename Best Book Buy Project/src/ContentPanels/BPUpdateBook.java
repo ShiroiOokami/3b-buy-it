@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,25 +27,30 @@ public class BPUpdateBook extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private JTextField isbn;
 	private JTextField title;
 	private JTextField publisher;
 	private JTextField year;
 	private JTextField price;
 	private JTextField minQty;
-	private Book book = new Book();
+	private Book book;
 	private JTextField[] author;
 	private JScrollPane ascroll;
 	private JPanel apanel;
 	private JTextArea[] review;
 	private JScrollPane rscroll;
 	private JPanel rpanel;
+	private ArrayList<Book> booklist;
+	private JComboBox subject;
 
-	public BPUpdateBook(JFrame frame) {
+	public BPUpdateBook(JFrame frame, ArrayList<Book> blist, Book b) {
 		super(frame);
 		
-		addLabel("ISBN: <ISBN>");
-		addLabel("Status: <Active/Deleted>");
+		book = b;
+		booklist = blist;
+		addLabel("ISBN: " + book.getISBN());
+		addLabel("Status: " + (book.getDeleted().matches("Y")
+				? "Deleted" : "Active"));
+		title = addLabelField("Title:", 20);
 		ArrayList<String> atrs = book.getAuthors();
 		author = new JTextField[Math.max(atrs.size(),1)];
 		for (int i = 0; i < atrs.size(); i++)
@@ -63,7 +69,7 @@ public class BPUpdateBook extends BBBPanel {
 
 		publisher = addLabelField("Publisher:", 20);
 		year = addLabelField("Year:", 6);
-		addLabelCombo("Category",
+		subject = addLabelCombo("Category",
 				stringList(Subject.class));
 		price = addLabelField("Price:", 8);
 		minQty = addLabelField("Min. Qty. Req. In Stock:", 3);
@@ -88,16 +94,18 @@ public class BPUpdateBook extends BBBPanel {
 		add(createVerticalWrapper(k));
 		addButton("Update");
 		addButton("Cancel");
+		
+		eatBook();
 	}
 
 	private void feedBook()
 	{
-		book.setISBN(isbn);
 		book.setMinQty(minQty);
 		book.setPrice(price);
 		book.setPulisher(publisher);
 		book.setTitle(title);
 		book.setYear(year);
+		book.setCategory(Subject.values()[subject.getSelectedIndex()]);
 		ArrayList<String> atrs = new ArrayList<String>();
 		for (JTextField a : author)
 			if (BookRegExp.author(a.getText()))
@@ -108,6 +116,14 @@ public class BPUpdateBook extends BBBPanel {
 			if (BookRegExp.review(a.getText()))
 				rvws.add(a.getText());
 		book.setReviews(rvws);
+	}
+	
+	public void eatBook() {
+		minQty.setText(book.getMinQty());
+		price.setText(book.getPrice());
+		publisher.setText(book.getPulisher());
+		title.setText(book.getTitle());
+		year.setText(book.getYear());
 	}
 	
 	public void addAuthor() {
@@ -172,17 +188,18 @@ public class BPUpdateBook extends BBBPanel {
 		case "Fewer Authors":
 			removeAuthor();
 			break;
-		case "Insert":
+		case "Update":
 			feedBook();
 			if (book.checkInputs())
 			{
+				//TODO: Stuff
 				parentFrame.switchDisplayContents(
 						new BPManageBookstoreCatalog(parentFrame));
 			}
 			break;
 		case "Cancel":
 			parentFrame.switchDisplayContents(
-					new BPManageBookstoreCatalog(parentFrame));
+					new BPSelectBooksForModification(parentFrame, booklist));
 			break;
 		}		
 	}

@@ -27,7 +27,7 @@ public class BPManageBookstoreCatalog extends BBBPanel {
 			break;
 		case "Modify/Delete Book":
 			parentFrame.switchDisplayContents(
-					new BPUpdateBook(parentFrame));
+					new BPSearchForBooksToModify(parentFrame));
 			break;
 		case "Cancel":
 			parentFrame.switchDisplayContents(
