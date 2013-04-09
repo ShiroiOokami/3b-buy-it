@@ -176,7 +176,7 @@ public class BPInsertNewBook extends BBBPanel {
 			break;
 		case "Insert":
 			feedBook();
-			if (book.checkInputs())
+			if (book.checkInputs() && !(book.getAuthors().get(0).equals("<Author>")));
 			{
 				book.addBook();
 				parentFrame.switchDisplayContents(

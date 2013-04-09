@@ -1,7 +1,7 @@
 package Main;
 
 public enum Subject {
-	Nature,
+	Nature ,
 	Adventure,
 	Astronomy,
 	Fantasy,

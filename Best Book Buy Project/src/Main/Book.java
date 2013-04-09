@@ -162,6 +162,16 @@ public class Book {
 		this.reviews = new ArrayList<String>(reviews);
 	}
 	
+	public void setDeleted(String dVal)
+	{
+		deleted = dVal;
+	}
+	
+	public String getDeleted()
+	{
+		return deleted;
+	}
+	
 	public String getTitle()
 	{
 		return title;
@@ -356,12 +366,14 @@ public class Book {
 	{
 		Connection con = BBBConnection.getConnection();
 		
-		String bookQuerry = "Insert into Book values (" + ISBN + ", \"" + title + "\", \"" + publisher + "\"," + category + ", " + year + ")";
+		String bookQuerry = "Insert into Book values (" + ISBN + ", \"" + title + "\", \"" + publisher + "\",\"" + category + "\", " + year + ")";
+		String inventoryQuerry = "Insert into Inventory values (" + ISBN + ", \"N\", " + minQty + ", 0, " + price + ")";
 		
 		try {
 			
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(bookQuerry);
+			stmt.executeQuery(inventoryQuerry);
 
 			for (String auth : authors)
 			{
@@ -380,8 +392,8 @@ public class Book {
 		}
 		catch (SQLException error)
 		{
-		//	System.out.println("User Insertion Querry Error");
-		//	error.printStackTrace();
+			System.out.println("User Insertion Querry Error");
+			error.printStackTrace();
 			return false;
 		}
 		
