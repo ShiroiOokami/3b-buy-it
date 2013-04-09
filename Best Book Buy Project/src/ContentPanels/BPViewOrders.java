@@ -68,7 +68,7 @@ public class BPViewOrders extends BBBPanel {
 			super(frame);
 			summary = sum;
 			font = new Font("Verdana", Font.BOLD, 12);
-			this.setPreferredSize(new Dimension(350,120));
+			this.setPreferredSize(new Dimension(350,70));
 			this.setBackground(Color.WHITE);
 			this.setLayout(new FlowLayout(FlowLayout.LEFT));
 			this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));

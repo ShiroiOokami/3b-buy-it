@@ -145,7 +145,7 @@ public class BPPlaceOrder extends BBBPanel {
 	
 	public void placeOrder()
 	{
-		//TODO: Update database here
+		summary.deleteOrder();
 	}
 
 	public void actionPerformed(ActionEvent e) {

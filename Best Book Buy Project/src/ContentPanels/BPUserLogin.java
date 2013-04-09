@@ -1,5 +1,6 @@
 package ContentPanels;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JComponent;
@@ -79,8 +80,8 @@ public class BPUserLogin extends BBBPanel {
 			}
 			else 
 			{
-				parentFrame.switchDisplayContents(
-						new BPLandingPage(parentFrame));
+				username.setForeground(Color.RED);
+				pin.setForeground(Color.RED);
 			}
 			//*/
 			//parentFrame.switchDisplayContents(

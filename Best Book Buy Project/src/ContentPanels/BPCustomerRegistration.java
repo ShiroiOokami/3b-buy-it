@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
@@ -52,8 +53,12 @@ public class BPCustomerRegistration extends BBBPanel {
 		cardNum = addLabelField("Card Number:", 18);
 		cardDate = addLabelField("Expiration Date:", 10);
 		
-		this.addButton("Register");
-		this.addButton("Cancel");
+		JComponent[] buts = new JComponent[] {
+				createButton("Register"),
+				createButton("Login"),
+				createButton("Cancel")
+		};
+		add(createHorizontalWrapper(buts));
 	}
 		
 	private void feedUser()
@@ -92,6 +97,10 @@ public class BPCustomerRegistration extends BBBPanel {
 					userName.setForeground(Color.RED);
 				}
 			break;
+		case "Login":
+			parentFrame.switchDisplayContents(
+					new BPUserLogin(parentFrame));
+			break;			
 		}
 	}
 }

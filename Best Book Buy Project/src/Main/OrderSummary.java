@@ -3,6 +3,7 @@ package Main;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class OrderSummary {
 	public ShoppingCart cart;
@@ -28,6 +29,7 @@ public class OrderSummary {
 		orderNum = nextOrder();
 		
 		placeOrder();
+		decrementInventory();
 	}
 	
 	public String curTime()
@@ -42,7 +44,13 @@ public class OrderSummary {
 	
 	public String nextOrder()
 	{
-		return "1";
+		ArrayList<String> ordernums = orderNums();
+		
+		for (int i = 1; i < 1000; i++)
+			if (!ordernums.contains(Integer.toString(i)))
+				return Integer.toString(i);
+		
+		return "000";
 	}
 	
 	public void fetchOrder(String num)
@@ -69,7 +77,28 @@ public class OrderSummary {
 			error.printStackTrace();
 		}
 	}
+	
+	private ArrayList<String> orderNums() {
+		ArrayList<String> list = new ArrayList<String>();
+		java.sql.Connection con = BBBConnection.getConnection();
 
+		try {
+			String query = "select OrderNumber from book_order";
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
+			while (rs.next())
+			{
+				list.add(rs.getString("OrderNumber"));
+			}
+		} catch (SQLException error) {
+			System.out.println("Order List Query Error");
+			error.printStackTrace();
+		}
+
+		return list;
+	}
+	
 	public void placeOrder()
 	{
 		java.sql.Connection con = BBBConnection.getConnection();
@@ -92,5 +121,45 @@ public class OrderSummary {
 			System.out.println("Order Update Error");
 			error.printStackTrace();
 		}
+	}
+
+	public void decrementInventory()
+	{
+		java.sql.Connection con = BBBConnection.getConnection();
+
+		try {
+			Statement stmt = con.createStatement();
+			
+			for (Book b : cart.getBooksInCart())
+			{
+				String query = "update inventory set Qty='" +
+						(Integer.parseInt(b.getCurQty()) - cart.getQty(b)) +
+						"' where ISBN like '" + b.getISBN() + "'";
+				stmt.executeUpdate(query);
+				b.setCurQty("" + (Integer.parseInt(b.getCurQty()) - cart.getQty(b)));
+			}
+		} catch (SQLException error) {
+			System.out.println("Order Update Error");
+			error.printStackTrace();
+		}
+	}
+
+	public void deleteOrder()
+	{
+		java.sql.Connection con = BBBConnection.getConnection();
+
+		try {
+			String query = "delete from book_order_item where OrderNumber like '" +
+					orderNum + "'";
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(query);
+			query = "delete from book_order where OrderNumber like '" +
+					orderNum + "'";
+			stmt.executeUpdate(query);
+			
+		} catch (SQLException error) {
+			System.out.println("Order Delete Error");
+			error.printStackTrace();
+		}		
 	}
 }

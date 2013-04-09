@@ -19,6 +19,7 @@ import javax.swing.border.EtchedBorder;
 import Main.Book;
 import Main.CardType;
 import Main.OrderSummary;
+import Main.ShoppingCart;
 import Main.User;
 
 
@@ -182,6 +183,7 @@ public class BPCheckoutScreen extends BBBPanel {
 				user.updateCustomer();
 				OrderSummary sum = 
 					new OrderSummary(parentFrame.user,parentFrame.cart);
+				parentFrame.cart = new ShoppingCart();
 				parentFrame.switchDisplayContents(
 					new BPProofOfPurchase(parentFrame, sum));
 			}
