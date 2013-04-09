@@ -81,9 +81,11 @@ public class BPSelectBooksForModification extends BBBPanel {
 			if (book.getDeleted().matches("Y"))
 			{
 				book.setDeleted("N");
+				book.updateBook();
 				deleted.setText("Active");				
 			} else {
 				book.setDeleted("Y");
+				book.updateBook();
 				deleted.setText("Deleted");				
 			}
 			// TODO: Stuff

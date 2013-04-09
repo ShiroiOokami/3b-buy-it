@@ -404,7 +404,48 @@ public class Book {
 			error.printStackTrace();
 			return false;
 		}
+	}
+	
+	public boolean updateBook()
+	{
+		Connection con = BBBConnection.getConnection();
+
+		String bookUpdateQuerry = "Update Book Set Title=\"" + title 
+				+ "\", Publisher=\"" + publisher + "\", Category=\"" 
+				+ category.toString() + "\", Year=" + year + " Where ISBN=" + ISBN;
+		String inventoryUpdateQuerry = "Update Inventory Set Deleted='" + deleted 
+				+ "', MinQty=" + minQty + ", Price=" + price + " Where ISBN=" + ISBN;
+
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(bookUpdateQuerry);
+			stmt.executeUpdate(inventoryUpdateQuerry);
+			
+			String deleteAuthors = "Delete from Book_Author Where ISBN=" + ISBN;
+			stmt.executeUpdate(deleteAuthors);
+			for (String auth : authors)
+			{
+				String bookAuthorQuerry = "Insert into Book_Author values (" + ISBN + ", \"" + auth + "\")";
+				stmt.executeUpdate(bookAuthorQuerry);
+			}
+			
+			String deleteReviews = "Delete from Book_Review Where ISBN=" + ISBN;
+			stmt.executeUpdate(deleteReviews);
+			for (String rev : reviews)
+			{
+				String bookReviewQuerry = "Insert into Book_Review values (" + ISBN + ", \"" + rev + "\")";
+				stmt.executeUpdate(bookReviewQuerry);
+			}
+			
+			return true;
+		}
 		
+		catch (SQLException error)
+		{
+			System.out.println("Book Update Error");
+			error.printStackTrace();
+			return false;
+		}
 	}
 	
 	@Override
