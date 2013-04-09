@@ -39,7 +39,7 @@ public class BPRestockInventory extends BBBPanel {
 	{
 		Connection con = BBBConnection.getConnection();
 		
-		String inventoryQuerry = "Select ISBN, minQty from Inventory";
+		String inventoryQuerry = "Select ISBN, Qty, minQty, Deleted from Inventory";
 		
 		try {
 			
@@ -48,8 +48,18 @@ public class BPRestockInventory extends BBBPanel {
 
 			while(rs.next())
 			{
-				//inventoryUpdateQuerry = "Update Inventory Set  "\", Category=\"" 
+				int cQty = rs.getInt("Qty");
+				int mQty = rs.getInt("MinQty");
+				if(rs.getString("Deleted").equals("N") && (cQty < mQty))
+				{
+					String inventoryUpdateQuerry = "Update Inventory Set Qty=" + rs.getString("MinQty") 
+							+ " Where ISBN=" + rs.getString("ISBN");
+					Statement uStmt = con.createStatement();
+					uStmt.executeUpdate(inventoryUpdateQuerry);
+				}
 			}
+			
+			rs.close();
 			
 		}
 		catch (SQLException error)
