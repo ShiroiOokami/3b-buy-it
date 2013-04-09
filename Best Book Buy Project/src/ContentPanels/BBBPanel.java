@@ -114,8 +114,10 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 				createLabel(name2) }));
 	}
 
-	protected void addLabel(String name) {
-		add(createLabel(name));
+	protected JLabel addLabel(String name) {
+		JLabel j = createLabel(name);
+		add(j);
+		return j;
 	}
 
 	protected JButton addButton(String name) {

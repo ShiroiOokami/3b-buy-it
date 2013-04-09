@@ -14,8 +14,7 @@ public class BPLandingPage extends BBBPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String selection[] = {"Search Only", "New Customer", "Returning Customer",
-	"Administrator" };
+	private String selection[] = {"Search Only", "New Customer", "Existing User"};
 	private JComboBox<String> box;
 
 	public BPLandingPage(BestBookBuy frame) {
@@ -45,10 +44,6 @@ public class BPLandingPage extends BBBPanel {
 					new BPCustomerRegistration(parentFrame));
 			break;
 		case 2:
-			parentFrame.switchDisplayContents(
-					new BPUserLogin(parentFrame));
-			break;
-		case 3:
 			parentFrame.switchDisplayContents(
 					new BPUserLogin(parentFrame));
 			break;
