@@ -88,7 +88,7 @@ public class BPCustomerRegistration extends BBBPanel {
 				}
 				else
 				{
-					userName.setText("Username already in Use");
+					userName.setText("Username already in use");
 					userName.setForeground(Color.RED);
 				}
 			break;

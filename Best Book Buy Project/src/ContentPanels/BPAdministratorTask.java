@@ -21,7 +21,8 @@ public class BPAdministratorTask extends BBBPanel {
 		String[] sel = {"Manage Bookstore Catalog", 
 				"Place Orders", 
 				"Generate Reports",
-				"Update Admin Profile" };
+				"Update Admin Profile",
+				"Restock Inventory"};
 		box = addLabelCombo("Administrator Tasks:", sel);
 		addButton("Proceed");
 		addButton("Exit");
@@ -56,6 +57,9 @@ public class BPAdministratorTask extends BBBPanel {
 			parentFrame.switchDisplayContents(
 					new BPUpdateAdministratorProfile(parentFrame));
 			break;
+		case 4:
+			parentFrame.switchDisplayContents(
+					new BPRestockInventory(parentFrame));
 		default:
 		}
 	}
