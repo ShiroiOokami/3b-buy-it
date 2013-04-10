@@ -190,11 +190,9 @@ public class BPUpdateBook extends BBBPanel {
 			break;
 		case "Update":
 			feedBook();
-			book.updateBook();
-			
 			if (book.checkInputs())
 			{
-				//TODO: Stuff
+				book.updateBook();
 				parentFrame.switchDisplayContents(
 						new BPManageBookstoreCatalog(parentFrame));
 			}
