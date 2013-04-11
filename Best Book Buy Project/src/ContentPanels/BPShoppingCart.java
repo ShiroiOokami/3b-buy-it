@@ -18,11 +18,14 @@ import javax.swing.border.EtchedBorder;
 import Main.Book;
 import Main.BookRegExp;
 
+/*
+ * This displays the customer's shopping cart to them, and allows for the
+ * deletion of items in the cart. Items can only be deleted once. You can
+ * only order as many items as there are in stock, it will check that when
+ * you press the recalculate total button.
+ */
 public class BPShoppingCart extends BBBPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private ShopCartItem[] shoplist;
@@ -137,6 +140,7 @@ public class BPShoppingCart extends BBBPanel {
 					new BPLandingPage(parentFrame));
 			break;
 		case "New Search":
+			updateQty();
 			parentFrame.switchDisplayContents(
 					new BPBookSearch(parentFrame));
 			break;
@@ -144,6 +148,7 @@ public class BPShoppingCart extends BBBPanel {
 			updateQty();
 			break;
 		case "Checkout":
+			updateQty();
 			parentFrame.switchDisplayContents(
 					new BPCheckoutScreen(parentFrame));
 			break;

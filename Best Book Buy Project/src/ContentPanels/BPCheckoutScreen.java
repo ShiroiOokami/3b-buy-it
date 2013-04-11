@@ -22,12 +22,18 @@ import Main.OrderSummary;
 import Main.ShoppingCart;
 import Main.User;
 
-
+/*
+ * This page allows the user to buy the items in their shopping cart, and
+ * also change their credit card information without going into their user
+ * profile. It will not permit purchase of books unless valid user information
+ * is present.
+ * 
+ * Once the buy it button is pressed, the order is placed and the qty of books
+ * is decremented and the user is taken to the proof of purchase for this order
+ * page.
+ */
 public class BPCheckoutScreen extends BBBPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	JComboBox cardType;
 	JTextField cardNum;

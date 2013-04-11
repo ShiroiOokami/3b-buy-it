@@ -19,12 +19,12 @@ import Main.Book;
 import Main.BookRegExp;
 import Main.Subject;
 
-
+/*
+ * This page is for updating book information. It does not allow you to
+ * modify the ISBN or Book Deletion Status.
+ */
 public class BPUpdateBook extends BBBPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private JTextField title;

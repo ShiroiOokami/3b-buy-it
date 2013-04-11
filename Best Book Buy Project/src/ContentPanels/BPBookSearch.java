@@ -17,11 +17,14 @@ import Main.BBBConnection;
 import Main.Subject;
 import Main.Book;
 
+/*
+ * This page allows you to search for books to modify. It works exactly like
+ * the one to search for books to modify by an admin.
+ * Using any category will search in all categories, and searching for
+ * keyword anywhere will search all other selectable fields.
+ */
 public class BPBookSearch extends BBBPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 

@@ -15,11 +15,13 @@ import javax.swing.JTextArea;
 import javax.swing.border.EtchedBorder;
 import Main.Book;
 
+/*
+ * This page is for users to view reviews of books before deciding whether to
+ * purchase them. When you click done, you're taken back to the search page
+ * where you found the book at.
+ */
 public class BPDisplayReviews extends BBBPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private ArrayList<Book> booklist;

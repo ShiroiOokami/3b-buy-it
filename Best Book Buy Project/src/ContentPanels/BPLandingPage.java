@@ -9,12 +9,17 @@ import Main.BestBookBuy;
 import Main.ShoppingCart;
 import Main.User;
 
-
+/*
+ * This is the top page, first shown to the user when they start the program.
+ * It contains options for searching and adding to the cart without creating
+ * a user. For registering as a new user. And for logging on as either an
+ * admin or a customer.
+ * 
+ * The user is considered "logged off" on this page, and user and shopping
+ * cart information is deleted at this point.
+ */
 public class BPLandingPage extends BBBPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public BPLandingPage(BestBookBuy frame) {

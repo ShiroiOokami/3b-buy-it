@@ -15,7 +15,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
-
+/*
+ * This page is for logging on as an existing user.
+ * If you provide incorrect credentials it doesn't let you log on.
+ * Customers will go to the Search page.
+ * Admin will go the the Admin Tasks page.
+ */
 @SuppressWarnings("serial")
 public class BPUserLogin extends BBBPanel {
 

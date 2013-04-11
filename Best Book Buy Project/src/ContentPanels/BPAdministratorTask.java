@@ -7,12 +7,12 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-
+/*
+ * This page is shown once the administrator logs on, and allows him to select
+ * various tasks. This page only takes the administrator to new pages.
+ */
 public class BPAdministratorTask extends BBBPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public BPAdministratorTask(JFrame frame) {

@@ -10,12 +10,14 @@ import Main.CardType;
 import Main.USState;
 import Main.User;
 
-
+/*
+ * This page is for updating customer profile information.
+ * It does not allow modification of the username.
+ * It does force the customer to place in their credit card info, which
+ * breaks with specs.
+ */
 public class BPUpdateCustomer extends BBBPanel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	//private JTextField userName;

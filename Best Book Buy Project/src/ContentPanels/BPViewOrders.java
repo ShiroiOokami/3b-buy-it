@@ -20,7 +20,10 @@ import Main.BBBConnection;
 import Main.Book;
 import Main.OrderSummary;
 import Main.ShoppingCart;
-
+/*
+ * This page is for displaying all currently pending orders 
+ * waiting to be filled.
+ */
 public class BPViewOrders extends BBBPanel {
 
 	public BPViewOrders(JFrame frame) {

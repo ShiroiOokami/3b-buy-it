@@ -15,12 +15,14 @@ import Main.BBBConnection;
 import Main.Book;
 import Main.Subject;
 
-
+/*
+ * This page allows you to search for books to modify. It works exactly like
+ * the one to search for books to buy for a customer.
+ * Using any category will search in all categories, and searching for
+ * keyword anywhere will search all other selectable fields.
+ */
 public class BPSearchForBooksToModify extends BBBPanel {
 
-	/**
-	 * 
-	 */
 	JComboBox<String> searchByBox;
 	JTextField searchField;
 	JComboBox<String> searchCategory;

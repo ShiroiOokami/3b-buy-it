@@ -18,11 +18,13 @@ import Main.OrderSummary;
 import Main.ShoppingCart;
 import Main.User;
 
+/*
+ * This page is for stocking clerks to view and ship items to the
+ * customer. Once an order as been filled, they can click ship order
+ * which will mark the order as being shipped.
+ */
 public class BPPlaceOrder extends BBBPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private OrderSummary summary;

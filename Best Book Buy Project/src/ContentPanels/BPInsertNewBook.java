@@ -21,7 +21,10 @@ import Main.Subject;
 import Main.USState;
 import Main.UserRegExps;
 
-
+/*
+ * This page is for inserting a new book. It generates red text error messages
+ * wherever a field is entered in incorrectly.
+ */
 public class BPInsertNewBook extends BBBPanel {
 
 	private JTextField isbn;

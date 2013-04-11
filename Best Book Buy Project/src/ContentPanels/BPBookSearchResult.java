@@ -15,12 +15,13 @@ import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
 
 import Main.Book;
-
+/*
+ * This page allows the user to search for books to purchase.
+ * Using any category will search in all categories, and searching for
+ * keyword anywhere will search all other selectable fields.
+ */
 public class BPBookSearchResult extends BBBPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 private ArrayList<Book> booklist;

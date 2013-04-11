@@ -20,12 +20,12 @@ import Main.USState;
 import Main.User;
 import Main.UserRegExps;
 
-
+/*
+ * This page updates the Administrator Profile, it does not allow you to
+ * modify the username.
+ */
 public class BPUpdateAdministratorProfile extends BBBPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private JTextField PIN;

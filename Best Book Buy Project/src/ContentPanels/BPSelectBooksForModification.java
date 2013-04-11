@@ -17,12 +17,13 @@ import javax.swing.border.EtchedBorder;
 
 import Main.Book;
 
-
+/*
+ * This page lets you select books for modify them, and also allows you to
+ * toggle the deletion status. Deletion will prevent more of this book from
+ * being ordered.
+ */
 public class BPSelectBooksForModification extends BBBPanel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private ArrayList<Book> booklist;

@@ -13,11 +13,13 @@ import Main.USState;
 import Main.User;
 import Main.UserRegExps;
 
+/*
+ * This page allows the user to register their information. When a field is
+ * entered incorrectly, red warning text will show the user where they typed
+ * incorrectly.
+ */
 public class BPCustomerRegistration extends BBBPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private JTextField userName;

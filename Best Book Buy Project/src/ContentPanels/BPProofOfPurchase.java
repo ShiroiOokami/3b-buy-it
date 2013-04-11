@@ -17,11 +17,13 @@ import Main.Book;
 import Main.OrderSummary;
 import Main.User;
 
+/*
+ * This displays the customers order to them, along with the shipping info
+ * and time of purchase. The shopping cart should be empty once again before
+ * entering this page.
+ */
 public class BPProofOfPurchase extends BBBPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	
