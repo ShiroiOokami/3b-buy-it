@@ -54,13 +54,11 @@ private JLabel shopLabel;
 	
 	private class SearchResults extends BBBPanel {
 		
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
 
 		Book book;
 		JButton addToCart;
+		JLabel qty;
 		public SearchResults(JFrame frame, Book b) {
 			super(frame);
 			book = b;
@@ -71,11 +69,16 @@ private JLabel shopLabel;
 			this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 			
 			JComponent[] comps = new JComponent[] {
+					qty = createLabel(""),
 					addToCart = createButton("Add to Cart"),
 					createButton("Reviews")
 			};
 			if (book.getCurQty().equals("0"))
+			{
 				addToCart.setEnabled(false);
+				qty.setText("Out of Stock");
+				qty.setForeground(Color.RED);
+			}
 			add(createVerticalWrapper(comps));
 			
 			JComponent[] comps2 = new JComponent[] {

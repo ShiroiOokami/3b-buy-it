@@ -47,6 +47,7 @@ public class BPSelectBooksForModification extends BBBPanel {
 
 		public Book book;
 		public JLabel deleted;
+		public JLabel qty;
 		
 		public SearchResults(JFrame frame, Book b) {
 			super(frame);
@@ -58,9 +59,15 @@ public class BPSelectBooksForModification extends BBBPanel {
 			this.setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
 			
 			JComponent[] comps = new JComponent[] {
+					qty = createLabel(""),
 					createButton("Delete"),
 					createButton("Update")
 			};
+			if (book.getCurQty().equals("0"))
+			{
+				qty.setText("Out of Stock");
+				qty.setForeground(Color.RED);
+			}
 			add(createVerticalWrapper(comps));
 			
 			JComponent[] comps2 = new JComponent[] {
