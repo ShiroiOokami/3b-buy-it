@@ -5,7 +5,13 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import ContentPanels.*;
 
-
+/**
+ * Contains the main method that displays the
+ * landing page and starts the program running.
+ * 
+ * @version 2013-04-11
+ *
+ */
 public class BestBookBuy extends JFrame {
 
 	/**
