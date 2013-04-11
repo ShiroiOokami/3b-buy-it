@@ -305,6 +305,13 @@ public class Book {
 		return pass;
 	}
 	
+	public boolean checkSubject()
+	{
+		if (this.category == Subject.AnyCategory)
+			return false;
+		return true;
+	}
+	
 	/*
 	 * Checks if all of the current books values are valid.
 	 */
@@ -320,9 +327,9 @@ public class Book {
 		pass &= checkMinQty();
 		pass &= checkReviews();
 		pass &= checkAuthors();
+		pass &= checkSubject();
 		
 		return pass;
-
 	}
 	
 	private void unsetWarning(JTextField f) {

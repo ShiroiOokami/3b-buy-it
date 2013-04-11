@@ -39,7 +39,6 @@ public class BPInsertNewBook extends BBBPanel {
 	private JPanel rpanel;
 	private JComboBox subject;
 
-	
 	private static final long serialVersionUID = 1L;
 
 	public BPInsertNewBook(JFrame frame) {
@@ -103,6 +102,10 @@ public class BPInsertNewBook extends BBBPanel {
 		book.setTitle(title);
 		book.setYear(year);
 		book.setCategory(Subject.values()[subject.getSelectedIndex()]);
+		if (!book.checkSubject())
+			subject.setForeground(Color.RED);
+		else
+			subject.setForeground(Color.BLACK);
 		ArrayList<String> atrs = new ArrayList<String>();
 		for (JTextField a : author)
 			if (BookRegExp.author(a.getText()))
@@ -180,11 +183,15 @@ public class BPInsertNewBook extends BBBPanel {
 			break;
 		case "Insert":
 			feedBook();
-			if (book.checkInputs() && book.getAuthors().size() !=  0);
+			if (book.checkInputs() && book.getAuthors().size() !=  0)
 			{
-				book.addBook();
-				parentFrame.switchDisplayContents(
-						new BPManageBookstoreCatalog(parentFrame));
+				if (book.addBook()) {
+					parentFrame.switchDisplayContents(
+							new BPManageBookstoreCatalog(parentFrame));
+				} else {
+					isbn.setText("ISBN Already in Use");
+					isbn.setForeground(Color.RED);
+				}
 			}
 			break;
 		case "Cancel":

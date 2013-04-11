@@ -1,12 +1,13 @@
-drop table User;
-drop table Customer;
 drop table Admin_Phone;
-drop table Book_Order;
+drop table Admin;
+drop table Customer;
 drop table Book_order_Item;
+drop table Book_Order;
 drop table Inventory;
-drop table Book;
 drop table Book_Author;
 drop table Book_Review;
+drop table Book;
+drop table User;
 
 create table User (
 	UserName varchar(12) primary key,

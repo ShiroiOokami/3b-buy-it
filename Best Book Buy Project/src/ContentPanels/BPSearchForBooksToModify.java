@@ -70,13 +70,16 @@ public class BPSearchForBooksToModify extends BBBPanel {
 				break;
 		}
 		
-		if (stext.length() == 0)
-			query = "Select ISBN from Book where";
-		else
-			query += " and ";
-		
-		query += "(Category like '" + searchCategory.getSelectedItem()
-				+ "')";
+		if (!searchCategory.getSelectedItem().equals("AnyCategory"))
+		{
+			if (stext.length() == 0)
+				query = "Select ISBN from Book where";
+			query += " (Category like '" + searchCategory.getSelectedItem()
+			+ "')";
+		} else {
+			if (stext.length() == 0)
+				query = "Select ISBN from Book";			
+		}
 
 		java.sql.Connection con = BBBConnection.getConnection();
 

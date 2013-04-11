@@ -75,7 +75,6 @@ public class BPBookSearch extends BBBPanel {
 				break;
 		}
 
-		
 		if (!searchCategory.getSelectedItem().equals("AnyCategory"))
 		{
 			if (stext.length() == 0)

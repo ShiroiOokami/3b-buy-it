@@ -190,7 +190,7 @@ public class BPUpdateBook extends BBBPanel {
 			break;
 		case "Update":
 			feedBook();
-			if (book.checkInputs())
+			if (book.checkInputs() && book.getAuthors().size() !=  0)
 			{
 				book.updateBook();
 				parentFrame.switchDisplayContents(

@@ -8,8 +8,8 @@ public class BBBConnection {
 	
 	private static Connection con;
 	private String serverURL = "jdbc:mysql://localhost:3306/nthomas2db?connectTimeout=3000";
-	private String username = "root";
-	private String password = "";
+	private String username = "nthomas2";
+	private String password = "buyit!!!";
 	
 	public BBBConnection()
 	{
