@@ -105,6 +105,11 @@ public class OrderSummary {
 		}
 	}
 	
+	/**
+	 * Gets a list of all of the previously use order numbers.
+	 * 
+	 * @return - An ArrayList of the order numbers
+	 */
 	private ArrayList<String> orderNums() {
 		ArrayList<String> list = new ArrayList<String>();
 		java.sql.Connection con = BBBConnection.getConnection();
@@ -126,6 +131,13 @@ public class OrderSummary {
 		return list;
 	}
 	
+	/**
+	 * Commits the OrderSummay's data to the database
+	 * 
+	 * This methods inserts into the following tables:
+	 * 		Book_Order
+	 * 		Book_Order_Item
+	 */
 	public void placeOrder()
 	{
 		java.sql.Connection con = BBBConnection.getConnection();
@@ -150,6 +162,14 @@ public class OrderSummary {
 		}
 	}
 
+	/**
+	 * Decrements the inventory of all the books in the cart
+	 * once an order has been successfully submitted. This
+	 * information is updated in the database.
+	 * 
+	 * This method updates the following tables:
+	 * 		Inventory 
+	 */
 	public void decrementInventory()
 	{
 		java.sql.Connection con = BBBConnection.getConnection();
@@ -171,6 +191,14 @@ public class OrderSummary {
 		}
 	}
 
+	/**
+	 * Delete an order from the database after the admin has submitted
+	 * the order.
+	 * 
+	 * This method deletes rows form the following tables:
+	 * 		Book_Order
+	 * 		Book_Order_Item 
+	 */
 	public void deleteOrder()
 	{
 		java.sql.Connection con = BBBConnection.getConnection();
