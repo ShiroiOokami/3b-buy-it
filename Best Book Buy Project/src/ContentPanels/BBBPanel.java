@@ -13,19 +13,19 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import Main.BestBookBuy;
-import Main.User;
 
+/*
+ * This is the abstract class for the individual BP panels which represent
+ * pages the user will visit in the program. This class consists entirely of
+ * helper functions used by the BP pages to construct the GUI of the page.
+ */
 public abstract class BBBPanel extends JPanel implements ActionListener {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	protected Font font;
 	protected BestBookBuy parentFrame;
@@ -38,6 +38,7 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 		parentFrame = (BestBookBuy) frame;
 	}
 
+	// Locks components together horizontally
 	protected JPanel createHorizontalWrapper(JComponent comps[]) {
 		JPanel p = new JPanel();
 		p.setBackground(Color.WHITE);
@@ -49,6 +50,7 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 		return p;
 	}
 
+	// Locks components together vertically
 	protected JPanel createVerticalWrapper(JComponent comps[]) {
 		JPanel p = new JPanel();
 		p.setBackground(Color.WHITE);
@@ -60,6 +62,8 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 		return p;
 	}
 
+	// Wraps the components in a vertical scroll pane using the panel
+	// provided
 	protected JScrollPane createScrollWrapper(JComponent comps[], JPanel p) {
 		if (comps.length == 0)
 			return null;
@@ -78,6 +82,7 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 		return sp;
 	}
 	
+	// Same as above, but creates a new panel to hold the components
 	protected JScrollPane createScrollWrapper(JComponent comps[])
 	{
 		if (comps.length == 0)
@@ -173,9 +178,4 @@ public abstract class BBBPanel extends JPanel implements ActionListener {
 	}
 
 	abstract public void actionPerformed(ActionEvent e);
-	
-	protected void setWarning(JTextField f)
-	{
-		
-	}
 }

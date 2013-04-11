@@ -9,17 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.border.EtchedBorder;
-
 import Main.BBBConnection;
-import Main.Book;
 import Main.OrderSummary;
-import Main.ShoppingCart;
 /*
  * This page is for displaying all currently pending orders 
  * waiting to be filled.

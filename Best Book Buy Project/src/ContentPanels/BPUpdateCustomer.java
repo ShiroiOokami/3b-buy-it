@@ -28,11 +28,10 @@ public class BPUpdateCustomer extends BBBPanel {
 	private JTextField address;
 	private JTextField city;
 	private JTextField zip;
-	private JComboBox state;
-	private JComboBox cardType;
+	private JComboBox<String> state;
+	private JComboBox<String> cardType;
 	private JTextField cardNum;
 	private JTextField cardDate;
-	
 	private User user = parentFrame.user;
 
 	public BPUpdateCustomer(JFrame frame) {

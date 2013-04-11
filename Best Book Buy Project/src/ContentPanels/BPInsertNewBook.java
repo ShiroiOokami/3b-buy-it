@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -14,12 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
 import Main.Book;
 import Main.BookRegExp;
 import Main.Subject;
-import Main.USState;
-import Main.UserRegExps;
 
 /*
  * This page is for inserting a new book. It generates red text error messages
@@ -40,7 +36,7 @@ public class BPInsertNewBook extends BBBPanel {
 	private JTextArea[] review;
 	private JScrollPane rscroll;
 	private JPanel rpanel;
-	private JComboBox subject;
+	private JComboBox<String> subject;
 
 	private static final long serialVersionUID = 1L;
 

@@ -2,16 +2,13 @@ package ContentPanels;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-
 import Main.CardType;
 import Main.USState;
 import Main.User;
-import Main.UserRegExps;
 
 /*
  * This page allows the user to register their information. When a field is
@@ -30,11 +27,10 @@ public class BPCustomerRegistration extends BBBPanel {
 	private JTextField address;
 	private JTextField city;
 	private JTextField zip;
-	private JComboBox state;
-	private JComboBox cardType;
+	private JComboBox<String> state;
+	private JComboBox<String> cardType;
 	private JTextField cardNum;
 	private JTextField cardDate;
-
 	private User user = parentFrame.user;
 	
 	public BPCustomerRegistration(JFrame frame) {

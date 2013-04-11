@@ -40,7 +40,7 @@ public class BPUpdateBook extends BBBPanel {
 	private JScrollPane rscroll;
 	private JPanel rpanel;
 	private ArrayList<Book> booklist;
-	private JComboBox subject;
+	private JComboBox<String> subject;
 
 	public BPUpdateBook(JFrame frame, ArrayList<Book> blist, Book b) {
 		super(frame);

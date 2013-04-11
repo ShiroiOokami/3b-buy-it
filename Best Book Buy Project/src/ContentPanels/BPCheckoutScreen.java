@@ -35,7 +35,7 @@ import Main.User;
 public class BPCheckoutScreen extends BBBPanel {
 
 	private static final long serialVersionUID = 1L;
-	JComboBox cardType;
+	JComboBox<String> cardType;
 	JTextField cardNum;
 	JTextField cardDate;
 

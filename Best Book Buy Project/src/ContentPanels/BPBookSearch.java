@@ -1,18 +1,14 @@
 package ContentPanels;
 
 import java.awt.event.ActionEvent;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.TreeSet;
-
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-
 import Main.BBBConnection;
 import Main.Subject;
 import Main.Book;

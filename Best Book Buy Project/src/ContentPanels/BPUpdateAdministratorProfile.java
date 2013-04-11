@@ -1,21 +1,15 @@
 package ContentPanels;
 
-import java.awt.Component;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-
-import Main.CardType;
 import Main.USState;
 import Main.User;
 import Main.UserRegExps;
@@ -35,7 +29,7 @@ public class BPUpdateAdministratorProfile extends BBBPanel {
 	private JTextField address;
 	private JTextField city;
 	private JTextField zip;
-	private JComboBox state;
+	private JComboBox<String> state;
 	private JTextField[] phones;
 	private JScrollPane pscroll;
 	private JPanel ppanel;

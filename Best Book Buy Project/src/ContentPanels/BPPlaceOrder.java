@@ -7,15 +7,12 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.border.EtchedBorder;
-
 import Main.Book;
 import Main.OrderSummary;
-import Main.ShoppingCart;
 import Main.User;
 
 /*

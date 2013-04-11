@@ -2,14 +2,10 @@ package ContentPanels;
 
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
-
 import Main.BBBConnection;
-import Main.User;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
