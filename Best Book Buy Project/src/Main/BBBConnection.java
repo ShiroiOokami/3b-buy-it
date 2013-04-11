@@ -4,6 +4,13 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.DriverManager;
 
+/**
+ * An object that holds establishes and holds onto
+ * a connection to the database
+ * 
+ * @version 2013-04-11
+ * 
+ */
 public class BBBConnection {
 	
 	private static Connection con;
