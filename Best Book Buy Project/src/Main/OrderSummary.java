@@ -9,7 +9,7 @@ import java.util.Date;
 
 /**
  * An object that holds all of the information of an order.
- * Used to display the proof of purcase to the customer and
+ * Used to display the proof of purchase to the customer and
  * to the admin when he places orders.
  * 
  * @version 2013-04-11
