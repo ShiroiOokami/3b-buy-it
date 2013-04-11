@@ -1,5 +1,13 @@
 package Main;
 
+/**
+ * Regular expression to validate a book's information.
+ * 
+ * Also contains methods to check if a String is valid.
+ * 
+ * @version 2014-04-11
+ *
+ */
 public class BookRegExp {
 		private static String isbn = "^\\d{13}$";
 		private static String title = "^[\\w][\\w\\s]{0,19}";
