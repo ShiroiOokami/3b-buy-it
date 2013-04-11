@@ -7,6 +7,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * An object that holds all of the information of an order.
+ * Used to display the proof of purcase to the customer and
+ * to the admin when he places orders.
+ * 
+ * @version 2013-04-11
+ *
+ */
 public class OrderSummary {
 	public ShoppingCart cart;
 	public User user;
@@ -22,6 +30,11 @@ public class OrderSummary {
 		fetchOrder(num);
 	}
 	
+	/**
+	 * Generates an order given a user and a their ShoppingCart
+	 * @param u - The User
+	 * @param c - the Shopping Cart
+	 */
 	public OrderSummary(User u, ShoppingCart c)
 	{
 		cart = c;
@@ -57,6 +70,16 @@ public class OrderSummary {
 		return "000";
 	}
 	
+	/**
+	 * Fetches an order based of its orderNum from the database and loads
+	 * all of its associated information into the OrderSummary.
+	 * 
+	 * This method selects from the following tables:
+	 * 		Book_Order
+	 * 		Book_Order_Item
+	 * 
+	 * @param num - the Order's Number
+	 */
 	public void fetchOrder(String num)
 	{
 		java.sql.Connection con = BBBConnection.getConnection();

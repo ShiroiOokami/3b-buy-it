@@ -1,5 +1,13 @@
 package Main;
 
+/**
+ * Regular expression to validate the user's information.
+ * 
+ * Also contains methods to check if a String is valid.
+ * 
+ * @version 2014-04-11
+ *
+ */
 public class UserRegExps {
 	private static String UserName = "^[A-Za-z]{1,11}$";
 	private static String Name = "^[A-Z][A-Za-z.]{0,19}$";

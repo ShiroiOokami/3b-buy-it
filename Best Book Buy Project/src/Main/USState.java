@@ -1,5 +1,12 @@
 package Main;
 
+/**
+ * An enumerated type of all of the 50 states in 
+ * the United States of America.
+ * 
+ * @version 2013-04-11
+ *
+ */
 public enum USState {
 	AL("AL", "Alabama"),
 	AK("AK", "Alaska"),
