@@ -3,6 +3,8 @@ package ContentPanels;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+
 import Main.BestBookBuy;
 import Main.ShoppingCart;
 import Main.User;
@@ -14,36 +16,35 @@ public class BPLandingPage extends BBBPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String selection[] = {"Search Only", "New Customer", "Existing User"};
-	private JComboBox<String> box;
 
 	public BPLandingPage(BestBookBuy frame) {
 		super(frame);
 		FlowLayout l = (FlowLayout) this.getLayout();
 		l.setAlignment(FlowLayout.CENTER);
-		addLabel("                    Best Book Buy (3-B.com)                    ");
-		addLabel("                    Online Bookstore                    ");
-		box = addCombo(selection);
+		addLabel("                          Best Book Buy (3-B.com)                       ");
+		addLabel("                             Online Bookstore                          ");
+		JComponent[] j = new JComponent[] {
+				createButton("New Search"),
+				createButton("Register"),
+				createButton("Login")
+		};
 		
-		addButton("Enter");
+		add(createVerticalWrapper(j));
 		parentFrame.user = new User();
 		parentFrame.cart = new ShoppingCart();
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (!e.getActionCommand().equals("Enter"))
-			return;
-		
-		switch (box.getSelectedIndex()) {
-		case 0:
+		switch (e.getActionCommand()) {
+		case "New Search":
 			parentFrame.switchDisplayContents(
 					new BPBookSearch(parentFrame));
 			break;
-		case 1:
+		case "Register":
 			parentFrame.switchDisplayContents(
 					new BPCustomerRegistration(parentFrame));
 			break;
-		case 2:
+		case "Login":
 			parentFrame.switchDisplayContents(
 					new BPUserLogin(parentFrame));
 			break;

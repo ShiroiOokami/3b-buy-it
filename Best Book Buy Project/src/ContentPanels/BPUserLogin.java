@@ -83,9 +83,6 @@ public class BPUserLogin extends BBBPanel {
 				username.setForeground(Color.RED);
 				pin.setForeground(Color.RED);
 			}
-			//*/
-			//parentFrame.switchDisplayContents(
-			//		new BPAdministratorTask(parentFrame));
 			break;
 		case "Cancel":
 			parentFrame.switchDisplayContents(

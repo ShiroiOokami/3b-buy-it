@@ -74,14 +74,20 @@ public class BPBookSearch extends BBBPanel {
 						stext + "%')";
 				break;
 		}
+
 		
-		if (stext.length() == 0)
-			query = "Select ISBN from Book where";
-		else
-			query += " and ";
+		if (!searchCategory.getSelectedItem().equals("AnyCategory"))
+		{
+			if (stext.length() == 0)
+				query = "Select ISBN from Book where";
+			query += " (Category like '" + searchCategory.getSelectedItem()
+			+ "')";
+		} else {
+			if (stext.length() == 0)
+				query = "Select ISBN from Book";			
+		}
 		
-		query += "(Category like '" + searchCategory.getSelectedItem()
-				+ "')";
+		System.out.println(query);
 
 		java.sql.Connection con = BBBConnection.getConnection();
 

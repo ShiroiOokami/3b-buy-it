@@ -1,13 +1,14 @@
 package Main;
 
 public enum Subject {
-	Nature ,
+	AnyCategory,
 	Adventure,
 	Astronomy,
 	Fantasy,
 	Fiction,
 	Horror,
 	Humor,
+	Nature,
 	NonFiction,
 	Misc,
 	Politics,

@@ -1,8 +1,10 @@
 package ContentPanels;
 
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 
 
@@ -13,54 +15,47 @@ public class BPAdministratorTask extends BBBPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private JComboBox<String> box;
-	
 	public BPAdministratorTask(JFrame frame) {
 		super(frame);
+		FlowLayout l = (FlowLayout) this.getLayout();
+		l.setAlignment(FlowLayout.CENTER);
+		JComponent[] j = new JComponent[] {
+				createButton("Manage Catalog"),
+				createButton("Place Orders"),
+				createButton("Generate Reports"),
+				createButton("Update Admin Profile"),
+				createButton("Restock Inventory"),
+				createButton("Exit")
+		};
 		
-		String[] sel = {"Manage Bookstore Catalog", 
-				"Place Orders", 
-				"Generate Reports",
-				"Update Admin Profile",
-				"Restock Inventory"};
-		box = addLabelCombo("Administrator Tasks:", sel);
-		addButton("Proceed");
-		addButton("Exit");
+		add(createVerticalWrapper(j));
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("Exit"))
+		switch (e.getActionCommand())
 		{
-			parentFrame.switchDisplayContents(
-					new BPLandingPage(parentFrame));
-			return;
-		}
-
-		if (!e.getActionCommand().equals("Proceed"))
-		{
-			return;
-		}
-		
-		switch (box.getSelectedIndex()) {
-		case 0:
+		case "Manage Catalog":
 			parentFrame.switchDisplayContents(
 					new BPManageBookstoreCatalog(parentFrame));
 			break;
-		case 1:
+		case "Place Orders":
 			parentFrame.switchDisplayContents(
 					new BPViewOrders(parentFrame));
 			break;
-		case 2:
-			// Do More Stuff Later
+		case "Generate Reports":
 			break;
-		case 3:
+		case "Update Admin Profile":
 			parentFrame.switchDisplayContents(
 					new BPUpdateAdministratorProfile(parentFrame));
 			break;
-		case 4:
+		case "Restock Inventory":
 			parentFrame.switchDisplayContents(
 					new BPRestockInventory(parentFrame));
-		default:
+			break;
+		case "Exit":
+			parentFrame.switchDisplayContents(
+					new BPLandingPage(parentFrame));
+			break;
 		}
 	}
 }
