@@ -11,10 +11,15 @@ import javax.swing.JTextField;
 
 /**
  * A class to store all of the associated information of a book.
- * Two Books are differentiated by their ISBN.
+ * Two Books are differentiated by their ISBN. All of the set methods
+ * in the class also validate the information before setting their 
+ * values.
+ * 
+ * The Book class also contains methods to to add and update
+ * the current Book object's information to the database.
  * 
  * @author Andrew
- * @version: 2013-2-15
+ * @version: 2013-2-15, 2013-04-11
  *
  */
 public class Book {
@@ -300,6 +305,9 @@ public class Book {
 		return pass;
 	}
 	
+	/*
+	 * Checks if all of the current books values are valid.
+	 */
 	public boolean checkInputs()
 	{
 		boolean pass = true;
@@ -325,6 +333,16 @@ public class Book {
 		f.setForeground(Color.RED);
 	}
 	
+	/*
+	 * Fetches the book associated with the passed ISBN from the
+	 * database and loads the object with all of its associated values.
+	 * 
+	 * This methods Queries following tables:
+	 * 		Book
+	 * 		Inventory
+	 * 		Book_Author
+	 * 		Book_Review
+	 */
 	public void fetchBook(String byisbn)
 	{
 		java.sql.Connection con = BBBConnection.getConnection();
@@ -370,6 +388,15 @@ public class Book {
 
 	}
 	
+	/*
+	 * Adds all of the books associated values into the database.
+	 * 
+	 * This methods inserts into the following tables:
+	 * 		Book
+	 * 		Inventory
+	 * 		Book_Author
+	 * 		Book_Review
+	 */
 	public boolean addBook ()
 	{
 		Connection con = BBBConnection.getConnection();
@@ -406,6 +433,16 @@ public class Book {
 		}
 	}
 	
+	/*
+	 * This method updates all of the values of the Book corresponding to 
+	 * the Book Object's ISBN.
+	 * 
+	 *  This method updates the following tables:
+	 * 		Book
+	 * 		Inventory
+	 * 		Book_Author
+	 * 		Book_Review
+	 */
 	public boolean updateBook()
 	{
 		Connection con = BBBConnection.getConnection();

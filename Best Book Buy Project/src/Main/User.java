@@ -9,6 +9,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JTextField;
 
+/**
+ * A class to store all of the associated information of a user.
+ * All of the set methods in the class also validate the information 
+ * before setting their values.
+ * 
+ * The User class also contains methods to to add and update
+ * the current User object's information to the database.
+ * 
+ * @version: 2013-04-11
+ *
+ */
 public class User {
 	private String userName;
 	private String fName;
@@ -258,6 +269,16 @@ public class User {
 			phoneNums.remove(phoneNums.size() - 1);
 	}
 	
+	/*
+	 * Fetches the book associated with the passed username from the
+	 * database and loads the object with all of its associated values.
+	 * 
+	 * This methods Queries following tables:
+	 * 		User
+	 * 		Customer
+	 * 		Admin
+	 * 		Admin_Phone
+	 */
 	public void fetchUser(String username)
 	{
 		java.sql.Connection con = BBBConnection.getConnection();
@@ -349,6 +370,10 @@ public class User {
 		
 	}
 
+	/*
+	 * Checks if all of the current customer values are valid.
+	 * Used specifically for customer validation.
+	 */
 	public boolean checkCustomer()
 	{
 		boolean pass = true;
@@ -368,6 +393,9 @@ public class User {
 		return pass;
 	}
 	
+	/*
+	 * Checks if all of the current user values are valid.
+	 */
 	public boolean checkInfo() {
 		boolean pass = true;
 		
@@ -383,6 +411,10 @@ public class User {
 		return pass;
 	}
 
+	/*
+	 * Checks if all of the current customer values are valid.
+	 * Used for Admin info validation
+	 */
 	public boolean checkAdmin()
 	{
 		boolean pass = true;
@@ -400,6 +432,13 @@ public class User {
 		return pass;
 	}
 	
+	/*
+	 * Adds all of the customer's associated values into the database.
+	 * 
+	 * This methods inserts into the following tables:
+	 * 		User
+	 * 		Customer
+	 */
 	public boolean addCustomer ()
 	{
 		Connection con = BBBConnection.getConnection();
@@ -422,6 +461,14 @@ public class User {
 		
 	}
 	
+	/*
+	 * Updates all of the values of the Customer corresponding to 
+	 * the User Object's username.
+	 * 
+	 *  This method updates the following tables:
+	 * 		User
+	 * 		Customer
+	 */
 	public boolean updateCustomer ()
 	{
 		Connection con = BBBConnection.getConnection();
@@ -443,6 +490,14 @@ public class User {
 		}
 	}
 	
+	/*
+	 * Updates all of the values of the Admin corresponding to 
+	 * the User Object's username.
+	 * 
+	 *  This method updates the following tables:
+	 * 		User
+	 * 		Admin_Phone
+	 */
 	public boolean updateAdmin ()
 	{
 		Connection con = BBBConnection.getConnection();
